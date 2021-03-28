@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="col-md-12 mt-3">
+        <div class="card card-outline card-danger">
+            <div class="card-header text-center">
+                <b style="font-size: 18px;"> Vacant Bed Report </b>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body overflow-auto">
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                    <div class="row">
+
+                        <div class="form-group col-md-6 col-sm-6">
+                            <label for="name">Class Name</label>
+                            <input type="text" class="form-control" name="className" [(ngModel)]="form.className" #className="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && className.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6">
+                            <label for="name">Bed No</label>
+                            <input type="text" class="form-control" name="bedNo" [(ngModel)]="form.bedNo" #bedNo="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && bedNo.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+                       
+                        <div class="form-group col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <!-- [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" -->
+                                    <table id="customTable" datatable class="table table-dark table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Class Name</th>
+                                                <th>Bed No</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- <tr  *ngIf="isTableLoad">
+                                                <td *ngIf="table_data?.length == 0" colspan="6" class="no-data-available"><b>No Data, Please Click Load Button!</b></td>
+                                            </tr>  -->
+                                            <!-- <tr *ngFor="let item of table_data">
+                                                <td>{{item.wardNumber}}</td>
+                                                <td>{{item.receiptNumber}}</td>
+                                                <td>{{item.propertyNumber}}/{{item.propertyNumber1}}</td>
+                                                <td>{{item.date}}</td>
+                                                <td>{{item.taxPayerName}}</td>
+                                                <td>
+                                                    <span class="float-right">
+                                                        <button id="edit" type="button" (click)="openModal(editModal, item)" class="btn btn-warning"><i class="fas fa-edit"></i></button> &nbsp;
+                                                        <button id="delete" type="button" (click)="onDelete(item.id)" class="btn btn-danger" *ngIf="!isUserRole"><i class="fa fa-trash"></i></button>
+                                                    </span>
+                                                </td>
+                                            </tr> -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group col-md-12 col-sm-12">
+                            <button class="btn btn-info mt-1">Show All</button>&nbsp;
+                            <button class="btn btn-info mt-1">Print:F2</button>&nbsp;
+                            <button class="btn btn-info mt-1">Clear Selection</button>&nbsp;
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

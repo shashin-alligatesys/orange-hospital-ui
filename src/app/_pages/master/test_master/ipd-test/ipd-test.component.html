@@ -1,0 +1,201 @@
+<div class="">
+    <div class="col-md-12 mt-3">
+        <div class="card card-outline card-danger">
+            <div class="card-header text-center">
+                <b style="font-size: 18px;"> Test Master IPD </b>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body overflow-auto">
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                    <div class="row">
+
+                        <div class="form-group col-md-12 col-sm-12">
+                            <div class="row">
+
+                              
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Super Group </label>
+                                    <input type="text" class="form-control" name="superGroup" [(ngModel)]="form.superGroup"  #superGroup="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && superGroup.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Group </label>
+                                    <input type="text" class="form-control" name="group" [(ngModel)]="form.group"  #group="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && group.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Sub Department </label>
+                                    <input type="text" class="form-control" name="subDepartment" [(ngModel)]="form.subDepartment"  #subDepartment="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && subDepartment.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Grade </label>
+                                    <input type="text" class="form-control" name="grade" [(ngModel)]="form.grade"  #grade="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && grade.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Test Name </label>
+                                    <input type="text" class="form-control" name="testName" [(ngModel)]="form.testName"  #testName="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && testName.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Test Name Print </label>
+                                    <input type="text" class="form-control" name="testNamePrint" [(ngModel)]="form.testNamePrint"  #testNamePrint="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && testNamePrint.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Organization Name </label>
+                                    <input type="text" class="form-control" name="organizationName" [(ngModel)]="form.organizationName"  #organizationName="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && organizationName.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Daily Y?N </label>
+                                    <input type="text" class="form-control" name="daily" [(ngModel)]="form.daily"  #daily="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && daily.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Daily Qty </label>
+                                    <input type="text" class="form-control" name="dailyQty" [(ngModel)]="form.dailyQty"  #dailyQty="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && dailyQty.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Cost Rate</label>
+                                    <input type="text" class="form-control" name="costRate" [(ngModel)]="form.costRate"  #costRate="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && costRate.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <button class="btn btn-info mt-1">Make All Rates as General Rate</button>    
+                                </div>
+
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">Automatic On Final IPD Bill</label>
+                                    <input type="text" class="form-control" name="automaticOnFinalIPDBill" [(ngModel)]="form.automaticOnFinalIPDBill"  #automaticOnFinalIPDBill="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && automaticOnFinalIPDBill.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                    </div>
+
+                         
+                    
+                    <div class="row">
+                        <div class="card card-body overflow-auto">
+                            <div class="form-group row">
+    
+  
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name"> GENERAL </label>
+                                    <input type="text" class="form-control" name="general" [(ngModel)]="form.general"  #general="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && general.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">NICU </label>
+                                    <input type="text" class="form-control" name="nicu" [(ngModel)]="form.nicu"  #nicu="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && nicu.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name">SEMI SPECIAL </label>
+                                    <input type="text" class="form-control" name="semiSpecial" [(ngModel)]="form.semiSpecial"  #semiSpecial="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && semiSpecial.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name"> SPECIAL </label>
+                                    <input type="text" class="form-control" name="special" [(ngModel)]="form.special"  #special="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && special.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name"> DELUXE </label>
+                                    <input type="text" class="form-control" name="deluxe" [(ngModel)]="form.deluxe"  #deluxe="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && deluxe.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name"> EXECUTIVE </label>
+                                    <input type="text" class="form-control" name="executive" [(ngModel)]="form.executive"  #executive="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && executive.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name"> ICU </label>
+                                    <input type="text" class="form-control" name="icu" [(ngModel)]="form.icu"  #icu="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && icu.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 col-sm-4">
+                                    <label for="name"> EMERGENCY </label>
+                                    <input type="text" class="form-control" name="emergency" [(ngModel)]="form.emergency"  #emergency="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && emergency.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="card card-body overflow-auto">
+                            <div class="form-group row">
+                                <div class="form-group col-md-12 col-sm-12">
+                                    <button class="btn btn-info mt-1">New</button>&nbsp;
+                                    <button class="btn btn-info mt-1">Save:F1</button>&nbsp;
+                                    <button class="btn btn-secondary mt-1">Create New Form Existing</button>&nbsp;
+                                    <button class="btn btn-info mt-1">Delete</button>&nbsp;
+                                    <button class="btn btn-info mt-1">Preview</button>&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    
+
+                </form>
+
+
+                
+
+            </div>
+        </div>
+    </div>
+</div>

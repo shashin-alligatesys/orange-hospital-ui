@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~ngx-toastr/toastr.css';
+body {
+    /* font-family: "Lato", sans-serif; */
+    font-family: 'open_sansregular';
+    /* line-height: 1; */
+    /* font-size: 62.5%; */
+    
+    background-color: #f8f9fa;
+    font-size: smaller;
+  }
+html, body {
+   height: 100%; 
+  }
+body { 
+  margin: 0; 
+  /* font-family: Roboto, "Helvetica Neue", sans-serif;  */
+}
+
+body { padding-right: 0 !important }
+
+/* Validation CSS */
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+label{
+  font-size: 13px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* IF Datatable Is Empty */
+/* td.dataTables_empty {
+  display: none!important;
+} */

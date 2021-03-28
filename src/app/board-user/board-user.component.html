@@ -1,0 +1,39 @@
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="row">
+            <img class="ml-3" style="width: 100px; height: 100px; margin-left: 4px; margin-top: 4px;" src="../../assets/navsari-logo.png">
+            <h2 class="text-dark ml-2 mt-4"><strong>{{product}}</strong></h2>
+        </div>
+        <div class="row mt-3">
+          
+            <div class="col-md-3 col-sm-6">
+                <div class="small-box card-outline card-info">
+                    <div class="inner">
+                        <h3>{{update_count+update_count1}}</h3>
+                        <h2 style="overflow: hidden; white-space: nowrap;">Update Requests</h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-warning"></i>
+                    </div>
+                    <a routerLink="user-request-list"  [queryParams]="{query: 'Update'}" class="small-box-footer bg-info"> More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+    
+            <div class="col-md-3 col-sm-6">
+                <div class="small-box card-outline card-info">
+                    <div class="inner">
+                        <h3>{{reject_count+reject_count1}}</h3>
+                        <h2 style="overflow: hidden; white-space: nowrap;">Rejected Requests</h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-times-circle"></i>
+                    </div>
+                    <a routerLink="user-request-list"  [queryParams]="{query: 'Reject'}" class="small-box-footer bg-info"> More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,645 @@
+<div class="container">
+    <div class="col-md-12 mt-3">
+      <h3>  {{product}} Requests </h3>
+        <div class="row">
+
+            <!-- Table 1 -->
+            <div class="card card-outline card-primary" style="width: 100%;">
+                <div class="card-header">
+                    <p class="card-title">Property Update List</p>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body overflow-auto">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table id="customTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>WardNumber</th>
+                                        <th>Property Number</th>
+                                        <th>Date</th>
+                                        <th>Mobile Number</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of propertydata">
+                                        <td>{{item.wardNumber}}</td>
+                                    <td>{{item.propertyNumber - item.propertyNumber1}}</td>
+                                    <td>{{item.assessmentDate}}</td>
+                                    <td>{{item.phoneNumber}}</td>
+                                        <!-- <td>
+                                            <span class="float-right">
+                                                <button id="edit" type="button" (click)="openModal(propertyModal, item)" class="btn btn-warning"><i class="fas fa-eye"></i></button>
+                                            </span>
+                                        </td> -->
+                                        <td>
+                                            <span class="float-right">
+                                                    <button id="edit" (click)="propertyModalPopUp(propertyModal, item)" type="button" class="btn btn-warning"><i class="fas fa-eye"></i></button>&nbsp;
+                                                    <button  *ngIf="product=='Update'" id="approved" (click)="propertyApprove(item.id)" type="button"  class="btn btn-success"><i class="fa fa-check-square"></i></button>&nbsp;
+                                                    <button  *ngIf="product=='Update'" id="reject" (click)="propertyReject(item.id)" type="button"  class="btn btn-danger"><i class="fa fa-times-circle"></i></button>
+                                            </span>
+                                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Table 1 -->
+
+            <div class="card card-outline card-primary" style="width: 100%;">
+                <div class="card-header">
+                    <p class="card-title">Tax Collection Update List</p>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body overflow-auto">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table id="customTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>WardNumber</th>
+                                        <th>Receipt Number</th>
+                                        <th>Property Number</th>
+                                        <th>Date</th>
+                                        <th>Tax Payer Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of collectiondata">
+                                        <td>{{item.wardNumber}}</td>
+                                        <td>{{item.receiptNumber}}</td>
+                                        <td>{{item.propertyNumber +'/'+ item.propertyNumber1}}</td>
+                                        <td>{{item.date}}</td>
+                                        <td>{{item.taxPayerName}}</td>
+                                        <td>
+                                            <span class="float-right">
+                                                    <button id="edit" (click)="collectionModalPopUp(collectionModal, item)" type="button" class="btn btn-warning"><i class="fas fa-eye"></i></button>&nbsp;
+                                                    <button  *ngIf="product=='Update'" id="approved" (click)="collectionApprove(item.id)" type="button"  class="btn btn-success"><i class="fa fa-check-square"></i></button>&nbsp;
+                                                    <button  *ngIf="product=='Update'" id="reject" (click)="collectionReject(item.id)" type="button"  class="btn btn-danger"><i class="fa fa-times-circle"></i></button>
+                                            </span>
+                                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+           
+
+            
+            
+        </div>
+    </div>
+
+
+
+
+
+    <ng-template #collectionModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">Edit Details</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form name="collectionModal"  #m="ngForm" novalidate>
+
+                <div class="row">
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="receiptNumber">Receipt Number</label>
+                        <input type="text" class="form-control" name="receiptNumber" [(ngModel)]="taxCollectionMaster.receiptNumber"  #receiptNumber="ngModel" />
+                        
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="wardNumber">Ward Number</label>
+                        <input type="text" class="form-control" name="wardNumber" [(ngModel)]="taxCollectionMaster.wardNumber"  #wardNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="propertyNumber">Property Number</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="propertyNumber" [(ngModel)]="taxCollectionMaster.propertyNumber"  #propertyNumber="ngModel" />&nbsp;
+                            <input type="text" class="form-control" name="propertyNumber1" [(ngModel)]="taxCollectionMaster.propertyNumber1"  #propertyNumber1="ngModel" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="toPropertyNumber">Property Number To</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="toPropertyNumber" [(ngModel)]="taxCollectionMaster.toPropertyNumber"  #toPropertyNumber="ngModel" />&nbsp;
+                            <input type="text" class="form-control" name="toPropertyNumber1" [(ngModel)]="taxCollectionMaster.toPropertyNumber1"  #toPropertyNumber1="ngModel" />
+                        </div>
+                        
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="houseNumber">House Number</label>
+                        <input type="text" class="form-control" name="houseNumber" [(ngModel)]="taxCollectionMaster.houseNumber" readonly #houseNumber="ngModel" />
+                        
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="blockNumber">Block Number</label>
+                        <input type="text" class="form-control" name="blockNumber" [(ngModel)]="taxCollectionMaster.blockNumber" readonly #blockNumber="ngModel" />
+                       
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="owner">Owner</label>
+                        <textarea rows="2" type="text" readonly class="form-control" name="owner" [(ngModel)]="taxCollectionMaster.owner" readonly #owner="ngModel"></textarea>
+                        
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="consumer">consumer</label>
+                        <textarea rows="2" type="text" readonly class="form-control" name="consumer" [(ngModel)]="taxCollectionMaster.consumer" readonly #consumer="ngModel"></textarea>
+                        
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="area">Area</label>
+                        <input type="text" class="form-control" name="area" [(ngModel)]="taxCollectionMaster.area" readonly #area="ngModel" />
+                        
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="areaCode">Area Code</label>
+                        <input type="text" class="form-control" name="areaCode" [(ngModel)]="taxCollectionMaster.areaCode" readonly #areaCode="ngModel" />
+                        
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="typeOfProperty">Purpose Of Consumption</label>
+                        <input type="text" class="form-control" name="typeOfProperty" [(ngModel)]="taxCollectionMaster.typeOfProperty" readonly #typeOfProperty="ngModel" />
+                        
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="yearOfConstruction">Year Of Construction</label>
+                        <input type="text" class="form-control" name="yearOfConstruction" [(ngModel)]="taxCollectionMaster.yearOfConstruction" readonly #yearOfConstruction="ngModel" />
+                        
+                    </div>
+                    
+                    <div class="form-group col-md-4 col-sm-12">
+                        <div class="custom-control custom-checkbox mt-4">
+                            <input type="checkbox" class="custom-control-input" disabled id="governmentProperty1" name="governmentProperty" [(ngModel)]="taxCollectionMaster.governmentProperty" #governmentProperty="ngModel" />
+                            <label class="custom-control-label" for="governmentProperty1">Government Property
+                            </label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="date">Date</label>
+                        <input type="date" class="form-control" name="date" [(ngModel)]="taxCollectionMaster.date"  #date="ngModel" />
+                        
+                    </div>
+					<div class="form-group col-md-4 col-sm-12">
+                        <label for="payment">Payment</label>
+                        <input type="text" class="form-control" name="payment" [(ngModel)]="taxCollectionMaster.payment"  #payment="ngModel" />
+                       
+                    </div>
+					 <div class="form-group col-md-4 col-sm-12">
+                        <label for="bankName">Bank Name</label>
+                        <input type="text" class="form-control" name="bankName" [(ngModel)]="taxCollectionMaster.bankName"  #bankName="ngModel" />
+          
+                    </div>
+					<div class="form-group col-md-4 col-sm-12">
+                        <label for="checkNumber">Cheque No/ Reference No/ Transaction Code</label>
+                        <input type="text" class="form-control" name="checkNumber" [(ngModel)]="taxCollectionMaster.checkNumber"  #checkNumber="ngModel" />
+                        
+                    </div>
+                    <hr>
+                    <div class="col-md-12 col-sm-12">
+                        <section class="card-body border" *ngFor="let address of addresses1; let i = index;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4>Tax Entry : {{i + 1}}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="itemNumber">ItemNo</label>
+                                    <input type="number" class="form-control" name="itemNumber" [ngModelOptions]="{standalone: true}" [(ngModel)]="address.itemNumber" />
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <label for="propertyNumber">Property Number</label>
+                                    <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" name="propertyNumber" [(ngModel)]="address.propertyNumber" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="propertyNumber1">Property Series</label>
+                                    <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" name="propertyNumber1" [(ngModel)]="address.propertyNumber1" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="category">Category</label>
+                                    <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" name="category" [(ngModel)]="address.category" />
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <label for="propertyTax">PropertyTax</label>
+                                    <input (keyup)="calculateTotal1(i)" type="number" [ngModelOptions]="{standalone: true}" class="form-control" name="propertyTax" [(ngModel)]="address.propertyTax" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="cleaningTax">CleaningTax</label>
+                                    <input (keyup)="calculateTotal1(i)" type="number" [ngModelOptions]="{standalone: true}" name="cleaningTax" [(ngModel)]="address.cleaningTax" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="sewerTax">SewerTax</label>
+                                    <input (keyup)="calculateTotal1(i)" type="number" [ngModelOptions]="{standalone: true}" name="sewerTax" [(ngModel)]="address.sewerTax" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="waterTax">WaterTax</label>
+                                    <input (keyup)="calculateTotal1(i)" type="number" [ngModelOptions]="{standalone: true}" name="waterTax" [(ngModel)]="address.waterTax" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="educationTax">EducationTax</label>
+                                    <input (keyup)="calculateTotal1(i)" type="number" [ngModelOptions]="{standalone: true}" name="educationTax" [(ngModel)]="address.educationTax" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="lightTax">lightTax</label>
+                                    <input (keyup)="calculateTotal1(i)" type="number" [ngModelOptions]="{standalone: true}" name="lightTax" [(ngModel)]="address.lightTax" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="noticeFee">noticeFee</label>
+                                    <input (keyup)="calculateTotal1(i)" type="number" [ngModelOptions]="{standalone: true}" name="noticeFee" [(ngModel)]="address.noticeFee" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="edukNoticeFee">edukNoticeFee</label>
+                                    <input (keyup)="calculateTotal1(i)" type="number" [ngModelOptions]="{standalone: true}" name="edukNoticeFee" [(ngModel)]="address.edukNoticeFee" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="total">total</label>
+                                    <input type="number" disabled name="total" [ngModelOptions]="{standalone: true}" [(ngModel)]="address.total" class="form-control">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    
+
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="total">&nbsp;</label>
+                    
+                        <input type="text" class="form-control" name="printType" [(ngModel)]="taxCollectionMaster.printType"  #printType="ngModel" />
+                    </div>
+                    
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="taxPayerName">Tax Payer Name</label>
+                        <input type="text" class="form-control" name="taxPayerName" [(ngModel)]="taxCollectionMaster.taxPayerName"  #taxPayerName="ngModel" />
+                       
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="totalAmount">Total Amount</label>
+                        <input type="number" class="form-control" name="totalAmount" [(ngModel)]="taxCollectionMaster.totalAmount"  #totalAmount="ngModel" />
+                       
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="compensatin">Compensatin</label>
+                        <input type="number" class="form-control" name="compensatin" [(ngModel)]="taxCollectionMaster.compensatin"  #compensatin="ngModel" />
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="lastTotal">Last Total</label>
+                        <input type="number" class="form-control" name="lastTotal" [(ngModel)]="taxCollectionMaster.lastTotal" #lastTotal="ngModel" />
+                    </div>
+
+                </div>
+
+            <div class="form-group col-md-12 col-sm-12">
+                <button type="submit" class="btn btn-secondary" (click)="modal.dismiss()"><b>Close</b></button>
+            </div>
+            </form>
+        </div>
+    </ng-template>
+
+
+
+    <ng-template #propertyModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">Edit Details</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form name="propertyModal" #m="ngForm" novalidate>
+                <div class="row">
+                    <input type="hidden" name="id" [(ngModel)]="propertyMaster.id" #id="ngModel">
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="itemNo">App No</label>
+                        <input type="text" class="form-control" name="itemNo" [(ngModel)]="propertyMaster.itemNo" #itemNo="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="newWardNumber">New Ward Number</label>
+                        <input type="text" class="form-control" name="wardNumber" [(ngModel)]="propertyMaster.wardNumber" #blockNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="propertyNumber">Property Number</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="propertyNumber" [(ngModel)]="propertyMaster.propertyNumber" #propertyNumber="ngModel" />&nbsp;
+                            <input type="text" class="form-control" name="propertyNumber1" [(ngModel)]="propertyMaster.propertyNumber1" #propertyNumber1="ngModel" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="assessmentDate">Assessment Date</label>
+                        <input type="date" class="form-control" name="assessmentDate" [(ngModel)]="propertyMaster.assessmentDate" #assessmentDate="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="oldWardNumber">Old Ward Number</label>
+                        <input type="text" class="form-control" name="oldWardNumber" [(ngModel)]="propertyMaster.oldWardNumber" #oldWardNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="oldPropertyNumber">Old Property Number</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="oldPropertyNumber" [(ngModel)]="propertyMaster.oldPropertyNumber" #oldPropertyNumber="ngModel" />&nbsp;
+                            <input type="text" class="form-control" name="oldPropertyNumber1" [(ngModel)]="propertyMaster.oldPropertyNumber1" #oldPropertyNumber1="ngModel" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="houseNumber">H.M.Number</label>
+                        <input type="text" class="form-control" name="houseNumber" [(ngModel)]="propertyMaster.houseNumber" #houseNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="blockNumber">Block Number</label>
+                        <input type="text" class="form-control" name="blockNumber" [(ngModel)]="propertyMaster.blockNumber" #blockNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="propertyMaster.phoneNumber" #phoneNumber="ngModel" />
+                        <div class="text-danger" role="alert" *ngIf="m.submitted && phoneNumber.invalid">
+                            Required Field !
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Length</th>
+                                    <th>Width</th>
+                                    <th>SquareMeters</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Area</td>
+                                    <td>
+                                        <input type="number" class="form-control" name="areaLength" [(ngModel)]="propertyMaster.areaLength" #areaLength="ngModel" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" name="areaWidth" [(ngModel)]="propertyMaster.areaWidth" #areaWidth="ngModel" />
+                                    </td>
+                                    <td>
+                                        <input type="number" readonly class="form-control" name="areaSquareMeters" [(ngModel)]="propertyMaster.areaSquareMeters" #areaSquareMeters="ngModel" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Extra</td>
+                                    <td>
+                                        <input type="number" class="form-control" name="extraLength" [(ngModel)]="propertyMaster.extraLength" #extraLength="ngModel" />
+                                        <div class="text-danger" role="alert" *ngIf="m.submitted && extraLength.invalid">
+                                            Required Field !
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" name="extraWidth" [(ngModel)]="propertyMaster.extraWidth" #extraWidth="ngModel" />
+                                        <div class="text-danger" role="alert" *ngIf="m.submitted && extraWidth.invalid">
+                                            Required Field !
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="number" readonly class="form-control" name="extraSquareMeters" [(ngModel)]="propertyMaster.extraSquareMeters" #extraSquareMeters="ngModel" />
+                                        <div class="text-danger" role="alert" *ngIf="m.submitted && extraSquareMeters.invalid">
+                                            Required Field !
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="area">Area</label>
+                        <input type="text" class="form-control" name="area" [(ngModel)]="propertyMaster.area" #blockNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-1 col-sm-4">
+                        <label for="areaCode">&nbsp;</label>
+                        <input type="text" class="form-control" name="areaCode" [(ngModel)]="propertyMaster.areaCode" #areaCode="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="typeOfProperty">Type Of Property</label>
+                        <input type="text" class="form-control" name="typeOfProperty" [(ngModel)]="propertyMaster.typeOfProperty" #blockNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-1 col-sm-4">
+                        <label for="areaType">&nbsp;</label>
+                        <input type="text" class="form-control" name="areaType" [(ngModel)]="propertyMaster.areaType" #areaType="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <div class="custom-control custom-checkbox mt-4">
+                            <input type="checkbox" class="custom-control-input" id="waterZone1" name="waterZone" [(ngModel)]="propertyMaster.waterZone" #waterZone="ngModel" />
+                            <label class="custom-control-label" for="waterZone1">Is WaterZone</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="numberOfConnections">Number Of Connections</label>
+                        <input type="text" class="form-control" name="numberOfConnections" [(ngModel)]="propertyMaster.numberOfConnections" #numberOfConnections="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="waterConsumptionPurpose">Water Consumption Purpose</label>
+                        <input type="text" class="form-control" name="waterConsumptionPurpose" [(ngModel)]="propertyMaster.waterConsumptionPurpose" #waterConsumptionPurpose="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="taluka">Taluka</label>
+                        <input type="text" class="form-control" name="taluka" [(ngModel)]="propertyMaster.taluka" #taluka="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="tp">TP</label>
+                        <input type="text" class="form-control" name="tp" [(ngModel)]="propertyMaster.tp" #tp="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="sewer">Sewer</label>
+                        <input type="text" class="form-control" name="sewer" [(ngModel)]="propertyMaster.sewer" #sewer="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="sensation">Sensation</label>
+                        <input type="text" class="form-control" name="sensation" [(ngModel)]="propertyMaster.sensation" #sensation="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="waterConnectionReceiptNumber">Water Connection Receipt Number</label>
+                        <input type="text" class="form-control" name="waterConnectionReceiptNumber" [(ngModel)]="propertyMaster.waterConnectionReceiptNumber" #waterConnectionReceiptNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="waterConnectionReceiptDate">Date</label>
+                        <input type="date" class="form-control" name="waterConnectionReceiptDate" [(ngModel)]="propertyMaster.waterConnectionReceiptDate" #waterConnectionReceiptDate="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" name="city" [(ngModel)]="propertyMaster.city" #city="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="citySurvey">City Survey</label>
+                        <input type="text" class="form-control" name="citySurvey" [(ngModel)]="propertyMaster.citySurvey" #citySurvey="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="criticismNumber">Criticism Number</label>
+                        <input type="text" class="form-control" name="criticismNumber" [(ngModel)]="propertyMaster.criticismNumber" #criticismNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="revenueSurvey">Revenue Survey</label>
+                        <input type="text" class="form-control" name="revenueSurvey" [(ngModel)]="propertyMaster.revenueSurvey" #revenueSurvey="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="descriptionOfProperty">Description Of Property</label>
+                        <input type="text" class="form-control" name="descriptionOfProperty" [(ngModel)]="propertyMaster.descriptionOfProperty" #descriptionOfProperty="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="revenueBlock">Revenue Block</label>
+                        <input type="text" class="form-control" name="revenueBlock" [(ngModel)]="propertyMaster.revenueBlock" #revenueBlock="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="formNumber">Form Number</label>
+                        <input type="text" class="form-control" name="formNumber" [(ngModel)]="propertyMaster.formNumber" #formNumber="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="resolutionNumber">Resolution Number</label>
+                        <input type="text" class="form-control" name="resolutionNumber" [(ngModel)]="propertyMaster.resolutionNumber" #resolutionNumber="ngModel" />
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="card-body bg-light border" *ngFor="let owner of ownerdatalist_1; let i = index;">
+                                    <div class="row">
+                                        <b>Owner : {{i+1}}</b>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="no">No</label>
+                                            <input type="number" class="form-control" name="no" [ngModelOptions]="{standalone: true}" [(ngModel)]="owner.no" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" name="name" [ngModelOptions]="{standalone: true}" [(ngModel)]="owner.name" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="date">Date</label>
+                                            <input type="date" class="form-control" name="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="owner.date">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="custom-control custom-checkbox mt-4">
+                                                <input type="checkbox" class="custom-control-input" [ngModelOptions]="{standalone: true}" id="active_owner_1{{i}}" name="active" [(ngModel)]="owner.active" #active="ngModel" />
+                                                <label class="custom-control-label" for="active_owner_1{{i}}">Active
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="card-body bg-light border" *ngFor="let tenant of tenantdatalist_1; let i = index;">
+                                    <div class="row">
+                                        <b>Tenant : {{i+1}}</b>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="no">No</label>
+                                            <input type="number" class="form-control" name="no" [ngModelOptions]="{standalone: true}" [(ngModel)]="tenant.no" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" name="name" [ngModelOptions]="{standalone: true}" [(ngModel)]="tenant.name" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="date">Date</label>
+                                            <input type="date" class="form-control" name="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="tenant.date">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="custom-control custom-checkbox mt-4">
+                                                <input type="checkbox" class="custom-control-input" [ngModelOptions]="{standalone: true}" id="active_tenant_1{{i}}" name="active" [(ngModel)]="tenant.active" #active="ngModel" />
+                                                <label class="custom-control-label" for="active_tenant_1{{i}}">Active
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="spaceAround">Space Around</label>
+                        <input type="text" class="form-control" name="spaceAround" [(ngModel)]="propertyMaster.spaceAround" #spaceAround="ngModel" />
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="openLand_Plot">OpenLand Plot</label>
+                        <input type="text" class="form-control" name="openLand_Plot" [(ngModel)]="propertyMaster.openLand_Plot" #openLand_Plot="ngModel" />
+    
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="yearOfConstruction">Year Of Construction</label>
+                        <input type="text" class="form-control" name="yearOfConstruction" [(ngModel)]="propertyMaster.yearOfConstruction" #yearOfConstruction="ngModel" />
+    
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <div class="custom-control custom-checkbox mt-4">
+                            <input type="checkbox" class="custom-control-input" id="governmentProperty1" name="governmentProperty" [(ngModel)]="propertyMaster.governmentProperty" #governmentProperty="ngModel" />
+                            <label class="custom-control-label" for="governmentProperty1">Government Property</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <div class="custom-control custom-checkbox mt-4">
+                            <input type="checkbox" class="custom-control-input" id="billMaking1" name="billMaking" [(ngModel)]="propertyMaster.billMaking" #billMaking="ngModel" />
+                            <label class="custom-control-label" for="billMaking1">Bill Making</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <div class="custom-control custom-checkbox mt-4">
+                            <input type="checkbox" class="custom-control-input" id="propertyCancellation1" name="propertyCancellation" [(ngModel)]="propertyMaster.propertyCancellation" #propertyCancellation="ngModel" />
+                            <label class="custom-control-label" for="propertyCancellation1">Propert Cancellation</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <div class="custom-control custom-checkbox mt-4">
+                            <input type="checkbox" class="custom-control-input" id="closedOrganization1" name="closedOrganization" [(ngModel)]="propertyMaster.closedOrganization" #closedOrganization="ngModel" />
+                            <label class="custom-control-label" for="closedOrganization1">Closed Organization</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="note">Note</label>
+                        <input type="text" class="form-control" name="note" [(ngModel)]="propertyMaster.note" #note="ngModel" />
+    
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="rent">Rent</label>
+                        <input type="text" class="form-control" name="rent" [(ngModel)]="propertyMaster.rent" #rent="ngModel" />
+    
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="propertyTax">Property Tax</label>
+                        <input type="text" class="form-control" name="propertyTax" [(ngModel)]="propertyMaster.propertyTax" #propertyTax="ngModel" />
+    
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <label for="taxInformation">&nbsp;</label>
+                        <button type="button" class="btn btn-secondary">Tax Information</button>
+                    </div>
+                    <div class="form-group col-md-3 col-sm-12">
+                        <div class="custom-control custom-checkbox mt-4">
+                            <input type="checkbox" class="custom-control-input" id="keepingDetailsForAdvanceEntry1" name="keepingDetailsForAdvanceEntry" [(ngModel)]="propertyMaster.keepingDetailsForAdvanceEntry" #keepingDetailsForAdvanceEntry="ngModel" />
+                            <label class="custom-control-label" for="keepingDetailsForAdvanceEntry1">Keeping Details For AdvanceEntry</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12">
+                    <button type="submit" class="btn btn-secondary" (click)="modal.dismiss()"><b>Close</b>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+
+
+</div>

@@ -1,0 +1,358 @@
+<div id="app">
+
+
+  <nav class="navbar navbar-expand-lg navbar-light" *ngIf="isLoggedIn" style="border: 1px solid rgba(0, 0, 0, 0.3);border-left: none;border-right: none;margin: 0;padding: 0;">
+      <!-- <a href="#" class="navbar-brand" style="text-transform: uppercase;" >Welcome {{ username }}</a> -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+          <ul class="navbar-nav mr-auto" routerLinkActive="active">
+              <li class="nav-item">
+                  <a href="/admin-board" class="nav-link" routerLink="home" *ngIf="showAdminBoard"><b>Home</b> </a>
+                  <a href="/user-board" class="nav-link" routerLink="user-board" *ngIf="showUserBoard"><b>Home</b> </a>
+              </li>
+
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdownSubMenu1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <b>Reception</b>
+                  </a>
+                  <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                      <li class="dropdown-submenu dropdown-hover">
+                          <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Reception </a>
+                          <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                              <li><a class="dropdown-item" href="#" routerLink="reception-reception-registration">Registration</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-reception-appointment">Appointment</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-reception-admission">Admission</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-reception-scannedimage">Scanned Image</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="dropdown-divider"></li>
+                      <li class="dropdown-submenu dropdown-hover">
+                          <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Bill </a>
+                          <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                              <li><a class="dropdown-item" href="#" routerLink="reception-bill-opd">OPD</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-bill-radio">RADIO</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-bill-lab">LAB</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-bill-opdhealth_checkup">OPDHEALTH CHECKUP</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-bill-cash_dues">CASH DUES</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="dropdown-divider"></li>
+                      <li class="dropdown-submenu dropdown-hover">
+                          <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Bill Refund </a>
+                          <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                              <li><a class="dropdown-item" href="#" routerLink="reception-bill_refund-opd_refund">OPD Refund</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-bill_refund-radio_refund">RADIO Refund</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-bill_refund-lab_refund">LAB Refund</a>
+                              </li>
+                              <li><a class="dropdown-item" href="#" routerLink="reception-bill0refund-opdhealth_checkup_refund">OPDHEALTHCHECKUP Refund</a>
+                              </li>
+                          </ul>
+                      </li>
+
+                  </ul>
+              </li>
+
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownSubMenu1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <b>IPD</b>
+                </a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Bill </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-bill-bill_detail_sheet">Bill Detail Sheet</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-bill-provisional_bill">Provisional Bill</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-bill-final_ipd_bill">Final IPD Bill</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-bill-ipd_advanced">IPD Advanced</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-bill-payment_refund">Payment/Refund</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Bed </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-bed-bed_shifting">Bed Shifting</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-bed-bed_status">Bed Status</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-bed-vacant_bed">Vacant Bed</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Discharge </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-dischange-bed_discharge">Bed Discharge</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="ipd-dischange-discharge_clearance">Discharge Clearance</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownSubMenu1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <b>Account</b>
+                </a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Entry </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="account-entry-receipt">Receipt</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="account-entry-payment">Payment</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                </ul>
+            </li>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownSubMenu1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <b>Reports</b>
+                </a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Register Reports </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="report-register_report-ipd_register">IPD Register</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="report-register_report-ipd_receipt_register">IPD Receipt Register</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="report-register_report-opd_register">OPD Register</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="report-register_report-lab_register">LAB Register</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="report-register_report-radio_register">RADIO Register</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="report-register_report-health_checkup_register">Health Checkup Register</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="report-register_report-cash_due_report">Cash Due Report</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="report-register_report-organization_report">Organization Report</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Analysis Reports </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="report-analysis_report-mis">MIS</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="report-analysis_report-groupwise_testwise_analysis">Groupwise Testwise Analysis</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Routine Reports </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="report-routine_report-admission_discharge">Admission/Discharge</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="report-routine_report-fee_collection_report">Fee Collection Report</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownSubMenu1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <b>Master</b>
+                </a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Test Master </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="master-test_master-ipd_test">IPD</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-test_master-opd_test">OPD</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Doctro </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="master-doctor-consultant_doctor">Consultant Doctor</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-doctor-referring_doctor">Referring Doctor</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Bill Master </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="master-bill_master-opd_bill_master">OPD Bill Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-bill_master-lab_bill_master">LAB Bill Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-bill_master-radio_bill_master">Radio Bill Master</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Appointment Master </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="master-appointment_master-appointment_scheduler">Appointment Scheduler</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Package Master </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="master-package_master-ipd_package_master">IPD Package Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-package_master-opd_package_master">OPD Package Master</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Others Master </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-department">Department</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-subdepartment">Sub Department</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-concession">Concession</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-super_group">Super Group</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-group">Group</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-sub_group">Sub Group</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-sub_group1">Sub Group 1</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-sub_group2">Sub Group 2</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-doctor_incentive_master">Doctor Incentive Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-ref_doctor_incentive_master">Ref Doctor Incentive Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-insurance_master">Insurance Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-cashless_authorized">Cashless Authorized</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-discharge_summary">Discharge Summary</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-discharge_summary_template_master">Discharge Summary template Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-doctor_hours_absentee_entry">Doctor Hours/Absentee Entry</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-death_summary">Death Summary</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-tds_master">TDS Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters1-casepaper_medicine_master">Casepaper Medicine Master</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Others Master </a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-organization">Organization</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-tpa_master">TPA Mster</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-class_master">Class Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-ward_master">Ward Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-party_master">Party Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-plastic_money_master">Plastic Money Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-patient_type_matser">Patient Type Matser</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-doctor_payable_entry">Doctor payable Entry</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-external_lab_master">External Lab Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-external_radio_master">External Radio Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-external_lab_test_master">External Lab Test Master</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" routerLink="master-other_masters2-external_radio_test_master">External Radio Test Master</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </li>
+
+
+            <!-- <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" *ngIf="!userrole" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <b>વિભાગ</b>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="#" routerLink="vibhaag-selection">વિભાગની પસંદગી</a>
+                      <li class="dropdown-divider"></li>
+                      <a class="dropdown-item" href="#" routerLink="database-backup">બેકઅપ</a>
+                  </div>
+              </li> -->
+
+
+
+          </ul>
+
+          <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+              <li class="nav-item">
+                  <a href="/register" class="nav-link" routerLink="register"><b>Sign Up</b></a>
+              </li>
+              <li class="nav-item">
+                  <a href="/login" class="nav-link" routerLink="login"><b>Login</b></a>
+              </li>
+          </ul>
+          <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+              <li class="nav-item active">
+                  <a class="nav-link"><b style="color: white;"><i class="fas fa-user"></i> {{ username | uppercase }}</b></a>
+              </li>
+              <li class="nav-item">
+                  <a href class="nav-link" (click)="logout()"><b><i class="fas fa-share-square"></i> LogOut</b></a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+
+  <div>
+      <router-outlet></router-outlet>
+  </div>
+</div>

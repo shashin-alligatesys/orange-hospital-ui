@@ -1,0 +1,447 @@
+<div class="">
+    <div class="col-md-12 mt-3">
+        <div class="card card-outline card-danger">
+            <div class="card-header text-center">
+                <div class="row">
+                    <b style="font-size: 18px;"> BILL TITLE</b><input type="text" name="billTitle" id="">     
+                </div>
+                <!-- <b style="font-size: 18px;"> BILL TITLE</b><input type="text" name="billTitle" id="">  -->
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body overflow-auto">
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                    <div class="row">
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Bill Type </label>
+                            <div class="form-group row">
+                                <div class="form-check col-md-4">
+                                  <input class="form-check-input" type="radio" name="billType" checked="">
+                                  <label class="form-check-label">CASH</label>
+                                </div>
+                                <div class="form-check col-md-4">
+                                  <input class="form-check-input" type="radio" name="billType">
+                                  <label class="form-check-label">CREDIT</label>
+                                </div>
+                                <div class="form-check col-md-4">
+                                    <input class="form-check-input" type="radio" name="billType">
+                                    <label class="form-check-label">Company</label>
+                                </div>
+                              </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Date </label>
+                            <input type="text" class="form-control" name="date" [(ngModel)]="form.date"  #date="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && date.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Sub Dept </label>
+                            <input type="text" class="form-control" name="subDept" [(ngModel)]="form.subDept"  #subDept="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && subDept.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Patient Type OLD/NEW </label>
+                            <input type="text" class="form-control" name="patientType" [(ngModel)]="form.patientType"  #patientType="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && patientType.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Bill No</label>
+                            <input type="text" class="form-control" name="billNo" [(ngModel)]="form.billNo"  #billNo="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && billNo.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">UHID</label>
+                            <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid"  #uhid="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && uhid.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Organization</label>
+                            <input type="text" class="form-control" name="organization" [(ngModel)]="form.organization"  #organization="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && organization.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Patient Type </label>
+                            <input type="text" class="form-control" name="patientType" [(ngModel)]="form.patientType"  #patientType="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && patientType.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Patient Name </label>
+                            <input type="text" class="form-control" name="patientName" [(ngModel)]="form.patientName"  #patientName="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && patientName.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-2 col-sm-2">
+                            <button class="btn btn-success">Location</button>
+                        </div>
+
+                        <div class="form-group col-md-2 col-sm-2">
+                            <label for="name">PID No </label>
+                            <input type="text" class="form-control" name="pidNo" [(ngModel)]="form.pidNo"  #pidNo="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && pidNo.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-2 col-sm-2">
+                            <label for="name">Sex </label>
+                            <input type="text" class="form-control" name="sex" [(ngModel)]="form.sex"  #sex="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && sex.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Age </label>
+                            <input type="text" class="form-control" name="age" [(ngModel)]="form.age"  #age="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && age.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Ref By </label>
+                            <input type="text" class="form-control" name="refBy" [(ngModel)]="form.refBy"  #refBy="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && refBy.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Ref By </label>
+                            <input type="text" class="form-control" name="refBy" [(ngModel)]="form.refBy"  #refBy="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && refBy.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Consultant 1 </label>
+                            <input type="text" class="form-control" name="consultant1" [(ngModel)]="form.consultant1"  #consultant1="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && consultant1.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Consultant 2 </label>
+                            <input type="text" class="form-control" name="consultant2" [(ngModel)]="form.consultant2"  #consultant2="ngModel" />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && consultant2.invalid">
+                                Required Field !
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="card card-body overflow-auto">
+                            <div class="row">
+                                <div class="form-group col-md-2 col-sm-2">
+                                    <label for="name">Gorup</label>
+                                    <input type="text" class="form-control" name="group" [(ngModel)]="form.group" #group="ngModel" />
+                                    <input type="text" class="form-control" name="group" [(ngModel)]="form.group" #group="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && group.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2 col-sm-2">
+                                    <label for="name">Perticulars</label>
+                                    <input type="text" class="form-control" name="perticulars" [(ngModel)]="form.perticulars" #perticulars="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && perticulars.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                    
+                                <div class="form-group col-md-2 col-sm-2">
+                                    <label for="name">Procedur Doc 1</label>
+                                    <input type="text" class="form-control" name="procedurDoc1" [(ngModel)]="form.procedurDoc1" #procedurDoc1="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && procedurDoc1.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2 col-sm-2">
+                                    <label for="name">Procedur Doc 2</label>
+                                    <input type="text" class="form-control" name="procedurDoc2" [(ngModel)]="form.procedurDoc2" #procedurDoc2="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && procedurDoc2.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-1 col-sm-1">
+                                    <label for="name">Rate</label>
+                                    <input type="text" class="form-control" name="rate" [(ngModel)]="form.rate" #rate="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && rate.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-1 col-sm-1">
+                                    <label for="name">Qty</label>
+                                    <input type="text" class="form-control" name="Qty" [(ngModel)]="form.Qty" #Qty="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && Qty.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-1 col-sm-1">
+                                    <label for="name">Amount</label>
+                                    <input type="text" class="form-control" name="amount" [(ngModel)]="form.amount" #amount="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && amount.invalid">
+                                        Required Field !
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-1 col-sm-1">
+                                    <button class="btn btn-success">+</button>
+                                </div>
+                    
+                                <div class="form-group col-md-12 col-sm-12" style="background: antiquewhite; height: 230px;">
+                    
+                                </div>
+                    
+                                <div class="form-group col-md-12 col-sm-12">
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <div class="row">
+                    
+                                                <div class="form-group col-md-4 col-sm-4">
+                                                    <label for="name">Remarks</label>
+                                                    <input type="text" class="form-control" name="remarks" [(ngModel)]="form.remarks" #remarks="ngModel" />
+                                                    <div class="text-danger" role="alert" *ngIf="f.submitted && remarks.invalid">
+                                                        Required Field !
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-md-4 col-sm-4">
+                                                    <label for="name">Method Of Payment</label>
+                                                    <input type="text" class="form-control" name="methodOfPayment" [(ngModel)]="form.methodOfPayment" #methodOfPayment="ngModel" />
+                                                    <div class="text-danger" role="alert" *ngIf="f.submitted && methodOfPayment.invalid">
+                                                        Required Field !
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-md-4 col-sm-4">
+                                                    <label for="name">Details</label>
+                                                    <input type="text" class="form-control" name="details" [(ngModel)]="form.details" #details="ngModel" />
+                                                    <div class="text-danger" role="alert" *ngIf="f.submitted && details.invalid">
+                                                        Required Field !
+                                                    </div>
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <div class="row">
+                                                <div class="form-group col-md-4 col-sm-4">
+                                                    <label for="name">Total</label>
+                                                    <input type="text" class="form-control" name="total" [(ngModel)]="form.total" #total="ngModel" />
+                                                    <div class="text-danger" role="alert" *ngIf="f.submitted && total.invalid">
+                                                        Required Field !
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-md-4 col-sm-4">
+                                                    <label for="name">Concession</label>
+                                                    <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />
+                                                    <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />%
+                                                    <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />
+                                                    <div class="text-danger" role="alert" *ngIf="f.submitted && concession.invalid">
+                                                        Required Field !
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-md-4 col-sm-4">
+                                                    <label for="name">Other Concession</label>
+                                                    <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />% No
+                                                    <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />=
+                                                    <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />
+                                                    <div class="text-danger" role="alert" *ngIf="f.submitted && concession.invalid">
+                                                        Required Field !
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-md-4 col-sm-4">
+                                                    <label for="name">NetTotal</label>
+                                                    <input type="text" class="form-control" name="nettotal" [(ngModel)]="form.nettotal" #nettotal="ngModel" />
+                                                    <div class="text-danger" role="alert" *ngIf="f.submitted && nettotal.invalid">
+                                                        Required Field !
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-md-4 col-sm-4">
+                                                    <label for="name">Paid Amount</label>
+                                                    <input type="text" class="form-control" name="paidAmount" [(ngModel)]="form.paidAmount" #paidAmount="ngModel" />
+                                                    <div class="text-danger" role="alert" *ngIf="f.submitted && paidAmount.invalid">
+                                                        Required Field !
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-md-4 col-sm-4">
+                                                    <label for="name">Due</label>
+                                                    <input type="text" class="form-control" name="due" [(ngModel)]="form.due" #due="ngModel" />
+                                                    <div class="text-danger" role="alert" *ngIf="f.submitted && due.invalid">
+                                                        Required Field !
+                                                    </div>
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                </form>
+
+                <div class="row">
+                    <div class="card card-body overflow-auto">
+                        <div class="form-group row">
+                            <button class="btn btn-info mt-1">New</button> &nbsp;
+                            <button class="btn btn-info mt-1">Save:F1</button> &nbsp;
+                            <button class="btn btn-info mt-1">Print</button> &nbsp;
+                            <button class="btn btn-info mt-1">Cash Due</button> &nbsp;
+                            <button class="btn btn-info mt-1">Shifting</button> &nbsp;
+                            <button class="btn btn-info mt-1">Delete</button> &nbsp;
+                            <button class="btn btn-info mt-1">Print IPD Case Record</button> &nbsp;
+                            <button class="btn btn-info mt-1">OPD Bill Estimation</button> &nbsp;
+                            <button class="btn btn-info mt-1">Print Lable</button> &nbsp;
+                            <button class="btn btn-primary mt-1">Consolidate Bill</button> &nbsp;
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div class="row">
+                    <div class="card card-body overflow-auto">
+                        <div class="form-group row">
+
+                            <div class="form-group col-md-3 col-sm-3">
+                                <label for="name">UHID </label>
+                                <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid"  #uhid="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && uhid.invalid">
+                                    Required Field !
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3 col-sm-3">
+                                <label for="name">Name </label>
+                                <input type="text" class="form-control" name="name" [(ngModel)]="form.name"  #name="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && name.invalid">
+                                    Required Field !
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3 col-sm-3">
+                                <label for="name">Bill No </label>
+                                <input type="text" class="form-control" name="billNo" [(ngModel)]="form.billNo"  #billNo="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && billNo.invalid">
+                                    Required Field !
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3 col-sm-3">
+                                <label for="name">Date </label>
+                                <input type="date" class="form-control" name="date" [(ngModel)]="form.date"  #date="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && date.invalid">
+                                    Required Field !
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3 col-sm-3">
+                                <label for="name">Patient Type </label>
+                                <input type="text" class="form-control" name="patientType" [(ngModel)]="form.patientType"  #patientType="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && patientType.invalid">
+                                    Required Field !
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3 col-sm-3">
+                                <button class="btn btn-info mt-1">Show All</button> 
+                            </div>
+
+                            <div class="form-group col-md-3 col-sm-3">
+                                <button class="btn btn-info mt-1">Clear Selection</button>
+                            </div>
+
+                            <div class="form-group col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <!-- [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" -->
+                                        <table id="customTable" datatable class="table table-dark table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Preview</th>
+                                                    <th>Print</th>
+                                                    <th>Bill No</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Bill Type</th>
+                                                    <th>Date</th>
+                                                    <th>UHID</th>
+                                                    <th>SubDept</th>
+                                                    <th>PType</th>
+                                                    <th>PTypeNo</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- <tr  *ngIf="isTableLoad">
+                                                    <td *ngIf="table_data?.length == 0" colspan="6" class="no-data-available"><b>No Data, Please Click Load Button!</b></td>
+                                                </tr>  -->
+                                                <!-- <tr *ngFor="let item of table_data">
+                                                    <td>{{item.wardNumber}}</td>
+                                                    <td>{{item.receiptNumber}}</td>
+                                                    <td>{{item.propertyNumber}}/{{item.propertyNumber1}}</td>
+                                                    <td>{{item.date}}</td>
+                                                    <td>{{item.taxPayerName}}</td>
+                                                    <td>
+                                                        <span class="float-right">
+                                                            <button id="edit" type="button" (click)="openModal(editModal, item)" class="btn btn-warning"><i class="fas fa-edit"></i></button> &nbsp;
+                                                            <button id="delete" type="button" (click)="onDelete(item.id)" class="btn btn-danger" *ngIf="!isUserRole"><i class="fa fa-trash"></i></button>
+                                                        </span>
+                                                    </td>
+                                                </tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
