@@ -2,7 +2,7 @@
     <div class="col-md-12 mt-3">
         <div class="card card-outline card-danger">
             <div class="card-header text-center">
-                <b style="font-size: 18px;"> Test Master OPD </b>
+                <b style="font-size: 18px;"> Test Master OPD  </b>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
                     </button>
@@ -11,97 +11,127 @@
                 </div>
             </div>
             <div class="card-body overflow-auto">
-                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                <form name="form" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" novalidate>
+
+                    <input type="hidden" name="id" [(ngModel)]="form.id" #id="ngModel"> 
+                    <h2 *ngIf="isEdit" style="color: orangered;"><b>Edit Mode</b></h2>
+
                     <div class="row">
-
-                        <div class="form-group col-md-12 col-sm-12">
-                            <div class="row">
-
-                              
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <label for="name">Test No. </label>
-                                    <input type="text" class="form-control" name="testNo" [(ngModel)]="form.testNo"  #testNo="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && testNo.invalid">
-                                        Required Field !
+                        <div class="col-md-12 col-sm-12">
+                            <div class="card card-body overflow-auto">
+                                <div class="form-group row">
+                                    
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name">Test No. </label>
+                                        <input type="text" class="form-control" name="testNo" [(ngModel)]="form.testNo" disabled #testNo="ngModel" />
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && testNo.invalid">
+                                            Required Field !
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <label for="name">Super Group </label>
-                                    <input type="text" class="form-control" name="superGroup" [(ngModel)]="form.superGroup"  #superGroup="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && superGroup.invalid">
-                                        Required Field !
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name">Super Group </label>
+                                        <select class="form-control" [(ngModel)]="form.superGroup" #superGroup="ngModel" name="superGroup">
+                                            <option *ngFor="let o of SuperGroupList" [ngValue]="o.id" style="color: black;">
+                                                {{o.superGroup}}
+                                            </option>
+                                        </select>
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && superGroup.invalid">
+                                            Required Field !
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <label for="name">Group </label>
-                                    <input type="text" class="form-control" name="group" [(ngModel)]="form.group"  #group="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && group.invalid">
-                                        Required Field !
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name">Group </label>
+                                        <select class="form-control" [(ngModel)]="form.groupName" #groupName="ngModel" required name="groupName">
+                                            <option *ngFor="let o of GroupList" [ngValue]="o.id" style="color: black;">
+                                                {{o.groupName}}
+                                            </option>
+                                        </select>
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && group.invalid">
+                                            Required Field !
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <label for="name">Sub Department </label>
-                                    <input type="text" class="form-control" name="subDepartment" [(ngModel)]="form.subDepartment"  #subDepartment="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && subDepartment.invalid">
-                                        Required Field !
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name">Sub Group </label>
+                                        <select class="form-control" [(ngModel)]="form.subGroup" #subGroup="ngModel" required name="subGroup">
+                                            <option *ngFor="let o of SubGroupList" [ngValue]="o.id" style="color: black;">
+                                                {{o.subGroup}}
+                                            </option>
+                                        </select>
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && group.invalid">
+                                            Required Field !
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <label for="name">Test Name </label>
-                                    <input type="text" class="form-control" name="testName" [(ngModel)]="form.testName"  #testName="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && testName.invalid">
-                                        Required Field !
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name">Sub Department </label>
+                                        <select class="form-control" [(ngModel)]="form.subDepartment" #subDepartment="ngModel" required name="subDepartment">
+                                            <option *ngFor="let o of SubDepartmentList" [ngValue]="o.id" style="color: black;">
+                                                {{o.subDept}}
+                                            </option>
+                                        </select>
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && subDepartment.invalid">
+                                            Required Field !
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <label for="name">Organization Name </label>
-                                    <input type="text" class="form-control" name="organizationName" [(ngModel)]="form.organizationName"  #organizationName="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && organizationName.invalid">
-                                        Required Field !
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name">Test Name </label>
+                                        <input type="text" class="form-control" name="testName" [(ngModel)]="form.testName" required #testName="ngModel" />
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && testName.invalid">
+                                            Required Field !
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <label for="name"> Rate</label>
-                                    <input type="text" class="form-control" name="rate" [(ngModel)]="form.rate"  #rate="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && rate.invalid">
-                                        Required Field !
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name">Organization Name </label>
+                                        <select class="form-control" [(ngModel)]="form.organizationName" #organizationName="ngModel" required name="organizationName">
+                                            <option *ngFor="let o of OrganizationList" [ngValue]="o.id" style="color: black;">
+                                                {{o.organization}}
+                                            </option>
+                                        </select>
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && organizationName.invalid">
+                                            Required Field !
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <label for="name">Cost Rate</label>
-                                    <input type="text" class="form-control" name="costRate" [(ngModel)]="form.costRate"  #costRate="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && costRate.invalid">
-                                        Required Field !
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name"> Rate</label>
+                                        <input type="text" class="form-control" name="rate" [(ngModel)]="form.rate"  #rate="ngModel" />
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && rate.invalid">
+                                            Required Field !
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <label for="name">Description</label>
-                                    <input type="text" class="form-control" name="description" [(ngModel)]="form.description"  #description="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && description.invalid">
-                                        Required Field !
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name">Cost Rate</label>
+                                        <input type="text" class="form-control" name="costRate" [(ngModel)]="form.costRate"  #costRate="ngModel" />
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && costRate.invalid">
+                                            Required Field !
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <label for="name">Description</label>
+                                        <input type="text" class="form-control" name="description" [(ngModel)]="form.description"  #description="ngModel" />
+                                        <div class="text-danger" role="alert" *ngIf="f.submitted && description.invalid">
+                                            Required Field !
+                                        </div>
+                                    </div>
                                 
-                                <div class="form-group col-md-12 col-sm-12">
-                                    <button class="btn btn-info mt-1">New</button>&nbsp;
-                                    <button class="btn btn-secondary mt-1">Create New Form Loaded</button>&nbsp;
-                                    <button class="btn btn-info mt-1">Save:F1</button>&nbsp;
-                                    <button class="btn btn-info mt-1">Delete</button>&nbsp;
                                 </div>
-
                             </div>
                         </div>
-                    
-
                     </div>
 
-                         
-                    
-                    <div class="row">
+                    <div class="form-group col-md-12 col-sm-12">
+                        <input type="button" value="New" class="btn btn-info mt-1" (click)="onNew()">&nbsp;
+                        <button class="btn btn-info mt-1" type="submit">Save:F1</button> &nbsp;
+                        <button class="btn btn-info mt-1">Delete</button>&nbsp;
+                    </div>
+
+                </form>
+
+
+                <div class="row">
+
+                    <div class="form-group col-md-12 col-sm-12">
                         <div class="card card-body overflow-auto">
                             <div class="form-group row">
-    
-  
+
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name"> Sub Group </label>
                                     <input type="text" class="form-control" name="subGroup" [(ngModel)]="form.subGroup"  #subGroup="ngModel" />
@@ -144,12 +174,13 @@
                                     <button class="btn btn-info mt-1">Clear Selection</button>&nbsp;
                                 </div>
 
+
                                 <div class="form-group col-md-12 col-sm-12">
                                     <div class="row">
                                         <div class="table-responsive">
                                             <!-- [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" -->
-                                            <table id="customTable" datatable class="table table-dark table-striped table-bordered" cellspacing="0" width="100%">
-                                                <thead>
+                                            <table id="customTable" datatable class="table  table-striped table-bordered" cellspacing="0" width="100%">
+                                                <thead class="table-dark">
                                                     <tr>
                                                         <th>Edit</th>
                                                         <th>TestNo</th>
@@ -162,18 +193,21 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <!-- <tr  *ngIf="isTableLoad">
-                                                        <td *ngIf="table_data?.length == 0" colspan="6" class="no-data-available"><b>No Data, Please Click Load Button!</b></td>
-                                                    </tr>  -->
-                                                    <!-- <tr *ngFor="let item of table_data">
-                                                        <td>{{item.wardNumber}}</td>
+                                                    <tr *ngFor="let item of table_data">
                                                         <td>
                                                             <span class="float-right">
-                                                                <button id="edit" type="button" (click)="openModal(editModal, item)" class="btn btn-warning"><i class="fas fa-edit"></i></button> &nbsp;
-                                                                <button id="delete" type="button" (click)="onDelete(item.id)" class="btn btn-danger" *ngIf="!isUserRole"><i class="fa fa-trash"></i></button>
+                                                                <button id="edit" type="button" (click)="onEdit(item)" class="btn btn-warning"><i class="fas fa-edit"></i></button> &nbsp;
+                                                                <button id="delete" type="button" (click)="onDelete(item.id)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                                             </span>
                                                         </td>
-                                                    </tr> -->
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.testName}}</td>
+                                                        <td>{{item.rate}}</td>
+                                                        <td>{{item.organizationName}}</td>
+                                                        <td>{{item.subDepartment}}</td>
+                                                        <td>{{item.subGroup}}</td>
+                                                        <td>{{item.groupName}}</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -182,14 +216,7 @@
                             </div>
                         </div>
                     </div>
-
-                    
-                    
-
-                    
-
-                </form>
-
+                </div>
 
                 
 

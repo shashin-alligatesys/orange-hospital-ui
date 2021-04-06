@@ -14,6 +14,22 @@ export class DoctorReferenceService {
 
   constructor(private http: HttpClient) { }
 
+  save(form: any): Observable<any> { 
+    return this.http.post(API_URL + 'save', form, httpOptions);
+  }
+
+  update(form): Observable<any> {
+    return this.http.put(API_URL + 'update', form, httpOptions);
+  }
+
+  delete(id): Observable<any> {
+    return this.http.delete(API_URL + 'delete/'+id , httpOptions);
+  }
+
+  get(): Observable<any> {
+    return this.http.get(API_URL + 'findAll', { responseType: 'json' });
+  }
+
   getDoctorReferenceList(): Observable<any> {
     return this.http.get(API_URL + 'getDoctorReferenceList', { responseType: 'json' });
   }

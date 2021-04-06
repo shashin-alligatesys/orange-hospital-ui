@@ -14,6 +14,22 @@ export class ConsultantMasterService {
 
   constructor(private http: HttpClient) { }
 
+  save(form: any): Observable<any> { 
+    return this.http.post(API_URL + 'save', form, httpOptions);
+  }
+
+  update(form): Observable<any> {
+    return this.http.put(API_URL + 'update', form, httpOptions);
+  }
+
+  delete(id): Observable<any> {
+    return this.http.delete(API_URL + 'delete/'+id , httpOptions);
+  }
+
+  get(): Observable<any> {
+    return this.http.get(API_URL + 'findAll', { responseType: 'json' });
+  }
+
   getConsultantList(): Observable<any> {
     return this.http.get(API_URL + 'getConsultantList', { responseType: 'json' });
   }

@@ -11,56 +11,73 @@
                 </div>
             </div>
             <div class="card-body overflow-auto">
-                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-                    
-                    
-                    
+                <form name="form" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" novalidate>
+
+                    <input type="hidden" name="id" [(ngModel)]="form.id" #id="ngModel"> 
+                    <h2 *ngIf="isEdit" style="color: orangered;"><b>Edit Mode</b></h2>
+
+     
                     <div class="row">
+
                         <div class="col-md-6 col-sm-6">
                             <div class="card card-body overflow-auto">
                                 <div class="form-group row">
                                     
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Name </label>
-                                    <input type="text" class="form-control" name="name" [(ngModel)]="form.name"  #name="ngModel" />
+                                    <input type="text" class="form-control" name="name" [(ngModel)]="form.name" required #name="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && name.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
-                                    <button class="btn btn-success">Mapping</button>
+                                    <button class="btn btn-success" disabled>Mapping</button>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Degree </label>
-                                    <input type="text" class="form-control" name="degree" [(ngModel)]="form.degree"  #degree="ngModel" />
+                                    <select class="form-control" [(ngModel)]="form.degree" #degree="ngModel" name="degree">
+                                        <option *ngFor="let o of DegreeList" [ngValue]="o.categoryName" style="color: black;">
+                                            {{o.categoryName}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && degree.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Speciality </label>
-                                    <input type="text" class="form-control" name="speciality" [(ngModel)]="form.speciality"  #speciality="ngModel" />
+                                    <select class="form-control" [(ngModel)]="form.speciality" #speciality="ngModel" name="speciality">
+                                        <option *ngFor="let o of SpecialityList" [ngValue]="o.categoryName" style="color: black;">
+                                            {{o.categoryName}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && speciality.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Con.Inc. Y/N </label>
-                                    <input type="text" class="form-control" name="conInc" [(ngModel)]="form.conInc"  #conInc="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && conInc.invalid">
+                                    <select class="form-control" name="referringIncentive" [(ngModel)]="form.referringIncentive"  #referringIncentive="ngModel">
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+                                    </select>
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && referringIncentive.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Expired </label>
-                                    <input type="text" class="form-control" name="expired" [(ngModel)]="form.expired"  #expired="ngModel" />
+                                    <select class="form-control" name="expired" [(ngModel)]="form.expired"  #expired="ngModel">
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && expired.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">DOB </label>
-                                    <input type="text" class="form-control" name="dob" [(ngModel)]="form.dob"  #dob="ngModel" />
+                                    <input type="date" class="form-control" name="dob" [(ngModel)]="form.dob"  #dob="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && dob.invalid">
                                         Required Field !
                                     </div>
@@ -68,6 +85,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-6 col-sm-6">
                             <div class="card card-body overflow-auto">
                                 <div class="form-group row">
@@ -81,8 +99,8 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Mob. NO </label>
-                                    <input type="text" class="form-control" name="mobNo" [(ngModel)]="form.mobNo"  #mobNo="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && mobNo.invalid">
+                                    <input type="text" class="form-control" name="mobile" [(ngModel)]="form.mobile" required #mobile="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && mobile.invalid">
                                         Required Field !
                                     </div>
                                 </div>
@@ -117,9 +135,11 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="row">
+
                         <div class="col-md-6 col-sm-6">
                             <div class="card card-body overflow-auto">
                                 <div class="form-group row">
@@ -133,14 +153,23 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">City </label>
-                                    <input type="text" class="form-control" name="city" [(ngModel)]="form.city"  #city="ngModel" />
+                                    <!-- <input type="text" class="form-control" name="city" [(ngModel)]="form.city"  #city="ngModel" /> -->
+                                    <select class="form-control" [(ngModel)]="form.city" #city="ngModel" name="city">
+                                        <option *ngFor="let o of CityList" [ngValue]="o.categoryName" style="color: black;">
+                                            {{o.categoryName}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && city.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">State </label>
-                                    <input type="text" class="form-control" name="state" [(ngModel)]="form.state"  #state="ngModel" />
+                                    <select class="form-control" [(ngModel)]="form.state" #state="ngModel" name="state">
+                                        <option *ngFor="let o of CityList" [ngValue]="o.StateList" style="color: black;">
+                                            {{o.categoryName}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && state.invalid">
                                         Required Field !
                                     </div>
@@ -162,14 +191,15 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-6 col-sm-6">
                             <div class="card card-body overflow-auto">
                                 <div class="form-group row">
                                     
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">MOU No </label>
-                                    <input type="text" class="form-control" name="mouNo" [(ngModel)]="form.mouNo"  #mouNo="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && mouNo.invalid">
+                                    <input type="text" class="form-control" name="mouno" [(ngModel)]="form.mouno"  #mouno="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && mouno.invalid">
                                         Required Field !
                                     </div>
                                 </div>
@@ -189,8 +219,8 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">MOU Expiry</label>
-                                    <input type="text" class="form-control" name="mouExpiry" [(ngModel)]="form.mouExpiry"  #mouExpiry="ngModel" />
-                                    <div class="text-danger" role="alert" *ngIf="f.submitted && mouExpiry.invalid">
+                                    <input type="date" class="form-control" name="mouexpiry" [(ngModel)]="form.mouexpiry"  #mouexpiry="ngModel" />
+                                    <div class="text-danger" role="alert" *ngIf="f.submitted && mouexpiry.invalid">
                                         Required Field !
                                     </div>
                                 </div>
@@ -203,14 +233,23 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Blood Group </label>
-                                    <input type="text" class="form-control" name="bloodGroup" [(ngModel)]="form.bloodGroup"  #bloodGroup="ngModel" />
+                                    <select class="form-control" name="bloodGroup" [(ngModel)]="form.bloodGroup" #bloodGroup="ngModel">
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && bloodGroup.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">BOJ </label>
-                                    <input type="text" class="form-control" name="doj" [(ngModel)]="form.doj"  #doj="ngModel" />
+                                    <input type="date" class="form-control" name="doj" [(ngModel)]="form.doj"  #doj="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && doj.invalid">
                                         Required Field !
                                     </div>
@@ -225,10 +264,8 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
-
-
-
 
                     
                     <div class="row">
@@ -238,14 +275,28 @@
                                     
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Sub Dept </label>
-                                    <input type="text" class="form-control" name="subDept" [(ngModel)]="form.subDept"  #subDept="ngModel" />
+                                    <select class="form-control" [(ngModel)]="form.subDept" #subDept="ngModel" required name="subDept">
+                                        <option *ngFor="let o of SubDepartmentList" [ngValue]="o.subDept" style="color: black;">
+                                            {{o.subDept}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && subDept.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Salary Type </label>
-                                    <input type="text" class="form-control" name="salaryType" [(ngModel)]="form.salaryType"  #salaryType="ngModel" />
+                                    <select class="form-control" name="salaryType" [(ngModel)]="form.salaryType" required #salaryType="ngModel">
+                                        <option value="Type1">Type1</option>
+                                        <option value="Type2">Type2</option>
+                                        <option value="Type3">Type3</option>
+                                        <option value="Type4">Type4</option>
+                                        <option value="Type5">Type5</option>
+                                        <option value="Type6">Type6</option>
+                                        <option value="Type7">Type7</option>
+                                        <option value="Type8">Type8</option>
+                                        <option value="Type9">Type9</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && salaryType.invalid">
                                         Required Field !
                                     </div>
@@ -283,21 +334,7 @@
                         </div>
                     </div>
                     
-                    
-                    
 
-
-
-
-
-
-
-
-
-
-
-                    
-                    
                     <div class="row">
 
                         <div class="form-group col-md-6 col-sm-6">
@@ -323,7 +360,7 @@
 
                         <div class="form-group col-md-6 col-sm-6">
                             <div class="row">
-                                <div class="card card-body overflow-auto">
+                                <div class="card card-body overflow-auto" style="background-color: antiquewhite">
                                     <div class="form-group row">
                                         <div class="form-group col-md-6 col-sm-6">
                                             <p>Type 1(F.S)</p>
@@ -359,29 +396,64 @@
 
                     </div>
 
-                         
-                    <div class="row">
+
+                    <div class="form-group col-md-12 col-sm-12">
+                        <input type="button" value="New" class="btn btn-info mt-1" (click)="onNew()">&nbsp;
+                        <button class="btn btn-info mt-1" type="submit">Save:F1</button> &nbsp;
+                        <button class="btn btn-info mt-1">Delete</button>&nbsp;
+                    </div>
+
+                </form>
+
+
+
+                <div class="row">
+                    <div class="form-group col-md-12 col-sm-12">
                         <div class="card card-body overflow-auto">
                             <div class="form-group row">
+
                                 <div class="form-group col-md-12 col-sm-12">
-                                    <button class="btn btn-info mt-1">New</button>&nbsp;
-                                    <button class="btn btn-info mt-1">Save :F1</button>&nbsp;
-                                    <button class="btn btn-success mt-1">Preview</button>&nbsp;
-                                    <button class="btn btn-info mt-1">Delete</button>&nbsp;
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                            <!-- [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" -->
+                                            <table id="customTable" datatable class="table  table-striped table-bordered" cellspacing="0" width="100%">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th>EDIT</th>
+                                                        <th>Name</th>
+                                                        <th>Degree</th>
+                                                        <th>Speciality</th>
+                                                        <th>Ref Incentive</th>
+                                                        <th>Expire</th>
+                                                        <th>DOJ</th>
+                                                        <!-- <th>Blood Group</th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table_data">
+                                                        <td>
+                                                            <span class="float-right">
+                                                                <button id="edit" type="button" (click)="onEdit(item)" class="btn btn-warning"><i class="fas fa-edit"></i></button> &nbsp;
+                                                                <button id="delete" type="button" (click)="onDelete(item.id)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                            </span>
+                                                        </td>
+                                                        <td>{{item.name}}</td>
+                                                        <td>{{item.degree}}</td>
+                                                        <td>{{item.speciality}}</td>
+                                                        <td>{{item.referringIncentive}}</td>
+                                                        <td>{{item.expired}}</td>
+                                                        <td>{{item.doj}}</td>
+                                                        <!-- <td>{{item.bloodGroup}}</td> -->
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    
-
-                    
-                    
-
-                    
-
-                </form>
-
+                </div>
 
                 
 

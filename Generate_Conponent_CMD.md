@@ -74,12 +74,12 @@ ng generate component _pages/report/routine_report/fee_collection_report --modul
 {{{{{{{{{{{{{{{Masters}}}}}}}}}}}}}}}
 
 *******************Test Master*****************
-ng generate component _pages/master/test_master/ipd --module app
-ng generate component _pages/master/test_master/opd --module app
+ng generate component _pages/master/test_master/ipd --module app ****
+ng generate component _pages/master/test_master/opd --module app ****
 
 *******************Doctor*****************
-ng generate component _pages/master/doctor/consultant_doctor --module app
-ng generate component _pages/master/doctor/referring_doctor --module app
+ng generate component _pages/master/doctor/consultant_doctor --module app ****
+ng generate component _pages/master/doctor/referring_doctor --module app ****
 
 *******************Bill Master*****************
 ng generate component _pages/master/bill_master/opd_bill_master --module app
@@ -87,31 +87,31 @@ ng generate component _pages/master/bill_master/lab_bill_master --module app
 ng generate component _pages/master/bill_master/radio_bill_master --module app
 
 *******************Appointment Master*****************
-ng generate component _pages/master/appointment_master/appointment_scheduler --module app
+ng generate component _pages/master/appointment_master/appointment_scheduler --module app ****
 
 *******************Package Master*****************
-ng generate component _pages/master/package_master/ipd_package_master --module app
-ng generate component _pages/master/package_master/opd_package_master --module app
+ng generate component _pages/master/package_master/ipd_package_master --module app ****
+ng generate component _pages/master/package_master/opd_package_master --module app ****
 
 *******************Other Masters1*****************
 ng generate component _pages/master/other_masters1/department --module app ****
 ng generate component _pages/master/other_masters1/subdepartment --module app ****
-ng generate component _pages/master/other_masters1/concession --module app
-ng generate component _pages/master/other_masters1/super_group --module app
-ng generate component _pages/master/other_masters1/group --module app
-ng generate component _pages/master/other_masters1/sub_group --module app
-ng generate component _pages/master/other_masters1/sub_group1 --module app
-ng generate component _pages/master/other_masters1/sub_group2 --module app
-ng generate component _pages/master/other_masters1/doctor_incentive_master --module app
-ng generate component _pages/master/other_masters1/ref_doctor_incentive_master --module app
-ng generate component _pages/master/other_masters1/insurance_master --module app
-ng generate component _pages/master/other_masters1/cashless_authorized --module app
+ng generate component _pages/master/other_masters1/concession --module app ****
+ng generate component _pages/master/other_masters1/super_group --module app ****
+ng generate component _pages/master/other_masters1/group --module app ****
+ng generate component _pages/master/other_masters1/sub_group --module app ****
+ng generate component _pages/master/other_masters1/sub_group1 --module app ****
+ng generate component _pages/master/other_masters1/sub_group2 --module app ****
+ng generate component _pages/master/other_masters1/doctor_incentive_master --module app ####
+ng generate component _pages/master/other_masters1/ref_doctor_incentive_master --module app ####
+ng generate component _pages/master/other_masters1/insurance_master --module app ****
+ng generate component _pages/master/other_masters1/cashless_authorized --module app ****
 ng generate component _pages/master/other_masters1/discharge_summary --module app
 ng generate component _pages/master/other_masters1/discharge_summary_template_master --module app
 ng generate component _pages/master/other_masters1/doctor_hours_absentee_entry --module app
 ng generate component _pages/master/other_masters1/death_summary --module app
-ng generate component _pages/master/other_masters1/tds_master --module app
-ng generate component _pages/master/other_masters1/casepaper_medicine_master --module app
+ng generate component _pages/master/other_masters1/tds_master --module app ****
+ng generate component _pages/master/other_masters1/casepaper_medicine_master --module app ****
 
 *******************Other Masters2*****************
 ng generate component _pages/master/other_masters2/organization --module app
@@ -122,8 +122,8 @@ ng generate component _pages/master/other_masters1/party_master --module app
 ng generate component _pages/master/other_masters1/plastic_money_master --module app ****
 ng generate component _pages/master/other_masters1/patient_type_matser --module app 
 ng generate component _pages/master/other_masters1/doctor_payable_entry --module app
-ng generate component _pages/master/other_masters1/external_lab_master --module app
-ng generate component _pages/master/other_masters1/external_radio_master --module app
+ng generate component _pages/master/other_masters1/external_lab_master --module app ****
+ng generate component _pages/master/other_masters1/external_radio_master --module app ****
 ng generate component _pages/master/other_masters1/external_lab_test_master --module app
 ng generate component _pages/master/other_masters1/external_radio_test_master --module app
 
