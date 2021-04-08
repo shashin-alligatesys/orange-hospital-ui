@@ -25,7 +25,7 @@ export class OpdBillMasterComponent implements OnInit {
   }
 
   getGruopList(): void {
-    this.groupService.getGruopListByDepartment(17).subscribe(
+    this.groupService.getGruopListByDepartmentAndSuperGroup(17,35).subscribe(
       data => {
         this.GruopList = data.body
       },

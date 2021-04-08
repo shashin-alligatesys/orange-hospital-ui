@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
-const API_URL = environment.apiUrl+"/master-other_masters1-group/";
+const API_URL = environment.apiUrl+"/master-other_masters1-death_summary/";
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -11,16 +11,12 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class GroupService {
+export class DeathSummaryService {
 
   constructor(private http: HttpClient) { }
 
   save(form: any): Observable<any> { 
     return this.http.post(API_URL + 'save', form, httpOptions);
-  }
-
-  update(form): Observable<any> {
-    return this.http.put(API_URL + 'update', form, httpOptions);
   }
 
   delete(id): Observable<any> {
@@ -31,12 +27,12 @@ export class GroupService {
     return this.http.get(API_URL + 'findAll', { responseType: 'json' });
   }
 
-  getGruopListByDepartment(department): Observable<any> {
-    return this.http.get(API_URL + 'getGruopListByDepartment/'+department, { responseType: 'json' });
+  getTypeList(): Observable<any> {
+    return this.http.get(API_URL + 'getTypeList', { responseType: 'json' });
   }
 
-  getGruopListByDepartmentAndSuperGroup(department,superGroup): Observable<any> {
-    return this.http.get(API_URL + 'getGruopListByDepartmentAndSuperGroup/'+department+'/'+superGroup, { responseType: 'json' });
+  add(type): Observable<any> {
+    return this.http.post(API_URL + 'add/'+type , httpOptions);
   }
 
 }

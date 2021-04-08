@@ -106,10 +106,10 @@ ng generate component _pages/master/other_masters1/doctor_incentive_master --mod
 ng generate component _pages/master/other_masters1/ref_doctor_incentive_master --module app ####
 ng generate component _pages/master/other_masters1/insurance_master --module app ****
 ng generate component _pages/master/other_masters1/cashless_authorized --module app ****
-ng generate component _pages/master/other_masters1/discharge_summary --module app
-ng generate component _pages/master/other_masters1/discharge_summary_template_master --module app
+ng generate component _pages/master/other_masters1/discharge_summary --module app ****
+ng generate component _pages/master/other_masters1/discharge_summary_template_master --module app ****
 ng generate component _pages/master/other_masters1/doctor_hours_absentee_entry --module app
-ng generate component _pages/master/other_masters1/death_summary --module app
+ng generate component _pages/master/other_masters1/death_summary --module app ****
 ng generate component _pages/master/other_masters1/tds_master --module app ****
 ng generate component _pages/master/other_masters1/casepaper_medicine_master --module app ****
 
