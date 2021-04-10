@@ -12,7 +12,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class OpdService {
-
+  
   constructor(private http: HttpClient) { }
 
   save(form: any): Observable<any> { 
@@ -29,6 +29,18 @@ export class OpdService {
 
   get(): Observable<any> {
     return this.http.get(API_URL + 'findAll', { responseType: 'json' });
+  }
+
+  getParticularsListByGroup(group): Observable<any> {
+    return this.http.get(API_URL + 'getParticularsListByGroup/'+group, { responseType: 'json' });
+  }
+
+  getParticularsListByOrganization(organization): Observable<any> {
+    return this.http.get(API_URL + 'getParticularsListByOrganization/'+organization, { responseType: 'json' });
+  }
+
+  updateRate(form): Observable<any> {
+    return this.http.put(API_URL + 'updateRate', form, httpOptions);
   }
 
 }

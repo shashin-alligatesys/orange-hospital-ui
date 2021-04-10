@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { IpdPackageMasterService } from '../../../../_service/master/package_master/ipd-package-master.service';
+import { OpdService } from 'src/app/_service/master/test_master/opd.service';
 import { GroupService } from 'src/app/_service/master/other_masters1/group.service';
 
 @Component({
@@ -10,19 +10,39 @@ import { GroupService } from 'src/app/_service/master/other_masters1/group.servi
 })
 export class OpdBillMasterComponent implements OnInit {
 
-  constructor(private service: IpdPackageMasterService,
-    private groupService: GroupService) { }
+  constructor(private groupService: GroupService,
+    private opdService:OpdService) { }
 
   form: any = {};
   isSubmit = false;
   isEdit = false;
   table_data: any = [];
   GruopList: any = [];
+  ParticularsList:any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.getGruopList()
   }
+
+  fillParticularsData(i): void{
+    const SortRow=this.ParticularsList.find((e => e.id == Number(this.DetailsList[i].testName)))
+    this.DetailsList[i].qty = 1
+    this.DetailsList[i].rate = SortRow.rate
+    this.DetailsList[i].amount = SortRow.rate
+  }
+
+  getParticularsList(i):void{
+    this.opdService.getParticularsListByGroup(this.DetailsList[i].group).subscribe(
+      data => {
+        this.ParticularsList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+  }
+  
 
   getGruopList(): void {
     this.groupService.getGruopListByDepartmentAndSuperGroup(17,35).subscribe(
@@ -37,55 +57,57 @@ export class OpdBillMasterComponent implements OnInit {
 
   onSave(): void {
     this.form.details = this.DetailsList
-      // this.onSubmit();
+    console.log(this.form)
+      this.onSubmit();
   }
 
-  // onSubmit(): void {
-  //   this.isSubmit = true;
-  //   this.service.save(this.form).subscribe(
-  //     data => {
-  //       this.isSubmit = false;
-  //       if (data.status == 200) {
-  //         Swal.fire({
-  //           title: 'Success!',
-  //           text: data.message,
-  //           icon: 'success',
-  //           confirmButtonText: 'OK',
-  //           width: 300
-  //         }).then((result) => {
-  //           if (result.isConfirmed) {
-  //             window.location.reload();
-  //           }
-  //         });
-  //       } else {
-  //         var error = "";
-  //         error += data.message + '\n'
-  //         if (data.fieldErrorMessageList != null) {
-  //           for (var ob of data.fieldErrorMessageList) {
-  //             error += ob.fieldName + " : " + ob.errorMessage + '\n'
-  //           }
-  //         }
-  //         Swal.fire({
-  //           title: 'Error!',
-  //           text: data.message,
-  //           html: '<pre>' + error + '</pre>',
-  //           icon: 'error',
-  //           confirmButtonText: 'OK',
-  //           width: 350
-  //         })
-  //       }
-  //     },
-  //     err => {
-  //       this.isSubmit = false;
-  //       console.log(err);
-  //     }
-  //   )
-  // }
+  onSubmit(): void {
+    this.isSubmit = true;
+    this.opdService.updateRate(this.DetailsList[0]).subscribe(
+      data => {
+        this.isSubmit = false;
+        if (data.status == 200) {
+          Swal.fire({
+            title: 'Success!',
+            text: data.message,
+            icon: 'success',
+            confirmButtonText: 'OK',
+            width: 300
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        } else {
+          var error = "";
+          error += data.message + '\n'
+          if (data.fieldErrorMessageList != null) {
+            for (var ob of data.fieldErrorMessageList) {
+              error += ob.fieldName + " : " + ob.errorMessage + '\n'
+            }
+          }
+          Swal.fire({
+            title: 'Error!',
+            text: data.message,
+            html: '<pre>' + error + '</pre>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        }
+      },
+      err => {
+        this.isSubmit = false;
+        console.log(err);
+      }
+    )
+  }
 
 
   public DetailsList: any[] = [{
     sno: 1,
     id: 0,
+    group: '',
     testName: '',
     qty: 0,
     rate: 0,
@@ -97,6 +119,7 @@ export class OpdBillMasterComponent implements OnInit {
       sno: this.DetailsList.length + 1,
       id: 0,
       testName: '',
+      group: '',
       qty: 0,
       rate: 0,
       amount: 0
@@ -110,7 +133,7 @@ export class OpdBillMasterComponent implements OnInit {
   }
 
   calculateTotal(i): void {
-    console.log(i)
+    this.DetailsList[i].amount = this.DetailsList[i].qty * this.DetailsList[i].rate
   }
 
 }

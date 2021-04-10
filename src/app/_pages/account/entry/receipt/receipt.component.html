@@ -18,12 +18,12 @@
                     <h2 *ngIf="isEdit" style="color: orangered;"><b>Edit Mode</b></h2>
 
                     <div class="row">
-                        <div class="form-group col-md-12 col-sm-12">
+                        <!-- <div class="form-group col-md-12 col-sm-12">
                             <button class="btn btn-info mt-1">Ledger</button>&nbsp;
                             <button class="btn btn-info mt-1">Party Master</button>&nbsp;
                             <button class="btn btn-success mt-1">Corporate Receipt(TPA)</button>&nbsp;
                             <button class="btn mt-1" style="background-color: orange;">Corporate Receipt(Company Wise)</button>&nbsp;
-                        </div>
+                        </div> -->
 
                         <div class="form-group col-md-12 col-sm-12">
                             <div class="row">
@@ -104,7 +104,15 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">To Account </label>
-                                    <input type="text" class="form-control" name="toAccount" [(ngModel)]="form.toAccount"  #toAccount="ngModel" />
+                                    <!-- <input type="text" class="form-control" name="toAccount" [(ngModel)]="form.toAccount"  #toAccount="ngModel" /> -->
+                                    <select class="form-control" name="toAccount" [(ngModel)]="form.toAccount" #toAccount="ngModel">
+                                        <option value="CASH ON HAND">CASH ON HAND</option>
+                                        <option value="CANARA BANK">CANARA BANK</option>
+                                        <option value="FEDERAL BANK">FEDERAL BANK</option>
+                                        <option value="TDS RECEIVABLE">TDS RECEIVABLE</option>
+                                        <option value="BOB C/A 05870200000593">BOB C/A 05870200000593</option>
+                                        <option value="BOB-05870500000714">BOB-05870500000714</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && toAccount.invalid">
                                         Required Field !
                                     </div>
@@ -118,7 +126,6 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Cash/Cheque/P.M </label>
-                                    <!-- <input type="text" class="form-control" name="narration" [(ngModel)]="form.narration"  #narration="ngModel" /> -->
                                     <select class="form-control" name="type" [(ngModel)]="form.type" (change)="typeChange()" required #type="ngModel">
                                         <option value="CASH" selected="selected">CASH</option>
                                         <option value="PLASTICMONEY">PLASTICMONEY</option>
@@ -137,14 +144,10 @@
                                 </div>
                                 <div *ngIf="isPLASTICMONEY" class="form-group col-md-4 col-sm-4">
                                     <label for="name">Instrument Name </label>
-                                    <select class="form-control" name="plasticInstrumentName" [(ngModel)]="form.plasticInstrumentName" #plasticInstrumentName="ngModel">
-                                        <option value="Credit Card">Credit Card</option>
-                                        <option value="Debit Card">Debit Card</option>
-                                        <option value="My Wallet">My Wallet</option>
-                                        <option value="NEFT">NEFT</option>
-                                        <option value="Paytm">Paytm</option>
-                                        <option value="RTGS">RTGS</option>
-                                        <option value="Visa Master Card">Visa Master Card</option>
+                                    <select class="form-control" [(ngModel)]="form.plasticInstrumentName" #plasticInstrumentName="ngModel" name="plasticInstrumentName">
+                                        <option *ngFor="let o of PlasticInstrumentNameList" [ngValue]="o.plasticInstrumentName" style="color: black;">
+                                            {{o.plasticInstrumentName}}
+                                        </option>
                                     </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && plasticInstrumentName.invalid">
                                         Required Field !
@@ -166,7 +169,15 @@
                                 </div>
                                 <div *ngIf="isPLASTICMONEY" class="form-group col-md-4 col-sm-4">
                                     <label for="name">Drawn On </label>
-                                    <input type="text" class="form-control" name="drawnOn" [(ngModel)]="form.drawnOn"  #drawnOn="ngModel" />
+                                    <!-- <input type="text" class="form-control" name="drawnOn" [(ngModel)]="form.drawnOn"  #drawnOn="ngModel" /> -->
+                                    <select class="form-control" name="drawnOn" [(ngModel)]="form.drawnOn" #drawnOn="ngModel">
+                                        <option value="CASH ON HAND">CASH ON HAND</option>
+                                        <option value="CANARA BANK">CANARA BANK</option>
+                                        <option value="FEDERAL BANK">FEDERAL BANK</option>
+                                        <option value="TDS RECEIVABLE">TDS RECEIVABLE</option>
+                                        <option value="BOB C/A 05870200000593">BOB C/A 05870200000593</option>
+                                        <option value="BOB-05870500000714">BOB-05870500000714</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && drawnOn.invalid">
                                         Required Field !
                                     </div>
@@ -205,7 +216,7 @@
                         <div class="card card-body overflow-auto">
                             <div class="form-group row">
     
-                                <div class="form-group col-md-3 col-sm-3">
+                                <!-- <div class="form-group col-md-3 col-sm-3">
                                     <label for="name">Date Form </label>
                                     <input type="date" class="form-control" name="dateForm" [(ngModel)]="form.dateForm"  #dateForm="ngModel" />-
                                     <input type="date" class="form-control" name="dateTo" [(ngModel)]="form.dateTo"  #dateTo="ngModel" />
@@ -213,7 +224,7 @@
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && dateForm.invalid">
                                         Required Field !
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- <div class="form-group col-md-3 col-sm-3">
                                     <label for="name">Department </label>
                                     <input type="text" class="form-control" name="department" [(ngModel)]="form.department"  #department="ngModel" />
@@ -221,7 +232,7 @@
                                         Required Field !
                                     </div>
                                 </div> -->
-                                <div class="form-group col-md-3 col-sm-3">
+                                <!-- <div class="form-group col-md-3 col-sm-3">
                                     <label for="name">IPD No </label>
                                     <input type="text" class="form-control" name="ipdno" [(ngModel)]="form.ipdno"  #ipdno="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && ipdno.invalid">
@@ -278,7 +289,7 @@
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && instrument.invalid">
                                         Required Field !
                                     </div>
-                                </div>
+                                </div> -->
     
                                 <div class="form-group col-md-12 col-sm-12">
                                     <div class="row">

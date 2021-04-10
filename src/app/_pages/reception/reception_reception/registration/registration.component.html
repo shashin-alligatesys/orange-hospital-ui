@@ -37,7 +37,12 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-4 col-sm-4 col-form-label">Area</label>
-                                <input type="text" class="form-control col-md-6 col-sm-6"  name="area" [(ngModel)]="form.area" required #area="ngModel" /> &nbsp; <button>+</button>
+                                <!-- <input type="text" class="form-control col-md-6 col-sm-6"  name="area" [(ngModel)]="form.area" required #area="ngModel" /> &nbsp; <button>+</button> -->
+                                <select class="form-control col-md-6 col-sm-6" [(ngModel)]="form.area" #area="ngModel" name="area"> &nbsp; <button>+</button>
+                                    <option *ngFor="let o of AreaList" [ngValue]="o.categoryName" style="color: black;">
+                                        {{o.categoryName}}
+                                    </option>
+                                </select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && area.invalid">
                                     Required Field !
                                 </div>
@@ -45,7 +50,12 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-4 col-sm-4 col-form-label">City</label>
-                                <input type="text" class="form-control col-md-6 col-sm-6"  name="city" [(ngModel)]="form.city"  #city="ngModel" /> &nbsp; <button>+</button>
+                                <!-- <input type="text" class="form-control col-md-6 col-sm-6"  name="city" [(ngModel)]="form.city"  #city="ngModel" /> &nbsp; <button>+</button> -->
+                                <select class="form-control col-md-6 col-sm-6" [(ngModel)]="form.city" #city="ngModel" name="city"> &nbsp; <button>+</button>
+                                    <option *ngFor="let o of CityList" [ngValue]="o.categoryName" style="color: black;">
+                                        {{o.categoryName}}
+                                    </option>
+                                </select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && city.invalid">
                                     Required Field !
                                 </div>
@@ -53,7 +63,12 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-4 col-sm-4 col-form-label">State</label>
-                                <input type="text" class="form-control col-md-6 col-sm-6"  name="state" [(ngModel)]="form.state"  #state="ngModel" /> &nbsp; <button>+</button>
+                                <!-- <input type="text" class="form-control col-md-6 col-sm-6"  name="state" [(ngModel)]="form.state"  #state="ngModel" /> &nbsp; <button>+</button> -->
+                                <select class="form-control col-md-6 col-sm-6" [(ngModel)]="form.state" #state="ngModel" name="state"> &nbsp; <button>+</button>
+                                    <option *ngFor="let o of StateList" [ngValue]="o.categoryName" style="color: black;">
+                                        {{o.categoryName}}
+                                    </option>
+                                </select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && state.invalid">
                                     Required Field !
                                 </div>
@@ -61,7 +76,12 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-4 col-sm-4 col-form-label">Country</label>
-                                <input type="text" class="form-control col-md-6 col-sm-6"  name="country" [(ngModel)]="form.country"  #country="ngModel" /> &nbsp; <button>+</button>
+                                <!-- <input type="text" class="form-control col-md-6 col-sm-6"  name="country" [(ngModel)]="form.country"  #country="ngModel" /> &nbsp; <button>+</button> -->
+                                <select class="form-control col-md-6 col-sm-6" [(ngModel)]="form.country" #country="ngModel" name="country"> &nbsp; <button>+</button>
+                                    <option *ngFor="let o of CountryList" [ngValue]="o.categoryName" style="color: black;">
+                                        {{o.categoryName}}
+                                    </option>
+                                </select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && country.invalid">
                                     Required Field !
                                 </div>
@@ -141,7 +161,12 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-2 col-sm-2 col-form-label">ID No</label> &nbsp; <button>+</button>
-                                <input type="text" class="form-control col-md-3 col-sm-3"  name="idnoCaption" [(ngModel)]="form.idnoCaption"  #idnoCaption="ngModel" />
+                                <!-- <input type="text" class="form-control col-md-3 col-sm-3"  name="idnoCaption" [(ngModel)]="form.idnoCaption"  #idnoCaption="ngModel" /> -->
+                                 <select class="form-control col-md-3 col-sm-3" [(ngModel)]="form.idnoCaption" #idnoCaption="ngModel" name="idnoCaption"> 
+                                        <option *ngFor="let o of IdnoCaptionList" [ngValue]="o.categoryName" style="color: black;">
+                                            {{o.categoryName}}
+                                        </option>
+                                    </select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && idnoCaption.invalid">
                                     Required Field !
                                 </div>
@@ -241,11 +266,10 @@
         
                                 <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Patient Type</label>
                                 <!-- <input type="text" class="form-control col-md-4 col-sm-4"  name="patientType" [(ngModel)]="form.patientType"  #patientType="ngModel" /> -->
-                                <select class="form-control col-md-4 col-sm-4" name="patientType" [(ngModel)]="form.patientType" #patientType="ngModel">
-                                    <option value="GENERAL" selected="selected">GENERAL</option>
-                                    <option value="STAFF">STAFF</option>
-                                    <option value="PRIVILEDGE MEMBER">PRIVILEDGE MEMBER</option>
-                                    <option value="CAMP PATIENT">CAMP PATIENT</option>
+                                <select class="form-control col-md-4 col-sm-4" [(ngModel)]="form.patientType" #patientType="ngModel" name="patientType"> &nbsp; <button>+</button>
+                                    <option *ngFor="let o of PatientTypeList" [ngValue]="o.categoryName" style="color: black;">
+                                        {{o.categoryName}}
+                                    </option>
                                 </select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && patientType.invalid">
                                     Required Field !
@@ -282,13 +306,23 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Religion</label>
-                                <input type="text" class="form-control col-md-4 col-sm-4"  name="religion" [(ngModel)]="form.religion"  #religion="ngModel" />
+                                <!-- <input type="text" class="form-control col-md-4 col-sm-4"  name="religion" [(ngModel)]="form.religion"  #religion="ngModel" /> -->
+                                <select class="form-control col-md-4 col-sm-4" [(ngModel)]="form.religion" #religion="ngModel" name="religion"> &nbsp; <button>+</button>
+                                    <option *ngFor="let o of ReligionList" [ngValue]="o.categoryName" style="color: black;">
+                                        {{o.categoryName}}
+                                    </option>
+                                </select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && religion.invalid">
                                     Required Field !
                                 </div>
         
                                 <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Occupation</label>
-                                <input type="text" class="form-control col-md-4 col-sm-4"  name="occupation" [(ngModel)]="form.occupation"  #occupation="ngModel" />
+                                <!-- <input type="text" class="form-control col-md-4 col-sm-4"  name="occupation" [(ngModel)]="form.occupation"  #occupation="ngModel" /> -->
+                                <select class="form-control col-md-4 col-sm-4" [(ngModel)]="form.occupation" #occupation="ngModel" name="occupation"> &nbsp; <button>+</button>
+                                    <option *ngFor="let o of OccupationList" [ngValue]="o.categoryName" style="color: black;">
+                                        {{o.categoryName}}
+                                    </option>
+                                </select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && occupation.invalid">
                                     Required Field !
                                 </div>

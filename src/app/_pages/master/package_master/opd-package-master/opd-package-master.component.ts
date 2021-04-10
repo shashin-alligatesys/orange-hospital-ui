@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { OpdPackageMasterService } from '../../../../_service/master/package_master/opd-package-master.service';
 import { OrganizationMasterService } from 'src/app/_service/static/organization-master.service';
+import { OpdService } from 'src/app/_service/master/test_master/opd.service';
+import { ConsultantMasterService } from 'src/app/_service/static/consultant-master.service';
 
 @Component({
   selector: 'app-opd-package-master',
@@ -11,18 +13,47 @@ import { OrganizationMasterService } from 'src/app/_service/static/organization-
 export class OpdPackageMasterComponent implements OnInit {
 
   constructor(private service: OpdPackageMasterService,
-    private organizationMasterService: OrganizationMasterService) { }
+    private organizationMasterService: OrganizationMasterService,
+    private opdService:OpdService,
+    private consultantMasterService:ConsultantMasterService) { }
 
   form: any = {};
   isSubmit = false;
   isEdit = false;
   table_data: any = [];
   OrganizationList: any = [];
+  ParticularsList:any = [];
+  ConsultantList:any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.onTable()
     this.getOrganizationList()
+    this.getConsultantList()
+    this.form.organizationCode = 70
+    this.getParticularsList()
+  }
+
+  getConsultantList():void{
+    this.consultantMasterService.getConsultantList().subscribe(
+      data => {
+        this.ConsultantList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+  }
+
+  getParticularsList(): void{
+    this.opdService.getParticularsListByOrganization(this.form.organizationCode).subscribe(
+      data => {
+        this.ParticularsList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
   }
 
   getOrganizationList(): void {
@@ -53,7 +84,10 @@ export class OpdPackageMasterComponent implements OnInit {
     this.form.organizationCode = Number(row.organizationCode)
     this.service.getDetailsById(row.id).subscribe(
       data => {
+        console.log(data.body)
         this.DetailsList = data.body
+        this.DetailsList[1].testName =  Number(data.body[1].testCode)
+        // testName = testCode ?
       },
       err => {
         console.log(err)
@@ -257,8 +291,9 @@ export class OpdPackageMasterComponent implements OnInit {
       this.DetailsList.splice(i, 1);
     }
   }
+  
   calculateTotal(i): void {
-    console.log(i)
+    this.DetailsList[i].amount = this.DetailsList[i].qty * this.DetailsList[i].rate
   }
 
 }

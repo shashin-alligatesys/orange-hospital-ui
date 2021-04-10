@@ -255,8 +255,9 @@ export class IpdPackageMasterComponent implements OnInit {
       this.DetailsList.splice(i, 1);
     }
   }
+  
   calculateTotal(i): void {
-    console.log(i)
+    this.DetailsList[i].amount = this.DetailsList[i].qty * this.DetailsList[i].rate
   }
 
 }

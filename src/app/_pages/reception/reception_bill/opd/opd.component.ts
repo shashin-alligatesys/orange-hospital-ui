@@ -6,6 +6,9 @@ import Swal from 'sweetalert2';
 import { AdmissionService } from 'src/app/_service/reception/reception_reception/admission.service';
 import { OrganizationMasterService } from 'src/app/_service/static/organization-master.service';
 import { SubdepartmentService } from 'src/app/_service/master/other_masters1/subdepartment.service';
+import { GroupService } from 'src/app/_service/master/other_masters1/group.service';
+import { OpdService } from 'src/app/_service/master/test_master/opd.service';
+import { PlasticMoneyMasterService } from 'src/app/_service/master/other_masters1/plastic-money-master.service';
 
 @Component({
   selector: 'app-opd',
@@ -19,7 +22,10 @@ export class OpdComponent implements OnInit {
     private registrationService:RegistrationService,
     private admissionService:AdmissionService,
     private organizationMasterService:OrganizationMasterService,
-    private subdepartmentService:SubdepartmentService) { }
+    private subdepartmentService:SubdepartmentService,
+    private groupService:GroupService,
+    private opdService:OpdService,
+    private plasticMoneyMasterService:PlasticMoneyMasterService) { }
 
   form: any = {};
   isSubmit = false;
@@ -28,6 +34,11 @@ export class OpdComponent implements OnInit {
   spinner = false
   OrganizationList: any = [];
   SubDeptList: any = [];
+  GruopList: any = [];
+  ParticularsList:any = [];
+  isPLASTICMONEY = false
+  isCHEQUE = false
+  PlasticInstrumentNameList: any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -37,6 +48,67 @@ export class OpdComponent implements OnInit {
     this.getOrganizationList()
     this.getSubDeptList()
     this.form.billType="CASH"
+    this.getGruopList()
+  }
+
+  calculateTotal(i): void {
+    this.DetailsList[i].amount = this.DetailsList[i].qty * this.DetailsList[i].rate
+  }
+
+  typeChange():void{
+    console.log(this.form.methodOfPayment)
+
+    this.isPLASTICMONEY = false
+    this.isCHEQUE = false
+
+    if(this.form.methodOfPayment=="PLASTICMONEY"){
+      this.isPLASTICMONEY = true
+      this.getPlasticInstrumentNameList()
+    }
+    if(this.form.methodOfPayment=="CHEQUE"){
+      this.isCHEQUE = true
+    }
+
+  }
+
+  getPlasticInstrumentNameList(): void {
+    this.plasticMoneyMasterService.get().subscribe(
+      data => {
+        this.PlasticInstrumentNameList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+  }
+
+  fillParticularsData(i): void{
+    const SortRow=this.ParticularsList.find((e => e.id == Number(this.DetailsList[i].testName)))
+    this.DetailsList[i].qty = 1
+    this.DetailsList[i].rate = SortRow.rate
+    this.DetailsList[i].amount = SortRow.rate
+  }
+
+  getParticularsList(i):void{
+    this.opdService.getParticularsListByGroup(this.DetailsList[i].group).subscribe(
+      data => {
+        this.ParticularsList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+  }
+
+  getGruopList(): void {
+    this.groupService.getGruopListByDepartmentAndSuperGroup(17,35).subscribe(
+      data => {
+        this.GruopList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
   }
 
   getSubDeptList(): void{
@@ -144,4 +216,74 @@ export class OpdComponent implements OnInit {
 
   onSubmit(): void {
   }
+
+
+
+
+  
+  public DetailsList: any[] = [{
+    sno: 1,
+    id: 0,
+    testName: '',
+    procedureDoctor: '',
+    qty: 0,
+    rate: 0,
+    amount: 0
+  }];
+
+  addAddress() {
+    this.DetailsList.push({
+      sno: this.DetailsList.length + 1,
+      id: 0,
+      testName: '',
+      procedureDoctor: '',
+      qty: 0,
+      rate: 0,
+      amount: 0
+    });
+  }
+
+  removeAddress(i: number, id) {
+    if (confirm("Are you sure you want to remove it?")) {
+      if (id != 0) {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Do you want this!",
+          icon: 'warning',
+          width: 300,
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // this.service.deleteDetailById(id).subscribe(
+            //   data => {
+            //     if (data.status == 200) {
+            //       Swal.fire({
+            //         title: 'Deleted!',
+            //         text: 'Data Deleted Success',
+            //         icon: 'success',
+            //         confirmButtonText: 'OK',
+            //         width: 300,
+            //         timer: 1500
+            //       }).then((result) => {
+            //         if (result.isConfirmed) {
+            //           window.location.reload();
+            //         }
+            //       });
+            //     }
+            //   },
+            //   err => {
+            //     console.log(err)
+            //   }
+            // );
+          }
+        })
+      }
+      this.DetailsList.splice(i, 1);
+    }
+  }
+  
+
 }

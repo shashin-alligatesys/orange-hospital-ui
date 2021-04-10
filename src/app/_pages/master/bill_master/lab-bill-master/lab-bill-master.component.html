@@ -13,8 +13,6 @@
             <div class="card-body overflow-auto">
                 <form name="form" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" novalidate>
 
-                    <input type="hidden" name="id" [(ngModel)]="form.id" #id="ngModel"> 
-                    <h2 *ngIf="isEdit" style="color: orangered;"><b>Edit Mode</b></h2>
 
                     <div class="row">
                         
@@ -23,23 +21,20 @@
                                 <div class="form-group row">
 
                                     <div class="col-md-12 col-sm-12">
-                                        <section class="card-body border" *ngFor="let dataItem of DetailsList; let i = index;">
+                                        <section class="card-body border bg-light" *ngFor="let dataItem of DetailsList; let i = index;">
                                             <div class="row">
-                                                <div class="col-6">
+                                                <!-- <div class="col-6">
                                                     <h4>List : {{i + 1}}</h4>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-6 text-right">
-                                                    <button type="button" class="btn btn-danger btn-sm" (click)="removeAddress(i)">&nbsp;-&nbsp;</button>
+                                                    <!-- <button type="button" class="btn btn-danger btn-sm" (click)="removeAddress(i)">&nbsp;-&nbsp;</button> -->
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-2">
-                                                    <label for="itemNo">SR NO</label>
-                                                    <input type="number" class="form-control" name="sno" [ngModelOptions]="{standalone: true}" [(ngModel)]="dataItem.sno" />
-                                                </div>
+                                               
                                                 <div class="col-md-4">
                                                     <label>Groups</label>
-                                                    <select class="form-control" [(ngModel)]="dataItem.group" [ngModelOptions]="{standalone: true}" name="testName">
+                                                    <select class="form-control" [(ngModel)]="dataItem.group" (change)="getParticularsList(i)" [ngModelOptions]="{standalone: true}" name="testName">
                                                         <option *ngFor="let r of GruopList" [ngValue]="r.id" style="color: black;">
                                                             {{r.groupName}}
                                                         </option>
@@ -47,9 +42,9 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>Particulars</label>
-                                                    <select class="form-control" [(ngModel)]="dataItem.testName" [ngModelOptions]="{standalone: true}" name="testName">
-                                                        <option *ngFor="let r of category" [ngValue]="r.id" style="color: black;">
-                                                            {{r.name}}
+                                                    <select class="form-control" [(ngModel)]="dataItem.testName" (change)="fillParticularsData(i)" [ngModelOptions]="{standalone: true}" name="testName">
+                                                        <option *ngFor="let r of ParticularsList" [ngValue]="r.id" style="color: black;">
+                                                            {{r.testName}}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -59,24 +54,19 @@
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="cleaningTax">Rate</label>
-                                                    <input (keyup)="calculateTotal(i)" type="number" [ngModelOptions]="{standalone: true}" name="rate" [(ngModel)]="dataItem.rate" class="form-control">
+                                                    <input type="number" [ngModelOptions]="{standalone: true}" name="rate" [(ngModel)]="dataItem.rate" class="form-control" >
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="amount">Amount </label>
-                                                    <input (keyup)="calculateTotal(i)" type="number" [ngModelOptions]="{standalone: true}" name="amount" [(ngModel)]="dataItem.amount" class="form-control">
+                                                    <input type="number"  [ngModelOptions]="{standalone: true}" name="amount" [(ngModel)]="dataItem.amount" class="form-control" >
                                                 </div>
                                             </div>
                                         </section>
                                         <section>
-                                            <button type="button" class="btn btn-success mb-2 mt-2" (click)="addAddress()">+</button>
+                                            <!-- <button type="button" class="btn btn-success mb-2 mt-2" (click)="addAddress()">+</button> -->
                                         </section>
                                     </div>
-                                    <div class="form-group col-md-12 col-sm-12">
-                                        <div class="col-md-4 float-right">
-                                            <label for="total">Total</label>
-                                            <input type="number" readonly class="form-control" name="total" [(ngModel)]="form.total" required #total="ngModel" />
-                                        </div>
-                                    </div>
+
                         
                                 </div>
                             </div>

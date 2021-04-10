@@ -3,6 +3,7 @@ import { AdmissionService } from 'src/app/_service/reception/reception_reception
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { ReceiptService } from 'src/app/_service/account/entry/receipt.service';
+import { PlasticMoneyMasterService } from 'src/app/_service/master/other_masters1/plastic-money-master.service';
 
 @Component({
   selector: 'app-receipt',
@@ -13,7 +14,8 @@ export class ReceiptComponent implements OnInit {
 
   constructor(private admissionService:AdmissionService,
     private activatedroute: ActivatedRoute,
-    private service:ReceiptService) { }
+    private service:ReceiptService,
+    private plasticMoneyMasterService:PlasticMoneyMasterService) { }
 
   form: any = {};
   isSubmit = false;
@@ -22,6 +24,7 @@ export class ReceiptComponent implements OnInit {
   spinner = false
   isPLASTICMONEY = false
   isCHEQUE = false
+  PlasticInstrumentNameList: any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -36,6 +39,20 @@ export class ReceiptComponent implements OnInit {
 
     });
     this.onTable()
+    this.getPlasticInstrumentNameList()
+  }
+
+  
+
+  getPlasticInstrumentNameList(): void {
+    this.plasticMoneyMasterService.get().subscribe(
+      data => {
+        this.PlasticInstrumentNameList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
   }
 
   onTable(): void {

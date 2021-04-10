@@ -60,7 +60,7 @@
 
                             <div class="form-group col-md-3 col-sm-3">
                                 <label for="name">UHID </label>
-                                <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid" (focusout)="getPatientDetails()" placeholder="Enter For Search"  #uhid="ngModel" />
+                                <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid" (focusout)="getPatientDetails()" required placeholder="Enter For Search"  #uhid="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && uhid.invalid">
                                     Required Field !
                                 </div>
@@ -109,7 +109,7 @@
 
                             <div class="form-group col-md-4 col-sm-4">
                                 <label for="name">Ward Name </label>
-                                <input type="text" class="form-control" name="wardname" [(ngModel)]="form.wardname"  #wardname="ngModel" />
+                                <input type="text" class="form-control" name="wardname" [(ngModel)]="form.wardname" disabled #wardname="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && wardname.invalid">
                                     Required Field !
                                 </div>
@@ -117,7 +117,7 @@
 
                             <div class="form-group col-md-4 col-sm-4">
                                 <label for="name">Patient Name </label>
-                                <input type="text" class="form-control" name="name" [(ngModel)]="form.name"  #name="ngModel" />
+                                <input type="text" class="form-control" name="name" [(ngModel)]="form.name" required #name="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && name.invalid">
                                     Required Field !
                                 </div>
@@ -130,7 +130,7 @@
 
                             <div class="form-group col-md-4 col-sm-4">
                                 <label for="name">User </label>
-                                <input type="text" class="form-control" name="userName" [(ngModel)]="form.userName"  #userName="ngModel" />
+                                <input type="text" class="form-control" name="userName" [(ngModel)]="form.userName" disabled #userName="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && userName.invalid">
                                     Required Field !
                                 </div>
@@ -142,7 +142,7 @@
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && organization.invalid">
                                     Required Field !
                                 </div> -->
-                                <select class="form-control" [(ngModel)]="form.organization" [ngModelOptions]="{standalone: true}" required  #organization="ngModel" name="organization">
+                                <select class="form-control" [(ngModel)]="form.organization" [ngModelOptions]="{standalone: true}" #organization="ngModel" name="organization">
                                     <option *ngFor="let o of OrganizationList" [ngValue]="o.id" style="color: black;">
                                         {{o.organization}}
                                     </option>
@@ -153,7 +153,13 @@
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
                                 <label for="name">Sex </label>
-                                <input type="text" class="form-control" name="sex" [(ngModel)]="form.sex"  #sex="ngModel" />
+                                <!-- <input type="text" class="form-control" name="sex" [(ngModel)]="form.sex"  #sex="ngModel" /> -->
+                                <select class="form-control col-md-4 col-sm-4" name="sex" [(ngModel)]="form.sex" #sex="ngModel">
+                                    <option value="MALE">MALE</option>
+                                    <option value="FEMALE">FEMALE</option>
+                                    <option value="HERMAPHRODITE">HERMAPHRODITE</option>
+                                    <option value="ENANCH">ENANCH</option>
+                                </select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && sex.invalid">
                                     Required Field !
                                 </div>
@@ -228,9 +234,10 @@
                             <div class="row">
                                 <div class="form-group col-md-3 col-sm-3">
                                     <label for="name">Admitted DEPT </label>
-                                    <select class="form-control" name="admitteddept" [(ngModel)]="form.admitteddept" required #admitteddept="ngModel">
-                                        <option selected="selected" value="2">IPD</option>
-                                    </select>
+                                    <!-- <select class="form-control" name="admitteddept" [(ngModel)]="form.admitteddept" required #admitteddept="ngModel"> -->
+                                        <select class="form-control" name="admitteddept" [(ngModel)]="form.admitteddept" required #admitteddept="ngModel">
+                                            <option selected="selected" value="2">IPD</option>
+                                        </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && admitteddept.invalid">
                                         Required Field !
                                     </div>
@@ -380,7 +387,7 @@
                     <div class="card card-body overflow-auto">
                         <div class="form-group row">
 
-                            <div class="form-group col-md-3 col-sm-3">
+                            <!-- <div class="form-group col-md-3 col-sm-3">
                                 <label for="name">IPD No </label>
                                 <input type="text" class="form-control" name="ipdNo" [(ngModel)]="form.ipdNo"  #ipdNo="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && ipdNo.invalid">
@@ -439,7 +446,7 @@
 
                             <div class="form-group col-md-3 col-sm-3">
                                 <button class="btn btn-info mt-1">Clear Selection</button>
-                            </div>
+                            </div> -->
 
                             <div class="form-group col-md-12 col-sm-12">
                                 <div class="row">

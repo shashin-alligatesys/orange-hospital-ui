@@ -5,6 +5,7 @@ import { RegistrationService } from '../../../../_service/reception/reception_re
 import { OrganizationMasterService } from '../../../../_service/static/organization-master.service';
 import { DoctorReferenceService } from '../../../../_service/static/doctor-reference.service';
 import { ConsultantMasterService } from '../../../../_service/static/consultant-master.service';
+import { MasterCategoryService } from '../../../../_service/static/master-category.service';
 
 @Component({
   selector: 'app-registration',
@@ -14,9 +15,10 @@ import { ConsultantMasterService } from '../../../../_service/static/consultant-
 export class RegistrationComponent implements OnInit {
 
   constructor(private registrationService: RegistrationService,
-    private organizationMasterService:OrganizationMasterService,
-    private doctorReferenceService:DoctorReferenceService,
-    private consultantMasterService:ConsultantMasterService) { }
+    private organizationMasterService: OrganizationMasterService,
+    private doctorReferenceService: DoctorReferenceService,
+    private consultantMasterService: ConsultantMasterService,
+    private masterCategoryService: MasterCategoryService) { }
 
   form: any = {};
   isSubmit = false;
@@ -26,7 +28,17 @@ export class RegistrationComponent implements OnInit {
   OrganizationList: any = [];
   DoctorReferenceList: any = [];
   ConsultantList: any = [];
-  
+
+
+  IdnoCaptionList: any = [];
+  AreaList: any = [];
+  CityList: any = [];
+  StateList: any = [];
+  CountryList: any = [];
+  PatientTypeList: any = [];
+  ReligionList: any = [];
+  OccupationList: any = [];
+
   ngOnInit(): void {
     this.form.uhid = 1
     this.onTable()
@@ -35,10 +47,88 @@ export class RegistrationComponent implements OnInit {
     this.getOrganizationList()
     this.getDoctorReferenceList()
     this.getConsultantList()
+    this.getCategories()
   }
 
-  
-  getConsultantList(): void{
+  getCategories(): void {
+
+    this.masterCategoryService.getCategoryList("IDNO").subscribe(
+      data => {
+        this.IdnoCaptionList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+
+    this.masterCategoryService.getCategoryList("area").subscribe(
+      data => {
+        this.AreaList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+
+    this.masterCategoryService.getCategoryList("City").subscribe(
+      data => {
+        this.CityList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+
+    this.masterCategoryService.getCategoryList("State").subscribe(
+      data => {
+        this.StateList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+
+    this.masterCategoryService.getCategoryList("Country").subscribe(
+      data => {
+        this.CountryList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+
+    this.masterCategoryService.getCategoryList("PATIENT TYPE").subscribe(
+      data => {
+        this.PatientTypeList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+
+    this.masterCategoryService.getCategoryList("Religion").subscribe(
+      data => {
+        this.ReligionList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+
+    this.masterCategoryService.getCategoryList("Occupation").subscribe(
+      data => {
+        this.OccupationList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+
+
+  }
+
+
+  getConsultantList(): void {
     this.consultantMasterService.getConsultantList().subscribe(
       data => {
         this.ConsultantList = data.body
@@ -49,7 +139,7 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  getDoctorReferenceList(): void{
+  getDoctorReferenceList(): void {
     this.doctorReferenceService.getDoctorReferenceList().subscribe(
       data => {
         this.DoctorReferenceList = data.body
@@ -60,7 +150,7 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  getOrganizationList(): void{
+  getOrganizationList(): void {
     this.organizationMasterService.getOrganizationList().subscribe(
       data => {
         this.OrganizationList = data.body
@@ -71,7 +161,7 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  getMLCNO(): void{
+  getMLCNO(): void {
     this.registrationService.getNextMLC().subscribe(
       data => {
         this.form.mlcno = data.body
@@ -82,7 +172,7 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  getNextTOKEN(): void{
+  getNextTOKEN(): void {
     this.registrationService.getNextTOKEN().subscribe(
       data => {
         this.form.tokenno = data.body
@@ -146,7 +236,7 @@ export class RegistrationComponent implements OnInit {
 
   onNew(): void {
     window.location.assign(window.location.href)
-    
+
   }
   onSave(): void {
     if (this.isEdit) {
@@ -294,7 +384,7 @@ export class RegistrationComponent implements OnInit {
 
     if ((yearAge > 0) || (monthAge > 0) || (dateAge > 0))
       this.ageString = yearAge + "Year(s) " + monthAge + "Month(s) " + dateAge + "Day(s)";
-      this.form.age=this.ageString;
+    this.form.age = this.ageString;
   }
 
 }
