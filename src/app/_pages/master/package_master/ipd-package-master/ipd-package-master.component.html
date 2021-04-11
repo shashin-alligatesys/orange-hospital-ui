@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Organization Name</label>
-                                    <select class="form-control" [(ngModel)]="form.organizationCode" [ngModelOptions]="{standalone: true}" required  #organizationCode="ngModel" name="organizationCode">
+                                    <select class="form-control" [(ngModel)]="form.organizationCode" [ngModelOptions]="{standalone: true}" (change)="getParticularsList()" required  #organizationCode="ngModel" name="organizationCode">
                                         <option *ngFor="let o of OrganizationList" [ngValue]="o.id" style="color: black;">
                                             {{o.organization}}
                                         </option>
@@ -75,15 +75,23 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                <div class="col-md-1">
                                                     <label for="itemNo">SR NO</label>
                                                     <input type="number" class="form-control" name="sno" [ngModelOptions]="{standalone: true}" [(ngModel)]="dataItem.sno" />
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <label>Particulars</label>
-                                                    <select class="form-control" [(ngModel)]="dataItem.testName" [ngModelOptions]="{standalone: true}" name="testName">
-                                                        <option *ngFor="let r of category" [ngValue]="r.id" style="color: black;">
-                                                            {{r.name}}
+                                                    <select class="form-control" [(ngModel)]="dataItem.testName" (change)="fillParticularsData(i)" [ngModelOptions]="{standalone: true}" name="testName">
+                                                        <option *ngFor="let r of ParticularsList" [ngValue]="r.testName" style="color: black;">
+                                                            {{r.testName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label>Procedure Doctor</label>
+                                                    <select class="form-control" [(ngModel)]="dataItem.procedureDoctor" [ngModelOptions]="{standalone: true}" #procedureDoctor="ngModel" name="procedureDoctor">
+                                                        <option *ngFor="let c of ConsultantList" [ngValue]="c.id" style="color: black;">
+                                                            {{c.name}}
                                                         </option>
                                                     </select>
                                                 </div>

@@ -9,6 +9,7 @@ import { SubdepartmentService } from 'src/app/_service/master/other_masters1/sub
 import { GroupService } from 'src/app/_service/master/other_masters1/group.service';
 import { OpdService } from 'src/app/_service/master/test_master/opd.service';
 import { PlasticMoneyMasterService } from 'src/app/_service/master/other_masters1/plastic-money-master.service';
+import { ConcessionService } from 'src/app/_service/master/other_masters1/concession.service';
 
 @Component({
   selector: 'app-opd',
@@ -25,7 +26,8 @@ export class OpdComponent implements OnInit {
     private subdepartmentService:SubdepartmentService,
     private groupService:GroupService,
     private opdService:OpdService,
-    private plasticMoneyMasterService:PlasticMoneyMasterService) { }
+    private plasticMoneyMasterService:PlasticMoneyMasterService,
+    private concessionService:ConcessionService) { }
 
   form: any = {};
   isSubmit = false;
@@ -39,6 +41,7 @@ export class OpdComponent implements OnInit {
   isPLASTICMONEY = false
   isCHEQUE = false
   PlasticInstrumentNameList: any = [];
+  ConcessionList:any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -49,18 +52,62 @@ export class OpdComponent implements OnInit {
     this.getSubDeptList()
     this.form.billType="CASH"
     this.getGruopList()
+    this.getConcessionList()
+  }
+
+  fillConcessionData():void{
+    // filter and get percents
+    const data=this.ConcessionList.find((e => e.id == Number(this.form.concessionType)))
+    this.form.concessionPer = data.concession
+
+    // calculate modulas
+    const concessionTotal =Number(this.form.total) * Number(data.concession)/100;
+    this.form.concession = concessionTotal;
+
+    //Total Caluculate
+    this.form.nettotal = Number(this.form.total) - Number(concessionTotal)
+    this.form.paidAmount = Number(this.form.total) - Number(concessionTotal)
+  }
+
+  getConcessionList():void{
+    this.concessionService.get().subscribe(
+      data => {
+        this.ConcessionList = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
   }
 
   calculateTotal(i): void {
     this.DetailsList[i].amount = this.DetailsList[i].qty * this.DetailsList[i].rate
+    this.calculateFinalTotal()
+  }
+
+  calculateFinalTotal() {
+    var amount = 0;
+    this.DetailsList.forEach(value => {
+      amount = amount + value.amount;
+    });
+    this.form.total = amount;
+
+    this.calculateConcession()
+    this.calculateDue()
+  }
+
+  calculateConcession() {
+  this.form.nettotal = this.form.total
+  this.form.paidAmount = this.form.total
+  }
+  
+  calculateDue() {
+    this.form.due =Number(this.form.nettotal) - Number(this.form.paidAmount)
   }
 
   typeChange():void{
-    console.log(this.form.methodOfPayment)
-
     this.isPLASTICMONEY = false
     this.isCHEQUE = false
-
     if(this.form.methodOfPayment=="PLASTICMONEY"){
       this.isPLASTICMONEY = true
       this.getPlasticInstrumentNameList()
@@ -77,25 +124,26 @@ export class OpdComponent implements OnInit {
         this.PlasticInstrumentNameList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
 
   fillParticularsData(i): void{
-    const SortRow=this.ParticularsList.find((e => e.id == Number(this.DetailsList[i].testName)))
+    const SortRow=this.ParticularsList[i].find((e => e.id == Number(this.DetailsList[i].testName)))
     this.DetailsList[i].qty = 1
     this.DetailsList[i].rate = SortRow.rate
     this.DetailsList[i].amount = SortRow.rate
+    this.calculateTotal(i)
   }
 
   getParticularsList(i):void{
     this.opdService.getParticularsListByGroup(this.DetailsList[i].group).subscribe(
       data => {
-        this.ParticularsList = data.body
+        this.ParticularsList[i] = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -106,7 +154,7 @@ export class OpdComponent implements OnInit {
         this.GruopList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -118,7 +166,7 @@ export class OpdComponent implements OnInit {
         this.form.subDept = 28
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -129,7 +177,7 @@ export class OpdComponent implements OnInit {
         this.OrganizationList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -140,7 +188,7 @@ export class OpdComponent implements OnInit {
         this.ConsultantList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -151,13 +199,12 @@ export class OpdComponent implements OnInit {
         this.DoctorReferenceList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
   
   getPatientDetails_IPD(): void{
-    // let ipd = this.form.ipdno
     if(this.form.ipdno != null && this.form.ipdno.length>=0 && this.form.ipdno != ""){
       this.spinner = true;
       this.admissionService.getPatientDetailsByIPD(this.form.ipdno).subscribe(
@@ -173,12 +220,11 @@ export class OpdComponent implements OnInit {
             this.form = {}
           }else{
             this.form = data.body
-            // this.form.ipdno = ipd
           }
           this.spinner = false;
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     }
@@ -208,7 +254,7 @@ export class OpdComponent implements OnInit {
           this.spinner = false;
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     }
@@ -218,9 +264,6 @@ export class OpdComponent implements OnInit {
   }
 
 
-
-
-  
   public DetailsList: any[] = [{
     sno: 1,
     id: 0,
@@ -275,7 +318,7 @@ export class OpdComponent implements OnInit {
             //     }
             //   },
             //   err => {
-            //     console.log(err)
+            //     console.error(err)
             //   }
             // );
           }

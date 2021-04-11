@@ -31,4 +31,12 @@ export class IpdService {
     return this.http.get(API_URL + 'findAll', { responseType: 'json' });
   }
 
+  getParticularsListByOrganization(organization): Observable<any> {
+    return this.http.get(API_URL + 'getParticularsListByOrganization/'+organization, { responseType: 'json' });
+  }
+
+  getParticularsListByGroup(group): Observable<any> {
+    return this.http.get(API_URL + 'getParticularsListByGroup/'+group, { responseType: 'json' });
+  }
+
 }

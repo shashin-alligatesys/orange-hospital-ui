@@ -39,7 +39,7 @@ export class OrganizationComponent implements OnInit {
         this.CountryCodeList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -49,7 +49,7 @@ export class OrganizationComponent implements OnInit {
         this.DesignationList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -59,7 +59,7 @@ export class OrganizationComponent implements OnInit {
         this.StateList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -69,7 +69,7 @@ export class OrganizationComponent implements OnInit {
         this.CityList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -80,7 +80,7 @@ export class OrganizationComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -119,7 +119,7 @@ export class OrganizationComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -174,7 +174,7 @@ export class OrganizationComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -216,7 +216,7 @@ export class OrganizationComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

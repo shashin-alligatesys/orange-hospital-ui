@@ -208,7 +208,7 @@
                                             <div class="col-md-4">
                                                 <label>Particulars</label>
                                                 <select class="form-control" [(ngModel)]="dataItem.testName" (change)="fillParticularsData(i)" [ngModelOptions]="{standalone: true}" name="testName">
-                                                    <option *ngFor="let r of ParticularsList" [ngValue]="r.id" style="color: black;">
+                                                    <option *ngFor="let r of ParticularsList[i]" [ngValue]="r.id" style="color: black;">
                                                         {{r.testName}}
                                                     </option>
                                                 </select>
@@ -334,48 +334,52 @@
                                 </div>
                                 <div class="col-md-6 col-sm-6 border-left">
                                     <div class="row">
-                                        <div class="form-group col-md-4 col-sm-4">
-                                            <label for="name">Total</label>
-                                            <input type="text" class="form-control" name="total" [(ngModel)]="form.total" #total="ngModel" />
-                                            <div class="text-danger" role="alert" *ngIf="f.submitted && total.invalid">
-                                                Required Field !
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <div class="row">
+                                                <label for="name" class="col-md-6 col-sm-6">Total</label>
+                                                <input type="text" class="form-control col-md-6 col-sm-6" name="total" [(ngModel)]="form.total" disabled #total="ngModel" />
+                                                <div class="text-danger" role="alert" *ngIf="f.submitted && total.invalid">
+                                                    Required Field !
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-4 col-sm-4">
-                                            <label for="name">Concession</label>
-                                            <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />
-                                            <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />%
-                                            <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />
-                                            <div class="text-danger" role="alert" *ngIf="f.submitted && concession.invalid">
-                                                Required Field !
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <div class="row">
+                                                <label for="name" class="col-md-3 col-sm-3">Concession</label>
+                                                <select class="form-control col-md-2 col-sm-2" [(ngModel)]="form.concessionType" (change)="fillConcessionData()" [ngModelOptions]="{standalone: true}" name="concessionType">
+                                                    <option *ngFor="let r of ConcessionList" [ngValue]="r.id" style="color: black;">
+                                                        {{r.concessionName}}
+                                                    </option>
+                                                </select>
+                                                <input type="text" class="form-control col-md-2 col-sm-2" name="concessionPer" [(ngModel)]="form.concessionPer" #concessionPer="ngModel" />&nbsp;=&nbsp;
+                                                <input type="text" class="form-control col-md-3 col-sm-3" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-4 col-sm-4">
-                                            <label for="name">Other Concession</label>
-                                            <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />% No
-                                            <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />=
-                                            <input type="text" class="form-control" name="concession" [(ngModel)]="form.concession" #concession="ngModel" />
-                                            <div class="text-danger" role="alert" *ngIf="f.submitted && concession.invalid">
-                                                Required Field !
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <div class="row">
+                                                <label for="name" class="col-md-3 col-sm-3">Other Concession</label>
+                                                <input type="text" class="form-control col-md-3 col-sm-3" name="otherConcessionType" [(ngModel)]="form.otherConcessionType" #otherConcessionType="ngModel" />
+                                                <input type="text" class="form-control col-md-2 col-sm-2" name="otherConcessionPer" [(ngModel)]="form.otherConcessionPer" #otherConcessionPer="ngModel" />&nbsp;%&nbsp;
+                                                <input type="text" class="form-control col-md-3 col-sm-3" name="otherConcession" [(ngModel)]="form.otherConcession" #otherConcession="ngModel" />
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-4">
                                             <label for="name">NetTotal</label>
-                                            <input type="text" class="form-control" name="nettotal" [(ngModel)]="form.nettotal" #nettotal="ngModel" />
+                                            <input type="text" class="form-control" name="nettotal" [(ngModel)]="form.nettotal" disabled #nettotal="ngModel" />
                                             <div class="text-danger" role="alert" *ngIf="f.submitted && nettotal.invalid">
                                                 Required Field !
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-4">
                                             <label for="name">Paid Amount</label>
-                                            <input type="text" class="form-control" name="paidAmount" [(ngModel)]="form.paidAmount" #paidAmount="ngModel" />
+                                            <input type="text" class="form-control" name="paidAmount" [(ngModel)]="form.paidAmount" (keyup)="calculateDue()" #paidAmount="ngModel" />
                                             <div class="text-danger" role="alert" *ngIf="f.submitted && paidAmount.invalid">
                                                 Required Field !
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-4">
                                             <label for="name">Due</label>
-                                            <input type="text" class="form-control" name="due" [(ngModel)]="form.due" #due="ngModel" />
+                                            <input type="text" class="form-control" name="due" [(ngModel)]="form.due" disabled #due="ngModel" />
                                             <div class="text-danger" role="alert" *ngIf="f.submitted && due.invalid">
                                                 Required Field !
                                             </div>

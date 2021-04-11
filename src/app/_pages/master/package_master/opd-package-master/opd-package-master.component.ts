@@ -34,13 +34,20 @@ export class OpdPackageMasterComponent implements OnInit {
     this.getParticularsList()
   }
 
+  fillParticularsData(i): void{
+    const SortRow=this.ParticularsList.find((e => e.id == Number(this.DetailsList[i].testName)))
+    this.DetailsList[i].qty = 1
+    this.DetailsList[i].rate = SortRow.rate
+    this.DetailsList[i].amount = SortRow.rate
+  }
+
   getConsultantList():void{
     this.consultantMasterService.getConsultantList().subscribe(
       data => {
         this.ConsultantList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -51,7 +58,7 @@ export class OpdPackageMasterComponent implements OnInit {
         this.ParticularsList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -62,7 +69,7 @@ export class OpdPackageMasterComponent implements OnInit {
         this.OrganizationList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -73,7 +80,7 @@ export class OpdPackageMasterComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -86,11 +93,10 @@ export class OpdPackageMasterComponent implements OnInit {
       data => {
         console.log(data.body)
         this.DetailsList = data.body
-        this.DetailsList[1].testName =  Number(data.body[1].testCode)
         // testName = testCode ?
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
     this.isEdit = true;
@@ -125,7 +131,7 @@ export class OpdPackageMasterComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -179,7 +185,7 @@ export class OpdPackageMasterComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -221,7 +227,7 @@ export class OpdPackageMasterComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -282,7 +288,7 @@ export class OpdPackageMasterComponent implements OnInit {
                 }
               },
               err => {
-                console.log(err)
+                console.error(err)
               }
             );
           }

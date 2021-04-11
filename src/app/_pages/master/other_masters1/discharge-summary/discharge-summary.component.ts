@@ -70,7 +70,7 @@ export class DischargeSummaryComponent implements OnInit {
 
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -81,7 +81,7 @@ export class DischargeSummaryComponent implements OnInit {
         this.TypeList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -126,7 +126,7 @@ export class DischargeSummaryComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -161,7 +161,7 @@ export class DischargeSummaryComponent implements OnInit {
             }
           },
           err => {
-            console.log(err)
+            console.error(err)
           }
         );
       }
@@ -242,7 +242,7 @@ export class DischargeSummaryComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

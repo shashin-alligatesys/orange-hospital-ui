@@ -45,7 +45,7 @@ export class IpdTestComponent implements OnInit {
         this.SuperGroupList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -54,7 +54,7 @@ export class IpdTestComponent implements OnInit {
         this.GroupList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -63,7 +63,7 @@ export class IpdTestComponent implements OnInit {
         this.SubGroupList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -72,7 +72,7 @@ export class IpdTestComponent implements OnInit {
         this.SubDepartmentList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -81,7 +81,7 @@ export class IpdTestComponent implements OnInit {
         this.OrganizationList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -93,7 +93,7 @@ export class IpdTestComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -140,7 +140,7 @@ export class IpdTestComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -195,7 +195,7 @@ export class IpdTestComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -237,7 +237,7 @@ export class IpdTestComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

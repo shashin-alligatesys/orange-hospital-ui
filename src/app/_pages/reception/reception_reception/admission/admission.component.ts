@@ -52,7 +52,7 @@ export class AdmissionComponent implements OnInit {
         this.ConsultantList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -63,7 +63,7 @@ export class AdmissionComponent implements OnInit {
         this.DoctorReferenceList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -74,7 +74,7 @@ export class AdmissionComponent implements OnInit {
         this.BedList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -85,7 +85,7 @@ export class AdmissionComponent implements OnInit {
         this.OrganizationList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -138,7 +138,7 @@ export class AdmissionComponent implements OnInit {
           this.spinner = false;
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     }
@@ -150,7 +150,7 @@ export class AdmissionComponent implements OnInit {
         this.form.ipdno = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -161,7 +161,7 @@ export class AdmissionComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -203,7 +203,7 @@ export class AdmissionComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -258,7 +258,7 @@ export class AdmissionComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -300,7 +300,7 @@ export class AdmissionComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

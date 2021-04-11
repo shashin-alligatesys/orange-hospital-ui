@@ -32,7 +32,7 @@ export class AppointmentSchedulerComponent implements OnInit {
         this.ConsultantList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -43,7 +43,7 @@ export class AppointmentSchedulerComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -83,7 +83,7 @@ export class AppointmentSchedulerComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -138,7 +138,7 @@ export class AppointmentSchedulerComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -180,7 +180,7 @@ export class AppointmentSchedulerComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

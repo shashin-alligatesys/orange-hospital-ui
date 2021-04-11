@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { IpdPackageMasterService } from '../../../../_service/master/package_master/ipd-package-master.service';
 import { OrganizationMasterService } from 'src/app/_service/static/organization-master.service';
+import { IpdService } from 'src/app/_service/master/test_master/ipd.service';
+import { ConsultantMasterService } from 'src/app/_service/static/consultant-master.service';
 
 @Component({
   selector: 'app-ipd-package-master',
@@ -11,18 +13,55 @@ import { OrganizationMasterService } from 'src/app/_service/static/organization-
 export class IpdPackageMasterComponent implements OnInit {
 
   constructor(private service: IpdPackageMasterService,
-    private organizationMasterService: OrganizationMasterService) { }
+    private organizationMasterService: OrganizationMasterService,
+    private ipdService:IpdService,
+    private consultantMasterService:ConsultantMasterService) { }
 
   form: any = {};
   isSubmit = false;
   isEdit = false;
   table_data: any = [];
   OrganizationList: any = [];
+  ParticularsList:any = [];
+  ConsultantList:any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.onTable()
     this.getOrganizationList()
+    this.getConsultantList()
+    this.form.organizationCode = 70
+    this.getParticularsList()
+  }
+
+  fillParticularsData(i): void{
+    const SortRow=this.ParticularsList.find((e => e.id == Number(this.DetailsList[i].testName)))
+    console.log(SortRow)
+    this.DetailsList[i].qty = 1
+    this.DetailsList[i].rate = SortRow.rate
+    this.DetailsList[i].amount = SortRow.rate
+  }
+
+  getConsultantList():void{
+    this.consultantMasterService.getConsultantList().subscribe(
+      data => {
+        this.ConsultantList = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
+  }
+
+  getParticularsList(): void{
+    this.ipdService.getParticularsListByOrganization(this.form.organizationCode).subscribe(
+      data => {
+        this.ParticularsList = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
   }
 
   getOrganizationList(): void {
@@ -31,7 +70,7 @@ export class IpdPackageMasterComponent implements OnInit {
         this.OrganizationList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -42,7 +81,7 @@ export class IpdPackageMasterComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -53,10 +92,12 @@ export class IpdPackageMasterComponent implements OnInit {
     this.form.organizationCode = Number(row.organizationCode)
     this.service.getDetailsById(row.id).subscribe(
       data => {
+        console.log(data.body)
         this.DetailsList = data.body
+        // testName = testCode ?
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
     this.isEdit = true;
@@ -91,7 +132,7 @@ export class IpdPackageMasterComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -145,7 +186,7 @@ export class IpdPackageMasterComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -187,7 +228,7 @@ export class IpdPackageMasterComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -198,6 +239,7 @@ export class IpdPackageMasterComponent implements OnInit {
     sno: 1,
     id: 0,
     testName: '',
+    procedureDoctor: '',
     qty: 0,
     rate: 0,
     amount: 0
@@ -208,6 +250,7 @@ export class IpdPackageMasterComponent implements OnInit {
       sno: this.DetailsList.length + 1,
       id: 0,
       testName: '',
+      procedureDoctor: '',
       qty: 0,
       rate: 0,
       amount: 0
@@ -246,7 +289,7 @@ export class IpdPackageMasterComponent implements OnInit {
                 }
               },
               err => {
-                console.log(err)
+                console.error(err)
               }
             );
           }
