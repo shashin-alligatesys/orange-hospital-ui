@@ -11,19 +11,21 @@
                 </div>
             </div>
             <div class="card-body overflow-auto">
-                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                <form name="form" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" novalidate>
 
+                    <input type="hidden" name="id" [(ngModel)]="form.id" #id="ngModel"> 
+                    <h2 *ngIf="isEdit" style="color: orangered;"><b>Edit Mode</b></h2>
 
                     <div class="row">
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">Bill Type</label>
                             <div class="form-group row">
                                 <div class="form-check col-md-4">
-                                    <input class="form-check-input" type="radio" value="CASH" checked name="billType" [(ngModel)]="form.billType" #billType="ngModel">
+                                    <input class="form-check-input" type="radio" value="CASH" checked name="billType" (change)="billTypeChange()" [(ngModel)]="form.billType" #billType="ngModel">
                                     <label class="form-check-label">CASH</label>
                                 </div>
                                 <div class="form-check col-md-4">
-                                    <input class="form-check-input" type="radio" value="CREDIT" name="billType" [(ngModel)]="form.billType" #billType="ngModel">
+                                    <input class="form-check-input" type="radio" value="CREDIT" name="billType" (change)="billTypeChange()" [(ngModel)]="form.billType" #billType="ngModel">
                                     <label class="form-check-label">CREDIT</label>
                                 </div>
                             </div>
@@ -79,7 +81,7 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">Organization</label>
-                            <select class="form-control" [(ngModel)]="form.organization" [ngModelOptions]="{standalone: true}" required #organization="ngModel" name="organization">
+                            <select class="form-control" [(ngModel)]="form.organization" [ngModelOptions]="{standalone: true}" disabled required #organization="ngModel" name="organization">
                                 <option *ngFor="let o of OrganizationList" [ngValue]="o.id" style="color: black;">
                                     {{o.organization}}
                                 </option>
@@ -109,7 +111,7 @@
                         </div>
                         <div class="form-group col-md-2 col-sm-2">
                             <label for="name">Sex</label>
-                            <select class="form-control" name="sex" [(ngModel)]="form.sex" required #sex="ngModel">
+                            <select class="form-control" name="sex" [(ngModel)]="form.sex" disabled  #sex="ngModel">
                                 <option value="MALE">MALE</option>
                                 <option value="FEMALE">FEMALE</option>
                                 <option value="HERMAPHRODITIC">HERMAPHRODITIC</option>
@@ -121,7 +123,7 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">Age</label>
-                            <input type="text" class="form-control" name="age" [(ngModel)]="form.age" #age="ngModel" />
+                            <input type="text" class="form-control" name="age" [(ngModel)]="form.age" disabled #age="ngModel" />
                             <div class="text-danger" role="alert" *ngIf="f.submitted && age.invalid">
                                 Required Field !
                             </div>
@@ -199,7 +201,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Groups</label>
-                                                <select class="form-control" [(ngModel)]="dataItem.group" (change)="getParticularsList(i)" [ngModelOptions]="{standalone: true}" name="testName">
+                                                <select class="form-control" [(ngModel)]="dataItem.groupName"  (change)="getParticularsList(i)" [ngModelOptions]="{standalone: true}" name="groupName">
                                                     <option *ngFor="let r of GruopList" [ngValue]="r.id" style="color: black;">
                                                         {{r.groupName}}
                                                     </option>
@@ -207,7 +209,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Particulars</label>
-                                                <select class="form-control" [(ngModel)]="dataItem.testName" (change)="fillParticularsData(i)" [ngModelOptions]="{standalone: true}" name="testName">
+                                                <select class="form-control" [(ngModel)]="dataItem.particulars" (change)="fillParticularsData(i)" [ngModelOptions]="{standalone: true}" name="particulars">
                                                     <option *ngFor="let r of ParticularsList[i]" [ngValue]="r.id" style="color: black;">
                                                         {{r.testName}}
                                                     </option>
@@ -231,7 +233,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="propertyTax">Qty</label>
-                                                <input (keyup)="calculateTotal(i)" type="number" [ngModelOptions]="{standalone: true}" class="form-control" name="qty" [(ngModel)]="dataItem.qty" />
+                                                <input (keyup)="calculateTotal(i)" name="qty" [(ngModel)]="dataItem.qty" type="number" [ngModelOptions]="{standalone: true}" class="form-control"  />
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="cleaningTax">Rate</label>
@@ -252,7 +254,7 @@
                                 <div class="col-md-6 col-sm-6 border-right">
                                     <div class="row">
                                       
-                                        <div class="form-group col-md-4 col-sm-4">
+                                        <div *ngIf="isCASH" class="form-group col-md-4 col-sm-4">
                                             <label for="name">Method Of Payment </label>
                                             <select class="form-control" name="methodOfPayment" [(ngModel)]="form.methodOfPayment" (change)="typeChange()" required #methodOfPayment="ngModel">
                                                 <option value="CASH" selected="selected">CASH</option>
@@ -319,7 +321,7 @@
                                                         Required Field !
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-md-6 col-sm-6">
+                                                <div *ngIf="isCASH" class="form-group col-md-6 col-sm-6">
                                                     <label for="name">Details</label>
                                                     <textarea rows="3" cols="20" type="text" class="form-control" name="details" [(ngModel)]="form.details"  #details="ngModel"></textarea>
                                                     <div class="text-danger" role="alert" *ngIf="f.submitted && details.invalid">
@@ -461,8 +463,9 @@
                                 <div class="row">
                                     <div class="table-responsive">
                                         <!-- [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" -->
-                                        <table id="customTable" datatable class="table table-dark table-striped table-bordered" cellspacing="0" width="100%">
-                                            <thead>
+                                                                           
+                                        <table id="customTable" datatable class="table  table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead class="table-dark">
                                                 <tr>
                                                     <th>Preview</th>
                                                     <th>Print</th>
@@ -478,24 +481,27 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <!-- <tr  *ngIf="isTableLoad">
-                                                    <td *ngIf="table_data?.length == 0" colspan="6" class="no-data-available"><b>No Data, Please Click Load Button!</b></td>
-                                                </tr>  -->
-                                                <!-- <tr *ngFor="let item of table_data">
-                                                    <td>{{item.wardNumber}}</td>
-                                                    <td>{{item.receiptNumber}}</td>
-                                                    <td>{{item.propertyNumber}}/{{item.propertyNumber1}}</td>
-                                                    <td>{{item.date}}</td>
-                                                    <td>{{item.taxPayerName}}</td>
+                                                <tr *ngFor="let item of table_data">
                                                     <td>
                                                         <span class="float-right">
-                                                            <button id="edit" type="button" (click)="openModal(editModal, item)" class="btn btn-warning"><i class="fas fa-edit"></i></button> &nbsp;
+                                                            <button id="edit" type="button" (click)="onEdit(item)" class="btn btn-warning"><i class="fas fa-edit"></i></button> &nbsp;
                                                             <button id="delete" type="button" (click)="onDelete(item.id)" class="btn btn-danger" *ngIf="!isUserRole"><i class="fa fa-trash"></i></button>
                                                         </span>
                                                     </td>
-                                                </tr> -->
+                                                    <td>Print</td>
+                                                    <td>{{item.billNo}}</td>
+                                                    <td>Name</td>
+                                                    <td>{{item.billType}}</td>
+                                                    <td>{{item.date}}</td>
+                                                    <td>{{item.uhid}}</td>
+                                                    <td>{{item.subDept}}</td>
+                                                    <td>{{item.pTypeOn}}</td>
+                                                    <td>{{item.pTypeOn}}</td>
+                                                    <td>{{item.total}}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
+                                        
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OpdBillService } from 'src/app/_service/reception/reception_bill/opd.service';
 import { RegistrationService } from 'src/app/_service/reception/reception_reception/registration.service';
 import { ConsultantMasterService } from 'src/app/_service/static/consultant-master.service';
 import { DoctorReferenceService } from '../../../../_service/static/doctor-reference.service';
@@ -18,7 +19,11 @@ import { ConcessionService } from 'src/app/_service/master/other_masters1/conces
 })
 export class OpdComponent implements OnInit {
 
+
+
+
   constructor(private doctorReferenceService:DoctorReferenceService,
+    private service:OpdBillService,
     private consultantMasterService:ConsultantMasterService,
     private registrationService:RegistrationService,
     private admissionService:AdmissionService,
@@ -31,6 +36,7 @@ export class OpdComponent implements OnInit {
 
   form: any = {};
   isSubmit = false;
+  isEdit = false;
   DoctorReferenceList: any = [];
   ConsultantList: any = [];
   spinner = false
@@ -40,19 +46,35 @@ export class OpdComponent implements OnInit {
   ParticularsList:any = [];
   isPLASTICMONEY = false
   isCHEQUE = false
+  isCASH = false
   PlasticInstrumentNameList: any = [];
   ConcessionList:any = [];
+  table_data:any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.form.date = new Date().toISOString().substring(0, 10);
+    this.onTable()
     this.getDoctorReferenceList()
     this.getConsultantList()
     this.getOrganizationList()
     this.getSubDeptList()
-    this.form.billType="CASH"
     this.getGruopList()
     this.getConcessionList()
+    this.form.date = new Date().toISOString().substring(0, 10);
+    this.form.billType="CASH"
+    this.form.subDept=28
+    this.billTypeChange()
+  }
+  
+  onTable(): void {
+    this.service.get().subscribe(
+      data => {
+        this.table_data = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
   }
 
   fillConcessionData():void{
@@ -105,6 +127,16 @@ export class OpdComponent implements OnInit {
     this.form.due =Number(this.form.nettotal) - Number(this.form.paidAmount)
   }
 
+  billTypeChange():void{
+    this.isCASH = false;
+    if(this.form.billType=="CASH"){
+      this.isCASH = true;
+      this.form.methodOfPayment="CASH"
+      this.typeChange()
+    }
+    
+  }
+
   typeChange():void{
     this.isPLASTICMONEY = false
     this.isCHEQUE = false
@@ -130,7 +162,7 @@ export class OpdComponent implements OnInit {
   }
 
   fillParticularsData(i): void{
-    const SortRow=this.ParticularsList[i].find((e => e.id == Number(this.DetailsList[i].testName)))
+    const SortRow=this.ParticularsList[i].find((e => e.id == Number(this.DetailsList[i].particulars)))
     this.DetailsList[i].qty = 1
     this.DetailsList[i].rate = SortRow.rate
     this.DetailsList[i].amount = SortRow.rate
@@ -138,7 +170,7 @@ export class OpdComponent implements OnInit {
   }
 
   getParticularsList(i):void{
-    this.opdService.getParticularsListByGroup(this.DetailsList[i].group).subscribe(
+    this.opdService.getParticularsListByGroup(this.DetailsList[i].groupName).subscribe(
       data => {
         this.ParticularsList[i] = data.body
       },
@@ -249,7 +281,6 @@ export class OpdComponent implements OnInit {
             this.form.refBy1=data.body.referredBy
             this.form.consultant1=data.body.consultant
             this.form.ptype=data.body.patientType
-            
           }
           this.spinner = false;
         },
@@ -260,14 +291,11 @@ export class OpdComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-  }
-
-
   public DetailsList: any[] = [{
     sno: 1,
     id: 0,
-    testName: '',
+    groupName: '',
+    particulars: '',
     procedureDoctor: '',
     qty: 0,
     rate: 0,
@@ -278,7 +306,8 @@ export class OpdComponent implements OnInit {
     this.DetailsList.push({
       sno: this.DetailsList.length + 1,
       id: 0,
-      testName: '',
+      groupName: '',
+      particulars: '',
       procedureDoctor: '',
       qty: 0,
       rate: 0,
@@ -327,6 +356,147 @@ export class OpdComponent implements OnInit {
       this.DetailsList.splice(i, 1);
     }
   }
+ 
   
+
+
+  onEdit(row): void {
+    this.form = {};
+    window.scrollTo(0, 0);
+    this.form = row
+    this.isEdit = true;
+  }
+
+  onDelete(id): void {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you want this!",
+      icon: 'warning',
+      width: 300,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete it!'
+    }).then((result) => {
+      this.service.delete(id).subscribe(
+        data => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Data Deleted Success',
+              icon: 'success',
+              confirmButtonText: 'OK',
+              width: 300,
+              timer: 1500
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.reload();
+              }
+            });
+          }
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    })
+  }
+
+  onNew(): void {
+    window.location.assign(window.location.href)
+
+  }
+  onSave(): void {
+    this.form.detailsList = this.DetailsList
+    console.log(this.form)
+    if (this.isEdit) {
+      this.onUpdate();
+    } else {
+      this.onSubmit();
+    }
+  }
+  onSubmit(): void {
+    this.isSubmit = true;
+    this.service.save(this.form).subscribe(
+      data => {
+        this.isSubmit = false;
+        if (data.status == 200) {
+          Swal.fire({
+            title: 'Success!',
+            text: data.message,
+            icon: 'success',
+            confirmButtonText: 'OK',
+            width: 300
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        } else {
+          var error = "";
+          error += data.message + '\n'
+          if (data.fieldErrorMessageList != null) {
+            for (var ob of data.fieldErrorMessageList) {
+              error += ob.fieldName + " : " + ob.errorMessage + '\n'
+            }
+          }
+          Swal.fire({
+            title: 'Error!',
+            text: data.message,
+            html: '<pre>' + error + '</pre>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        }
+      },
+      err => {
+        this.isSubmit = false;
+        console.error(err);
+      }
+    )
+  }
+
+  onUpdate(): void {
+    this.isSubmit = true;
+    this.service.update(this.form).subscribe(
+      data => {
+        this.isSubmit = false;
+        if (data.status == 200) {
+          Swal.fire({
+            title: 'Success!',
+            text: data.message,
+            icon: 'success',
+            confirmButtonText: 'OK',
+            width: 300
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        } else {
+          var error = "";
+          error += data.message + '\n'
+          if (data.fieldErrorMessageList != null) {
+            for (var ob of data.fieldErrorMessageList) {
+              error += ob.fieldName + " : " + ob.errorMessage + '\n'
+            }
+          }
+          Swal.fire({
+            title: 'Error!',
+            text: data.message,
+            html: '<pre>' + error + '</pre>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        }
+      },
+      err => {
+        this.isSubmit = false;
+        console.error(err);
+      }
+    )
+  }
 
 }
