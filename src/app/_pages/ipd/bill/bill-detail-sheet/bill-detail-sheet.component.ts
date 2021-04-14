@@ -16,6 +16,9 @@ export class BillDetailSheetComponent implements OnInit {
   }
   
   onSubmit(): void {
+    console.log("form", this.form);
+
+
   }
 
 }
