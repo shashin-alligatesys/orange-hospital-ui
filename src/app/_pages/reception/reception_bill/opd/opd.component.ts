@@ -19,9 +19,6 @@ import { ConcessionService } from 'src/app/_service/master/other_masters1/conces
 })
 export class OpdComponent implements OnInit {
 
-
-
-
   constructor(private doctorReferenceService:DoctorReferenceService,
     private service:OpdBillService,
     private consultantMasterService:ConsultantMasterService,
@@ -65,7 +62,7 @@ export class OpdComponent implements OnInit {
     this.form.subDept=28
     this.billTypeChange()
   }
-  
+
   onTable(): void {
     this.service.get().subscribe(
       data => {
@@ -361,10 +358,15 @@ export class OpdComponent implements OnInit {
 
 
   onEdit(row): void {
+    console.log(row)
     this.form = {};
     window.scrollTo(0, 0);
     this.form = row
+    this.getPatientDetails_UHID()
     this.isEdit = true;
+
+    this.typeChange()
+    
   }
 
   onDelete(id): void {
