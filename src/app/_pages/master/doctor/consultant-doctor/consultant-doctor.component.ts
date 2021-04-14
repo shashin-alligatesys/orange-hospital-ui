@@ -39,7 +39,7 @@ export class ConsultantDoctorComponent implements OnInit {
         this.SubDepartmentList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -53,7 +53,7 @@ export class ConsultantDoctorComponent implements OnInit {
         this.DegreeList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -62,7 +62,7 @@ export class ConsultantDoctorComponent implements OnInit {
         this.SpecialityList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -71,7 +71,7 @@ export class ConsultantDoctorComponent implements OnInit {
         this.CityList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -80,7 +80,7 @@ export class ConsultantDoctorComponent implements OnInit {
         this.StateList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -92,7 +92,7 @@ export class ConsultantDoctorComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -131,7 +131,7 @@ export class ConsultantDoctorComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -186,7 +186,7 @@ export class ConsultantDoctorComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -228,7 +228,7 @@ export class ConsultantDoctorComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

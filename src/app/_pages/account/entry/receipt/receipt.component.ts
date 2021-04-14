@@ -50,7 +50,7 @@ export class ReceiptComponent implements OnInit {
         this.PlasticInstrumentNameList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -61,7 +61,7 @@ export class ReceiptComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -89,7 +89,7 @@ export class ReceiptComponent implements OnInit {
           this.spinner = false;
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     }
@@ -128,6 +128,7 @@ export class ReceiptComponent implements OnInit {
     window.scrollTo(0, 0);
     this.form = row
     this.isEdit = true;
+    this.typeChange()
   }
 
   onDelete(id): void {
@@ -159,7 +160,7 @@ export class ReceiptComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -202,7 +203,7 @@ export class ReceiptComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -244,7 +245,7 @@ export class ReceiptComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

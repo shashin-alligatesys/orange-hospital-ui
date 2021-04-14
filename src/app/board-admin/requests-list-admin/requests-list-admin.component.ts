@@ -83,7 +83,7 @@ export class RequestsListAdminComponent implements OnInit {
         this.dtTrigger.next();
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -150,7 +150,7 @@ export class RequestsListAdminComponent implements OnInit {
         }
       },
       err => {
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -182,7 +182,7 @@ export class RequestsListAdminComponent implements OnInit {
         }
       },
       err => {
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -202,7 +202,7 @@ export class RequestsListAdminComponent implements OnInit {
           this.dtTrigger1.next();
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
   }
@@ -241,7 +241,7 @@ export class RequestsListAdminComponent implements OnInit {
           });
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -289,7 +289,7 @@ export class RequestsListAdminComponent implements OnInit {
         }
       },
       err => {
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -320,7 +320,7 @@ export class RequestsListAdminComponent implements OnInit {
         }
       },
       err => {
-        console.log(err);
+        console.error(err);
       }
     )
   }

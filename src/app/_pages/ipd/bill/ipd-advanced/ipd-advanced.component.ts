@@ -45,7 +45,7 @@ export class IpdAdvancedComponent implements OnInit {
   //       this.table_data = data.body
   //     },
   //     err => {
-  //       console.log(err)
+  //       console.error(err)
   //     }
   //   );
   // }
@@ -73,7 +73,7 @@ export class IpdAdvancedComponent implements OnInit {
   //         this.spinner = false;
   //       },
   //       err => {
-  //         console.log(err)
+  //         console.error(err)
   //       }
   //     );
   //   }
@@ -143,7 +143,7 @@ export class IpdAdvancedComponent implements OnInit {
   //         }
   //       },
   //       err => {
-  //         console.log(err)
+  //         console.error(err)
   //       }
   //     );
   //   })
@@ -186,7 +186,7 @@ export class IpdAdvancedComponent implements OnInit {
   //     },
   //     err => {
   //       this.isSubmit = false;
-  //       console.log(err);
+  //       console.error(err);
   //     }
   //   )
   // }
@@ -228,7 +228,7 @@ export class IpdAdvancedComponent implements OnInit {
   //     },
   //     err => {
   //       this.isSubmit = false;
-  //       console.log(err);
+  //       console.error(err);
   //     }
   //   )
   // }

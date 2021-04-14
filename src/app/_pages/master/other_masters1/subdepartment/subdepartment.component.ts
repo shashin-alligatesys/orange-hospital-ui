@@ -30,7 +30,7 @@ export class SubdepartmentComponent implements OnInit {
         this.DepartmentList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -41,7 +41,7 @@ export class SubdepartmentComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -82,7 +82,7 @@ export class SubdepartmentComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -137,7 +137,7 @@ export class SubdepartmentComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -179,7 +179,7 @@ export class SubdepartmentComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

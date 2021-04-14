@@ -42,7 +42,7 @@ export class BoardAdminComponent implements OnInit {
         this.update_count = data.body;
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
     this.propertyService.findCountByVillageAndStatus(this.product,'Reject').subscribe(
@@ -50,7 +50,7 @@ export class BoardAdminComponent implements OnInit {
         this.reject_count = data.body;
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -60,7 +60,7 @@ export class BoardAdminComponent implements OnInit {
         this.update_count1 = data.body;
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
     this.taxcollectionReciptService.findCountByVillageAndStatus(this.product,'Reject').subscribe(
@@ -68,7 +68,7 @@ export class BoardAdminComponent implements OnInit {
         this.reject_count1 = data.body;
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 

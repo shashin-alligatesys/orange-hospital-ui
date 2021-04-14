@@ -57,7 +57,7 @@ export class RegistrationComponent implements OnInit {
         this.IdnoCaptionList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -66,7 +66,7 @@ export class RegistrationComponent implements OnInit {
         this.AreaList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -75,7 +75,7 @@ export class RegistrationComponent implements OnInit {
         this.CityList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -84,7 +84,7 @@ export class RegistrationComponent implements OnInit {
         this.StateList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -93,7 +93,7 @@ export class RegistrationComponent implements OnInit {
         this.CountryList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -102,7 +102,7 @@ export class RegistrationComponent implements OnInit {
         this.PatientTypeList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -111,7 +111,7 @@ export class RegistrationComponent implements OnInit {
         this.ReligionList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -120,7 +120,7 @@ export class RegistrationComponent implements OnInit {
         this.OccupationList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
 
@@ -134,7 +134,7 @@ export class RegistrationComponent implements OnInit {
         this.ConsultantList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -145,7 +145,7 @@ export class RegistrationComponent implements OnInit {
         this.DoctorReferenceList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -156,7 +156,7 @@ export class RegistrationComponent implements OnInit {
         this.OrganizationList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -167,7 +167,7 @@ export class RegistrationComponent implements OnInit {
         this.form.mlcno = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -178,7 +178,7 @@ export class RegistrationComponent implements OnInit {
         this.form.tokenno = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -189,7 +189,7 @@ export class RegistrationComponent implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -228,7 +228,7 @@ export class RegistrationComponent implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -282,7 +282,7 @@ export class RegistrationComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -324,7 +324,7 @@ export class RegistrationComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

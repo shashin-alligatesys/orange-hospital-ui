@@ -31,7 +31,7 @@ export class SubGroup1Component implements OnInit {
         this.SubGroupList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -42,7 +42,7 @@ export class SubGroup1Component implements OnInit {
         this.table_data = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -82,7 +82,7 @@ export class SubGroup1Component implements OnInit {
           }
         },
         err => {
-          console.log(err)
+          console.error(err)
         }
       );
     })
@@ -137,7 +137,7 @@ export class SubGroup1Component implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
@@ -179,7 +179,7 @@ export class SubGroup1Component implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }

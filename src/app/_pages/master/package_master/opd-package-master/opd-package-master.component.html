@@ -81,8 +81,8 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label>Particulars</label>
-                                                    <select class="form-control" [(ngModel)]="dataItem.testName" [ngModelOptions]="{standalone: true}" name="testName">
-                                                        <option *ngFor="let r of ParticularsList" [ngValue]="r.id" style="color: black;">
+                                                    <select class="form-control" [(ngModel)]="dataItem.testName" (change)="fillParticularsData(i)" [ngModelOptions]="{standalone: true}" name="testName">
+                                                        <option *ngFor="let r of ParticularsList" [ngValue]="r.testName" style="color: black;">
                                                             {{r.testName}}
                                                         </option>
                                                     </select>
@@ -96,12 +96,12 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <label for="propertyTax">Qty</label>
-                                                    <input (keyup)="calculateTotal(i)" type="number" [ngModelOptions]="{standalone: true}" class="form-control" name="qty" [(ngModel)]="dataItem.qty" />
-                                                </div>
-                                                <div class="col-md-2">
                                                     <label for="cleaningTax">Rate</label>
                                                     <input (keyup)="calculateTotal(i)" type="number" [ngModelOptions]="{standalone: true}" name="rate" [(ngModel)]="dataItem.rate" class="form-control">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="propertyTax">Qty</label>
+                                                    <input (keyup)="calculateTotal(i)" type="number" [ngModelOptions]="{standalone: true}" class="form-control" name="qty" [(ngModel)]="dataItem.qty" />
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="amount">Amount </label>

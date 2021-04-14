@@ -38,7 +38,7 @@ export class RadioBillMasterComponent implements OnInit {
         this.ParticularsList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -50,7 +50,7 @@ export class RadioBillMasterComponent implements OnInit {
         this.GruopList = data.body
       },
       err => {
-        console.log(err)
+        console.error(err)
       }
     );
   }
@@ -98,7 +98,7 @@ export class RadioBillMasterComponent implements OnInit {
       },
       err => {
         this.isSubmit = false;
-        console.log(err);
+        console.error(err);
       }
     )
   }
