@@ -39,6 +39,10 @@ export class OpdService {
     return this.http.get(API_URL + 'getParticularsListByOrganization/'+organization, { responseType: 'json' });
   }
 
+  getParticularsListByGroupAndOrganization(group,Organization): Observable<any> {
+    return this.http.get(API_URL + 'getParticularsListByGroupAndOrganization/'+group+'/'+Organization, { responseType: 'json' });
+  }
+
   updateRate(form): Observable<any> {
     return this.http.put(API_URL + 'updateRate', form, httpOptions);
   }

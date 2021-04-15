@@ -43,7 +43,7 @@ export class RegistrationComponent implements OnInit {
     this.form.uhid = 1
     this.onTable()
     this.getNextTOKEN()
-    this.form.date = new Date().toISOString().substring(0, 10);
+    this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0];
     this.getOrganizationList()
     this.getDoctorReferenceList()
     this.getConsultantList()

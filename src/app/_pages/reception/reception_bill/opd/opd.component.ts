@@ -19,17 +19,17 @@ import { ConcessionService } from 'src/app/_service/master/other_masters1/conces
 })
 export class OpdComponent implements OnInit {
 
-  constructor(private doctorReferenceService:DoctorReferenceService,
-    private service:OpdBillService,
-    private consultantMasterService:ConsultantMasterService,
-    private registrationService:RegistrationService,
-    private admissionService:AdmissionService,
-    private organizationMasterService:OrganizationMasterService,
-    private subdepartmentService:SubdepartmentService,
-    private groupService:GroupService,
-    private opdService:OpdService,
-    private plasticMoneyMasterService:PlasticMoneyMasterService,
-    private concessionService:ConcessionService) { }
+  constructor(private doctorReferenceService: DoctorReferenceService,
+    private service: OpdBillService,
+    private consultantMasterService: ConsultantMasterService,
+    private registrationService: RegistrationService,
+    private admissionService: AdmissionService,
+    private organizationMasterService: OrganizationMasterService,
+    private subdepartmentService: SubdepartmentService,
+    private groupService: GroupService,
+    private opdService: OpdService,
+    private plasticMoneyMasterService: PlasticMoneyMasterService,
+    private concessionService: ConcessionService) { }
 
   form: any = {};
   isSubmit = false;
@@ -40,47 +40,75 @@ export class OpdComponent implements OnInit {
   OrganizationList: any = [];
   SubDeptList: any = [];
   GruopList: any = [];
-  ParticularsList:any = [];
+  ParticularsList: any = [];
   isPLASTICMONEY = false
   isCHEQUE = false
   isCASH = false
   PlasticInstrumentNameList: any = [];
-  ConcessionList:any = [];
-  table_data:any = [];
+  ConcessionList: any = [];
+  table_data: any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.onTable()
+    this.onTable(0)
     this.getDoctorReferenceList()
     this.getConsultantList()
     this.getOrganizationList()
     this.getSubDeptList()
     this.getGruopList()
     this.getConcessionList()
-    this.form.date = new Date().toISOString().substring(0, 10);
-    this.form.billType="CASH"
-    this.form.subDept=28
+    console.log(new Date().toISOString().substring(0, 10))
+    this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0]
+    this.form.billType = "CASH"
+    this.form.subDept = 28
+    this.form.patientTypeOldNew="New"
     this.billTypeChange()
   }
 
-  onTable(): void {
-    this.service.get().subscribe(
-      data => {
-        this.table_data = data.body
-      },
-      err => {
-        console.error(err)
-      }
-    );
+  onTable(flag): void {
+    
+    if(flag==0){
+      this.service.getCurrent().subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }else{
+      this.service.get().subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }
   }
 
-  fillConcessionData():void{
+  getCurrentDate(): String{
+    var date = new Date();
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = Number("0" + month);
+    if (day < 10) day = Number("0" + day);
+
+    var today = year + "-" + month + "-" + day;
+    return today;
+  }
+
+  fillConcessionData(): void {
     // filter and get percents
-    const data=this.ConcessionList.find((e => e.id == Number(this.form.concessionType)))
+    const data = this.ConcessionList.find((e => e.id == Number(this.form.concessionType)))
     this.form.concessionPer = data.concession
 
     // calculate modulas
-    const concessionTotal =Number(this.form.total) * Number(data.concession)/100;
+    const concessionTotal = Number(this.form.total) * Number(data.concession) / 100;
     this.form.concession = concessionTotal;
 
     //Total Caluculate
@@ -88,7 +116,7 @@ export class OpdComponent implements OnInit {
     this.form.paidAmount = Number(this.form.total) - Number(concessionTotal)
   }
 
-  getConcessionList():void{
+  getConcessionList(): void {
     this.concessionService.get().subscribe(
       data => {
         this.ConcessionList = data.body
@@ -100,14 +128,14 @@ export class OpdComponent implements OnInit {
   }
 
   calculateTotal(i): void {
-    this.DetailsList[i].amount = this.DetailsList[i].qty * this.DetailsList[i].rate
+    this.DetailsList[i].amount = Number(this.DetailsList[i].qty) * Number(this.DetailsList[i].rate)
     this.calculateFinalTotal()
   }
 
   calculateFinalTotal() {
     var amount = 0;
     this.DetailsList.forEach(value => {
-      amount = amount + value.amount;
+      amount = amount + Number(value.amount);
     });
     this.form.total = amount;
 
@@ -116,32 +144,32 @@ export class OpdComponent implements OnInit {
   }
 
   calculateConcession() {
-  this.form.nettotal = this.form.total
-  this.form.paidAmount = this.form.total
-  }
-  
-  calculateDue() {
-    this.form.due =Number(this.form.nettotal) - Number(this.form.paidAmount)
+    this.form.nettotal = this.form.total
+    this.form.paidAmount = this.form.total
   }
 
-  billTypeChange():void{
+  calculateDue() {
+    this.form.due = Number(this.form.nettotal) - Number(this.form.paidAmount)
+  }
+
+  billTypeChange(): void {
     this.isCASH = false;
-    if(this.form.billType=="CASH"){
+    if (this.form.billType == "CASH") {
       this.isCASH = true;
-      this.form.methodOfPayment="CASH"
+      this.form.methodOfPayment = "CASH"
       this.typeChange()
     }
-    
+
   }
 
-  typeChange():void{
+  typeChange(): void {
     this.isPLASTICMONEY = false
     this.isCHEQUE = false
-    if(this.form.methodOfPayment=="PLASTICMONEY"){
+    if (this.form.methodOfPayment == "PLASTICMONEY") {
       this.isPLASTICMONEY = true
       this.getPlasticInstrumentNameList()
     }
-    if(this.form.methodOfPayment=="CHEQUE"){
+    if (this.form.methodOfPayment == "CHEQUE") {
       this.isCHEQUE = true
     }
 
@@ -158,16 +186,16 @@ export class OpdComponent implements OnInit {
     );
   }
 
-  fillParticularsData(i): void{
-    const SortRow=this.ParticularsList[i].find((e => e.id == Number(this.DetailsList[i].particulars)))
+  fillParticularsData(i): void {
+    const SortRow = this.ParticularsList[i].find((e => e.id == Number(this.DetailsList[i].particulars)))
     this.DetailsList[i].qty = 1
-    this.DetailsList[i].rate = SortRow.rate
-    this.DetailsList[i].amount = SortRow.rate
+    this.DetailsList[i].rate = Number(SortRow.rate)
+    this.DetailsList[i].amount = Number(SortRow.rate)
     this.calculateTotal(i)
   }
 
-  getParticularsList(i):void{
-    this.opdService.getParticularsListByGroup(this.DetailsList[i].groupName).subscribe(
+  getParticularsList(i): void {
+    this.opdService.getParticularsListByGroupAndOrganization(this.DetailsList[i].groupName, this.form.organization).subscribe(
       data => {
         this.ParticularsList[i] = data.body
       },
@@ -178,7 +206,7 @@ export class OpdComponent implements OnInit {
   }
 
   getGruopList(): void {
-    this.groupService.getGruopListByDepartmentAndSuperGroup(17,35).subscribe(
+    this.groupService.getGruopListByDepartmentAndSuperGroup(17, 35).subscribe(
       data => {
         this.GruopList = data.body
       },
@@ -188,7 +216,7 @@ export class OpdComponent implements OnInit {
     );
   }
 
-  getSubDeptList(): void{
+  getSubDeptList(): void {
     this.subdepartmentService.getSubDepartmentByDepartment("17").subscribe(
       data => {
         this.SubDeptList = data.body
@@ -200,7 +228,7 @@ export class OpdComponent implements OnInit {
     );
   }
 
-  getOrganizationList(): void{
+  getOrganizationList(): void {
     this.organizationMasterService.getOrganizationList().subscribe(
       data => {
         this.OrganizationList = data.body
@@ -211,7 +239,7 @@ export class OpdComponent implements OnInit {
     );
   }
 
-  getConsultantList(): void{
+  getConsultantList(): void {
     this.consultantMasterService.getConsultantList().subscribe(
       data => {
         this.ConsultantList = data.body
@@ -222,7 +250,7 @@ export class OpdComponent implements OnInit {
     );
   }
 
-  getDoctorReferenceList(): void{
+  getDoctorReferenceList(): void {
     this.doctorReferenceService.getDoctorReferenceList().subscribe(
       data => {
         this.DoctorReferenceList = data.body
@@ -232,9 +260,9 @@ export class OpdComponent implements OnInit {
       }
     );
   }
-  
-  getPatientDetails_IPD(): void{
-    if(this.form.ipdno != null && this.form.ipdno.length>=0 && this.form.ipdno != ""){
+
+  getPatientDetails_IPD(): void {
+    if (this.form.ipdno != null && this.form.ipdno.length >= 0 && this.form.ipdno != "") {
       this.spinner = true;
       this.admissionService.getPatientDetailsByIPD(this.form.ipdno).subscribe(
         data => {
@@ -247,8 +275,12 @@ export class OpdComponent implements OnInit {
               width: 300
             })
             this.form = {}
-          }else{
+          } else {
             this.form = data.body
+            this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0];
+            this.form.billType = "CASH"
+            this.form.subDept = 28
+            this.form.patientTypeOldNew="New"
           }
           this.spinner = false;
         },
@@ -259,8 +291,8 @@ export class OpdComponent implements OnInit {
     }
   }
 
-  getPatientDetails_UHID(): void{
-    if(this.form.uhid != null && this.form.uhid.length>=0 && this.form.uhid != ""){
+  getPatientDetails_UHID(): void {
+    if (this.form.uhid != null && this.form.uhid.length >= 0 && this.form.uhid != "") {
       this.spinner = true;
       this.registrationService.getPatientDetailsByUHID(this.form.uhid).subscribe(
         data => {
@@ -273,11 +305,17 @@ export class OpdComponent implements OnInit {
               width: 300
             })
             this.form = {}
-          }else{
+          } else {
             this.form = data.body
-            this.form.refBy1=data.body.referredBy
-            this.form.consultant1=data.body.consultant
-            this.form.ptype=data.body.patientType
+            this.form.refBy1 = data.body.referredBy
+            this.form.refBy2 = 0
+            this.form.consultant1 = data.body.consultant
+            this.form.consultant2 = 0
+            this.form.ptype = data.body.patientType
+            this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0];
+            this.form.billType = "CASH"
+            this.form.subDept = 28
+            this.form.patientTypeOldNew="New"
           }
           this.spinner = false;
         },
@@ -293,7 +331,8 @@ export class OpdComponent implements OnInit {
     id: 0,
     groupName: '',
     particulars: '',
-    procedureDoctor: '',
+    // procedureDoctor1: 0,
+    // procedureDoctor2: 0,
     qty: 0,
     rate: 0,
     amount: 0
@@ -305,7 +344,8 @@ export class OpdComponent implements OnInit {
       id: 0,
       groupName: '',
       particulars: '',
-      procedureDoctor: '',
+      // procedureDoctor1: 0,
+      // procedureDoctor2: 0,
       qty: 0,
       rate: 0,
       amount: 0
@@ -326,47 +366,86 @@ export class OpdComponent implements OnInit {
           confirmButtonText: 'Delete it!'
         }).then((result) => {
           if (result.isConfirmed) {
-            // this.service.deleteDetailById(id).subscribe(
-            //   data => {
-            //     if (data.status == 200) {
-            //       Swal.fire({
-            //         title: 'Deleted!',
-            //         text: 'Data Deleted Success',
-            //         icon: 'success',
-            //         confirmButtonText: 'OK',
-            //         width: 300,
-            //         timer: 1500
-            //       }).then((result) => {
-            //         if (result.isConfirmed) {
-            //           window.location.reload();
-            //         }
-            //       });
-            //     }
-            //   },
-            //   err => {
-            //     console.error(err)
-            //   }
-            // );
+            this.service.deleteDetailById(id).subscribe(
+              data => {
+                if (data.status == 200) {
+                  Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Data Deleted Success',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    width: 300,
+                    timer: 1500
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.reload();
+                    }
+                  });
+                }
+              },
+              err => {
+                console.error(err)
+              }
+            );
           }
         })
       }
       this.DetailsList.splice(i, 1);
     }
   }
- 
-  
+
+
 
 
   onEdit(row): void {
-    console.log(row)
     this.form = {};
     window.scrollTo(0, 0);
-    this.form = row
-    this.getPatientDetails_UHID()
     this.isEdit = true;
+    this.service.getDetailsById(row.id).subscribe(
+      data => {
+        this.form = data.body
+        this.form.subDept = Number(data.body.subDept)
+        this.form.organization = Number(data.body.organization)
+        this.form.consultant1 = Number(data.body.consultant1)
+        this.form.refBy1 = Number(data.body.refBy1)
+        this.form.refBy2 = Number(data.body.refBy2)
+        let ok = 0;
+         data.body.detailsList.forEach(value => {
 
+          value.rate = Number(value.rate)
+          value.qty = Number(value.qty)
+          
+          if(value.groupName !=null){
+            value.groupName = this.GruopList.find((e => e.groupName == value.groupName)).id 
+          }
+
+          this.opdService.getParticularsListByGroupAndOrganization(value.groupName, row.organization).subscribe(
+            data => {
+              this.ParticularsList[ok] = data.body
+              value.particulars = this.ParticularsList[ok].find((e => e.testName == value.particulars)).id 
+              ok++;
+            },
+            err => {
+              console.error(err)
+            }
+          );
+
+          if(value.procedureDoctor1 !=null){
+            value.procedureDoctor1 = this.ConsultantList.find((e => e.name == value.procedureDoctor1)).id
+          }
+          if(value.procedureDoctor2 !=null){
+            value.procedureDoctor2 = this.ConsultantList.find((e => e.name == value.procedureDoctor2)).id
+          }
+        });
+
+        this.DetailsList = data.body.detailsList
+        
+      },
+      err => {
+        console.error(err)
+      }
+    );
     this.typeChange()
-    
   }
 
   onDelete(id): void {
@@ -409,8 +488,8 @@ export class OpdComponent implements OnInit {
 
   }
   onSave(): void {
+    // this.form.detailsList = []
     this.form.detailsList = this.DetailsList
-    console.log(this.form)
     if (this.isEdit) {
       this.onUpdate();
     } else {

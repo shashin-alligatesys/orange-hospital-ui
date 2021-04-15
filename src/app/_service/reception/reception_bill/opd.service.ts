@@ -31,4 +31,15 @@ export class OpdBillService {
     return this.http.get(API_URL + 'findAll', { responseType: 'json' });
   }
 
+  getCurrent(): Observable<any> {
+    return this.http.get(API_URL + 'getCurrent', { responseType: 'json' });
+  }
+  
+  getDetailsById(id): Observable<any> {
+    return this.http.get(API_URL + 'getDetailsById/'+id , httpOptions);
+  }
+
+  deleteDetailById(id): Observable<any> {
+    return this.http.delete(API_URL + 'deleteDetailById/'+id , httpOptions);
+  }
 }

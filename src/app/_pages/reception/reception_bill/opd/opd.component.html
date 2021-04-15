@@ -50,11 +50,11 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">Patient Type OLD/NEW</label>
-                            <select class="form-control" name="pTypeOn" [(ngModel)]="form.pTypeOn" required #pTypeOn="ngModel">
+                            <select class="form-control" name="patientTypeOldNew" [(ngModel)]="form.patientTypeOldNew" required #patientTypeOldNew="ngModel">
                                 <option value="New">New</option>
                                 <option value="Old">Old</option>
                             </select>
-                            <div class="text-danger" role="alert" *ngIf="f.submitted && pTypeOn.invalid">
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && patientTypeOldNew.invalid">
                                 Required Field !
                             </div>
                         </div>
@@ -192,24 +192,25 @@
                                     <section class="card-body border bg-light" *ngFor="let dataItem of DetailsList; let i = index;">
                                         <div class="row">
                                             <div class="col-6">
-                                                <h4>List : {{i + 1}}</h4>
+                                                <h4>List : {{i + 1}} &  {{i}}</h4>
                                             </div>
                                             <div class="col-6 text-right">
                                                 <button type="button" class="btn btn-danger btn-sm" (click)="removeAddress(i,dataItem.id)">&nbsp;-&nbsp;</button>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <label>Groups</label>
-                                                <select class="form-control" [(ngModel)]="dataItem.groupName"  (change)="getParticularsList(i)" [ngModelOptions]="{standalone: true}" name="groupName">
+                                                <!-- (change)="getParticularsList(i)" -->
+                                                <select class="form-control" [(ngModel)]="dataItem.groupName"  (change)="getParticularsList(i)" required [ngModelOptions]="{standalone: true}" name="groupName">
                                                     <option *ngFor="let r of GruopList" [ngValue]="r.id" style="color: black;">
                                                         {{r.groupName}}
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <label>Particulars</label>
-                                                <select class="form-control" [(ngModel)]="dataItem.particulars" (change)="fillParticularsData(i)" [ngModelOptions]="{standalone: true}" name="particulars">
+                                                <select class="form-control" [(ngModel)]="dataItem.particulars" (change)="fillParticularsData(i)" required [ngModelOptions]="{standalone: true}" name="particulars">
                                                     <option *ngFor="let r of ParticularsList[i]" [ngValue]="r.id" style="color: black;">
                                                         {{r.testName}}
                                                     </option>
@@ -217,7 +218,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Procedure Doctor1</label>
-                                                <select class="form-control" [(ngModel)]="dataItem.procedureDoctor1" [ngModelOptions]="{standalone: true}" #procedureDoctor1="ngModel" name="procedureDoctor1">
+                                                <select class="form-control" [(ngModel)]="dataItem.procedureDoctor1" [ngModelOptions]="{standalone: true}" #procedureDoctor1="ngModel" required name="procedureDoctor1">
                                                     <option *ngFor="let c of ConsultantList" [ngValue]="c.id" style="color: black;">
                                                         {{c.name}}
                                                     </option>
@@ -396,7 +397,7 @@
                     <div class="row">
                         <div class="card card-body overflow-auto">
                             <div class="form-group row">
-                                <button class="btn btn-info mt-1">New</button>&nbsp;
+                                <button class="btn btn-info mt-1" (click)="onNew()">New</button>&nbsp;
                                 <button class="btn btn-info mt-1">Save:F1</button>&nbsp;
                                 <button class="btn btn-info mt-1">Print</button>&nbsp;
                                 <button class="btn btn-info mt-1">Cash Due</button>&nbsp;
@@ -452,12 +453,14 @@
                                     Required Field !
                                 </div>
                             </div>
-                            <div class="form-group col-md-3 col-sm-3">
-                                <button class="btn btn-info mt-1">Show All</button>
-                            </div>
+                            
                             <div class="form-group col-md-3 col-sm-3">
                                 <button class="btn btn-info mt-1">Clear Selection</button>
                             </div> -->
+
+                            <div class="form-group col-md-3 col-sm-3">
+                                <button class="btn btn-info mt-1" (click)="onTable(1)">Show All</button>
+                            </div>
 
                             <div class="form-group col-md-12 col-sm-12">
                                 <div class="row">
