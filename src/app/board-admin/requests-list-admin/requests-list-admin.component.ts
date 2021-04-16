@@ -1,14 +1,11 @@
 
 import { ActivatedRoute } from '@angular/router';
-import { TaxdemandBillService } from '../../_services/entry_service/taxdemand-bill.service';
-import { TaxcollectionReciptService } from '../../_services/entry_service/taxcollection-recipt.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { TokenStorageService } from '../../_services/token-storage.service';
-import { PropertyService } from '../../_services/master_service/property.service';
 
 
 @Component({
@@ -23,11 +20,7 @@ export class RequestsListAdminComponent implements OnInit {
   editMasterCollection: taxCollectionRecipt = new taxCollectionRecipt();
 
   constructor(private modalService: NgbModal,
-    private activatedroute: ActivatedRoute,
-    private taxdemandBillService: TaxdemandBillService,
-    private propertyService: PropertyService,
-    private tokenStorageService: TokenStorageService,
-    private taxcollectionReciptService: TaxcollectionReciptService) {
+    private activatedroute: ActivatedRoute) {
   }
 
   @ViewChild(DataTableDirective)
@@ -77,15 +70,7 @@ export class RequestsListAdminComponent implements OnInit {
   */
 
   loadPropertyDateTable(): void {
-    this.propertyService.getByUserVillageQueue(this.village,this.product).subscribe(
-      data => {
-        this.propertydata = data.body;
-        this.dtTrigger.next();
-      },
-      err => {
-        console.error(err)
-      }
-    );
+    
   }
   propertyModalPopUp(targetModal, rowData) {
     this.propertyMaster = new property();
@@ -124,67 +109,11 @@ export class RequestsListAdminComponent implements OnInit {
   }];
 
   propertyApprove(id):void{
-    this.propertyService.approveByID(id).subscribe(
-      data => {
-        this.isSubmit = true;
-        if (data.status == 200) {
-          Swal.fire({
-            title: 'Success!',
-            text: data.message,
-            icon: 'success',
-            confirmButtonText: 'OK',
-            width: 300
-          }).then((result) => {
-            if (result.isConfirmed) {
-             window.location.reload();
-            }
-          });
-        } else {
-          Swal.fire({
-            title: 'Error!',
-            text: data.message,
-            icon: 'error',
-            confirmButtonText: 'OK',
-            width: 300
-          })
-        }
-      },
-      err => {
-        console.error(err);
-      }
-    )
+   
   }
 
   propertyReject(id):void{
-    this.propertyService.rejectByID(id).subscribe(
-      data => {
-        this.isSubmit = true;
-        if (data.status == 200) {
-          Swal.fire({
-            title: 'Success!',
-            text: data.message,
-            icon: 'success',
-            confirmButtonText: 'OK',
-            width: 300
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.reload();
-            }
-          });
-        } else {
-          Swal.fire({
-            title: 'Error!',
-            text: data.message,
-            icon: 'error',
-            confirmButtonText: 'OK',
-            width: 300
-          })
-        }
-      },
-      err => {
-        console.error(err);
-      }
-    )
+   
   }
 
 
@@ -196,54 +125,11 @@ export class RequestsListAdminComponent implements OnInit {
 
   loadCollectionDateTable(): void {
     this.dtTrigger1 = new Subject();
-      this.taxcollectionReciptService.findAllByVillageNameQueue(this.village,this.product).subscribe(
-        data => {
-          this.collectiondata = data.body;
-          this.dtTrigger1.next();
-        },
-        err => {
-          console.error(err)
-        }
-      );
+      
   }
   collectionModalPopUp(targetModal, rowData) {
 
-    this.taxcollectionReciptService.findByWardNumberAndPropertyNumberAndPropertyNumber1AndVillageCdAndYearCdAndReceiptNumber_new(rowData.wardNumber,rowData.propertyNumber,rowData.propertyNumber1,rowData.villageCd,rowData.yearCd,rowData.receiptNumber).subscribe(
-      data => {
-        this.addresses1=[];
-          this.taxCollectionMaster = rowData;
-          if (data.body.taxCollection_QueueTax != null) {
-            this.addresses1 = data.body.taxCollection_QueueTax;
-          }
-          this.taxCollectionMaster.yearOfConstruction=data.body.property_Entity.yearOfConstruction;
-          this.taxCollectionMaster.typeOfProperty=data.body.property_Entity.typeOfProperty;
-          this.taxCollectionMaster.areaCode=data.body.property_Entity.areaCode;
-          this.taxCollectionMaster.area=data.body.property_Entity.area;
-          this.taxCollectionMaster.blockNumber=data.body.property_Entity.blockNumber;
-          this.taxCollectionMaster.houseNumber=data.body.property_Entity.houseNumber;
-          var OwnerNames = "";
-          var ConsumerNames = "";
-          for (var value of data.body.property_Entity.propertyUser) {
-
-            if(value.type == "1"){
-              OwnerNames = OwnerNames + value.name + '\r\n'
-            }
-            if(value.type == "2"){
-              ConsumerNames = ConsumerNames + value.name + '\r\n'
-            }
-          }
-          this.taxCollectionMaster.owner = OwnerNames;
-          this.taxCollectionMaster.consumer = ConsumerNames;
-          this.modalService.open(targetModal, {
-            centered: true,
-            backdrop: 'static',
-            size: 'xl'
-          });
-      },
-      err => {
-        console.error(err)
-      }
-    );
+   
   }
 
   public addresses1: any[] = [{
@@ -263,66 +149,10 @@ export class RequestsListAdminComponent implements OnInit {
   }];
 
   collectionApprove(id):void{
-    this.taxcollectionReciptService.approveByID(id).subscribe(
-      data => {
-        this.isSubmit = true;
-        if (data.status == 200) {
-          Swal.fire({
-            title: 'Success!',
-            text: data.message,
-            icon: 'success',
-            confirmButtonText: 'OK',
-            width: 300
-          }).then((result) => {
-            if (result.isConfirmed) {
-             window.location.reload();
-            }
-          });
-        } else {
-          Swal.fire({
-            title: 'Error!',
-            text: data.message,
-            icon: 'error',
-            confirmButtonText: 'OK',
-            width: 300
-          })
-        }
-      },
-      err => {
-        console.error(err);
-      }
-    )
+    
   }
   collectionReject(id):void{
-    this.taxcollectionReciptService.rejectByID(id).subscribe(
-      data => {
-        this.isSubmit = true;
-        if (data.status == 200) {
-          Swal.fire({
-            title: 'Success!',
-            text: data.message,
-            icon: 'success',
-            confirmButtonText: 'OK',
-            width: 300
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.reload();
-            }
-          });
-        } else {
-          Swal.fire({
-            title: 'Error!',
-            text: data.message,
-            icon: 'error',
-            confirmButtonText: 'OK',
-            width: 300
-          })
-        }
-      },
-      err => {
-        console.error(err);
-      }
-    )
+    
   }
 
 }

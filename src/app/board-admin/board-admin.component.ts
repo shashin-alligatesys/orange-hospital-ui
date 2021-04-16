@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { PropertyService } from '../_services/master_service/property.service';
-import { TaxcollectionReciptService } from './../_services/entry_service/taxcollection-recipt.service';
 
 @Component({
   selector: 'app-board-admin',
@@ -17,9 +15,7 @@ export class BoardAdminComponent implements OnInit {
   product2:string;
 
   constructor(private userService: UserService,
-    private activatedroute:ActivatedRoute,
-    private propertyService:PropertyService,
-    private taxcollectionReciptService: TaxcollectionReciptService) { }
+    private activatedroute:ActivatedRoute) { }
   
     update_count:string;
     reject_count:string;
@@ -34,43 +30,6 @@ export class BoardAdminComponent implements OnInit {
       
      });
 
-
-
-
-    this.propertyService.findCountByVillageAndStatus(this.product,'Update').subscribe(
-      data => {
-        this.update_count = data.body;
-      },
-      err => {
-        console.error(err)
-      }
-    );
-    this.propertyService.findCountByVillageAndStatus(this.product,'Reject').subscribe(
-      data => {
-        this.reject_count = data.body;
-      },
-      err => {
-        console.error(err)
-      }
-    );
-
-
-    this.taxcollectionReciptService.findCountByVillageAndStatus(this.product,'Update').subscribe(
-      data => {
-        this.update_count1 = data.body;
-      },
-      err => {
-        console.error(err)
-      }
-    );
-    this.taxcollectionReciptService.findCountByVillageAndStatus(this.product,'Reject').subscribe(
-      data => {
-        this.reject_count1 = data.body;
-      },
-      err => {
-        console.error(err)
-      }
-    );
 
   }
 

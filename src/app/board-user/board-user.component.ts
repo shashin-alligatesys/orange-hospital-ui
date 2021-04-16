@@ -1,5 +1,4 @@
-import { PropertyService } from './../_services/master_service/property.service';
-import { TaxcollectionReciptService } from './../_services/entry_service/taxcollection-recipt.service';
+
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { TokenStorageService } from '../_services/token-storage.service';
@@ -20,9 +19,7 @@ export class BoardUserComponent implements OnInit {
   product:string;
 
   constructor(private userService: UserService,
-    private taxcollectionReciptService:TaxcollectionReciptService,
-    private tokenStorageService:TokenStorageService,
-    private propertyService:PropertyService) { }
+    private tokenStorageService:TokenStorageService) { }
 
   ngOnInit(): void {
 
