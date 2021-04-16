@@ -10,7 +10,7 @@ ng generate component _pages/reception/reception_reception/scanned-image --modul
 
 *************reception_bill****************
 ng generate component _pages/reception/reception_bill/opd --module app ****
-ng generate component _pages/reception/reception_bill/radio --module app
+ng generate component _pages/reception/reception_bill/radio --module app ****
 ng generate component _pages/reception/reception_bill/lab --module app
 ng generate component _pages/reception/reception_bill/opdhealth-checkup --module app
 ng generate component _pages/reception/reception_bill/cash-dues --module app

@@ -54,3 +54,4 @@ ng generate service _service/master/other_masters1/discharge_summary
 ng generate service _service/master/other_masters1/discharge_summary_template_master
 
 ng generate service _service/reception/reception_bill/opd
+ng generate service _service/reception/reception_bill/radio

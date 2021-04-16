@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
-const API_URL = environment.apiUrl+"/reception-bill-opd/";
+const API_URL = environment.apiUrl+"/reception-bill-radio/";
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -11,7 +11,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class OpdBillService {
+export class RadioService {
 
   constructor(private http: HttpClient) { }
 
@@ -42,5 +42,5 @@ export class OpdBillService {
   deleteDetailById(id): Observable<any> {
     return this.http.delete(API_URL + 'deleteDetailById/'+id , httpOptions);
   }
-  
+
 }
