@@ -56,3 +56,5 @@ ng generate service _service/master/other_masters1/discharge_summary_template_ma
 ng generate service _service/reception/reception_bill/opd
 ng generate service _service/reception/reception_bill/radio
 ng generate service _service/reception/reception_bill/lab
+ng generate service _service/reception/reception_bill/opdhealth-checkup
+ng generate service _service/reception/reception_bill/cash-dues

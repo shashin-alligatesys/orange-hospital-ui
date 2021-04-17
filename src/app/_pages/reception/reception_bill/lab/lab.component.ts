@@ -88,19 +88,6 @@ export class LabComponent implements OnInit {
     }
   }
 
-  getCurrentDate(): String{
-    var date = new Date();
-
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-
-    if (month < 10) month = Number("0" + month);
-    if (day < 10) day = Number("0" + day);
-
-    var today = year + "-" + month + "-" + day;
-    return today;
-  }
 
   fillConcessionData(): void {
     // filter and get percents
