@@ -13,17 +13,25 @@
             <div class="card-body overflow-auto">
                 <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
                     <div class="row">
-
-                        <div class="form-group col-md-3 col-sm-3">
+                        <div class="ng-autocomplete form-group col-md-3 col-sm-3">
                             <label for="name">Patient Name </label>
-                            <input type="text" class="form-control" name="patientName" [(ngModel)]="form.patientName"  #patientName="ngModel" />
-                            <div class="text-danger" role="alert" *ngIf="f.submitted && patientName.invalid">
-                                Required Field !
+                            <ng-autocomplete 
+                              name="patientName"
+                              [data]="data"
+                              [searchKeyword]="keyword"
+                              (selected)='selectEvent($event)'
+                              (inputChanged)='onChangeSearch($event)'
+                              (inputFocused)='onFocused($event)'
+                              [itemTemplate]="itemTemplate">                                 
+                            </ng-autocomplete>
+                            
+                            <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item.name"></a>
+                            </ng-template>
                             </div>
-                        </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">UHID </label>
-                            <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid"  #uhid="ngModel" />
+                            <input type="text" class="form-control" name="uhid" (keyup)="onKeyUHID($event)" [(ngModel)]="form.uhid"  #uhid="ngModel" />
                             <div class="text-danger" role="alert" *ngIf="f.submitted && uhid.invalid">
                                 Required Field !
                             </div>
@@ -68,10 +76,18 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">Running Class </label>
-                            <input type="text" class="form-control" name="runningClass" [(ngModel)]="form.runningClass"  #runningClass="ngModel" />
+                            <!-- <input type="text" class="form-control" name="runningClass" [(ngModel)]="form.runningClass"  #runningClass="ngModel" />
                             <div class="text-danger" role="alert" *ngIf="f.submitted && runningClass.invalid">
                                 Required Field !
-                            </div>
+                            </div> -->
+                            <select class="form-control" [(ngModel)]="form.runningClass" #runningClass="ngModel" required name="runningClass">
+                                <option>
+                                    Please Select
+                                </option>
+                                <option *ngFor="let o of ClassList" [ngValue]="o.name" style="color: black;">
+                                    {{o.className}}
+                                </option>
+                            </select>
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">Emergency </label>
@@ -84,9 +100,20 @@
             
 
                     </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="card card-body overflow-auto">
+                            <div class="form-group row">
 
-                                <div class="row">
-                                    <div class="card card-body overflow-auto">
+                                <div class="col-md-12 col-sm-12">
+                                    <section class="card-body border" *ngFor="let dataItem of DetailsList; let i = index;">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h4>List : {{i + 1}}</h4>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <button type="button" class="btn btn-danger btn-sm" (click)="removeAddress(i,dataItem.id)">&nbsp;-&nbsp;</button>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="form-group col-md-2 col-sm-2">
                                                 <label for="name">Date </label>
@@ -103,58 +130,46 @@
                                                     Required Field !
                                                 </div>
                                             </div>
-            
-                                            <div class="form-group col-md-2 col-sm-2">
-                                                <label for="name">Perticulars </label>
-                                                <input type="text" class="form-control" name="perticulars" [(ngModel)]="form.perticulars"  #perticulars="ngModel" />
-                                                <div class="text-danger" role="alert" *ngIf="f.submitted && perticulars.invalid">
-                                                    Required Field !
-                                                </div>
+                                            <div class="col-md-3">
+                                                <label>Particulars</label>
+                                                <select class="form-control" [(ngModel)]="dataItem.testName" [ngModelOptions]="{standalone: true}" name="testName">
+                                                    <option *ngFor="let r of category" [ngValue]="r.id" style="color: black;">
+                                                        {{r.name}}
+                                                    </option>
+                                                </select>
                                             </div>
-            
-                                            <div class="form-group col-md-2 col-sm-2">
-                                                <label for="name">Procedur Doc 1 </label>
-                                                <input type="text" class="form-control" name="procedurDoc1" [(ngModel)]="form.procedurDoc1"  #procedurDoc1="ngModel" />
-                                                <div class="text-danger" role="alert" *ngIf="f.submitted && procedurDoc1.invalid">
-                                                    Required Field !
-                                                </div>
+                                            <div class="col-md-3">
+                                                <label>Procedure Doctor</label>
+                                                <select class="form-control" [(ngModel)]="dataItem.procedureDoctor" [ngModelOptions]="{standalone: true}" name="procedureDoctor">
+                                                    <option *ngFor="let r of category" [ngValue]="r.id" style="color: black;">
+                                                        {{r.name}}
+                                                    </option>
+                                                </select>
                                             </div>
-                                            <div class="form-group col-md-2 col-sm-2">
-                                                <label for="name">Procedur Doc 2 </label>
-                                                <input type="text" class="form-control" name="procedurDoc2" [(ngModel)]="form.procedurDoc2"  #procedurDoc2="ngModel" />
-                                                <div class="text-danger" role="alert" *ngIf="f.submitted && procedurDoc2.invalid">
-                                                    Required Field !
-                                                </div>
+                                            <div class="col-md-2">
+                                                <label for="propertyTax">Qty</label>
+                                                <input (keyup)="calculateTotal(i)" type="number" [ngModelOptions]="{standalone: true}" class="form-control" name="qty" [(ngModel)]="dataItem.qty" />
                                             </div>
-                                            <div class="form-group col-md-1 col-sm-1">
-                                                <label for="name">Qty </label>
-                                                <input type="text" class="form-control" name="Qty" [(ngModel)]="form.Qty"  #Qty="ngModel" />
-                                                <div class="text-danger" role="alert" *ngIf="f.submitted && Qty.invalid">
-                                                    Required Field !
-                                                </div>
+                                            <div class="col-md-2">
+                                                <label for="cleaningTax">Rate</label>
+                                                <input (keyup)="calculateTotal(i)" type="number" [ngModelOptions]="{standalone: true}" name="rate" [(ngModel)]="dataItem.rate" class="form-control">
                                             </div>
-                                            <div class="form-group col-md-1 col-sm-1">
-                                                <label for="name">Rate </label>
-                                                <input type="text" class="form-control" name="rate" [(ngModel)]="form.rate"  #rate="ngModel" />
-                                                <div class="text-danger" role="alert" *ngIf="f.submitted && rate.invalid">
-                                                    Required Field !
-                                                </div>
+                                            <div class="col-md-2">
+                                                <label for="amount">Amount </label>
+                                                <input (keyup)="calculateTotal(i)" type="number" [ngModelOptions]="{standalone: true}" name="amount" [(ngModel)]="dataItem.amount" class="form-control">
                                             </div>
-                                            <div class="form-group col-md-1 col-sm-1">
-                                                <label for="name">Amount </label>
-                                                <input type="text" class="form-control" name="amount" [(ngModel)]="form.amount"  #amount="ngModel" />
-                                                <div class="text-danger" role="alert" *ngIf="f.submitted && amount.invalid">
-                                                    Required Field !
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-1 col-sm-1">
-                                                <button class="btn btn-success">+</button>
-                                            </div>
-            
-                                            <div class="form-group col-md-12 col-sm-12" style="background: antiquewhite; height: 230px;">
-                                               
-                                            </div>
-                                
+                                        </div>
+                                    </section>
+                                    <section>
+                                        <button type="button" class="btn btn-success mb-2 mt-2" (click)="addRow()">+</button>
+                                    </section>
+                                </div>                    
+                            </div>
+                        </div>
+                    </div>
+                                <div class="row">
+                                    <div class="card card-body overflow-auto">
+                                        <div class="row">                               
                                             <div class="form-group col-md-12 col-sm-12">
                                                 <div class="row">
                                                     <div class="form-group col-md-6 col-sm-6">

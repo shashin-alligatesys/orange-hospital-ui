@@ -24,6 +24,7 @@
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@types/datatables.net": "^1.10.19",
     "angular-datatables": "^10.0.0",
+    "angular-ng-autocomplete": "^2.0.5",
     "datatables.net": "^1.10.22",
     "datatables.net-buttons": "^1.6.5",
     "datatables.net-buttons-dt": "^1.6.5",

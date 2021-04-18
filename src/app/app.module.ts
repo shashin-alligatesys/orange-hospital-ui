@@ -112,6 +112,7 @@ import { ExternalRadioMasterComponent } from './_pages/master/other_masters2/ext
 import { ExternalLabTestMasterComponent } from './_pages/master/other_masters2/external-lab-test-master/external-lab-test-master.component';
 import { ExternalRadioTestMasterComponent } from './_pages/master/other_masters2/external-radio-test-master/external-radio-test-master.component';
 
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 
 
@@ -297,6 +298,7 @@ import { ExternalRadioTestMasterComponent } from './_pages/master/other_masters2
     NgbModule,
     ReactiveFormsModule,
     PdfJsViewerModule,
+    AutocompleteLibModule,
     ToastrModule.forRoot()
     
   ],
