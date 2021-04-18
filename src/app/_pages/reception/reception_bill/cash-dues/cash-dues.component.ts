@@ -58,6 +58,33 @@ export class CashDuesComponent implements OnInit {
     );
   }
 
+  getPdf(uhid){
+    if(uhid !=null && uhid !="undefined"){
+    this.service.printReport('pdf',uhid).subscribe(
+      data => {
+        const fileURL = URL.createObjectURL(data);
+        window.open(fileURL, '_blank');
+      },
+      err => {
+        console.log(err)
+      }
+    );
+    }
+  }
+  getxlsx(uhid){
+    if(uhid !=null && uhid !="undefined"){
+    this.service.printReport('xlsx',uhid).subscribe(
+      data => {
+        const fileURL = URL.createObjectURL(data);
+        window.open(fileURL, '_blank');
+      },
+      err => {
+        console.log(err)
+      }
+    );
+  }
+  }
+
   getPlasticInstrumentNameList(): void {
     this.plasticMoneyMasterService.get().subscribe(
       data => {

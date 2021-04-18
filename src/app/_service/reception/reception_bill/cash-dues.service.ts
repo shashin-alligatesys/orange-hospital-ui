@@ -12,6 +12,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CashDuesService {
+  
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +34,10 @@ export class CashDuesService {
 
   getDue(): Observable<any> {
     return this.http.get(API_URL + 'getDue', { responseType: 'json' });
+  }
+
+  printReport(format,uhid): Observable<any> {
+    return this.http.get(API_URL + 'printReport/'+format+'/'+uhid, { responseType: 'blob' });
   }
   
 }

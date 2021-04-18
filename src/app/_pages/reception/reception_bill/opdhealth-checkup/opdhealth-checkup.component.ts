@@ -81,9 +81,9 @@ export class OpdhealthCheckupComponent implements OnInit {
   }
 
   onTable(flag): void {
-    
-    if(flag==0){
-      this.service.getCurrent().subscribe(
+    if (flag == 0) {
+      var currentDate = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0]
+      this.service.getByDate(currentDate).subscribe(
         data => {
           this.table_data = data.body
         },
@@ -91,8 +91,19 @@ export class OpdhealthCheckupComponent implements OnInit {
           console.error(err)
         }
       );
-    }else{
+    }
+    if (flag == 1) {
       this.service.get().subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }
+    if (flag == 2) {
+      this.service.getByDate(this.form.getByDate).subscribe(
         data => {
           this.table_data = data.body
         },

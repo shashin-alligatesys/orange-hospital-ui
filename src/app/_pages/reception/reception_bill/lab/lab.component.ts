@@ -58,17 +58,17 @@ export class LabComponent implements OnInit {
     this.getGruopList()
     this.getConcessionList()
     console.log(new Date().toISOString().substring(0, 10))
-    this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0]
+    this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0]
     this.form.billType = "CASH"
     this.form.subDept = 107
-    this.form.patientTypeOldNew="New"
+    this.form.patientTypeOldNew = "New"
     this.billTypeChange()
   }
 
   onTable(flag): void {
-    
-    if(flag==0){
-      this.service.getCurrent().subscribe(
+    if (flag == 0) {
+      var currentDate = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0]
+      this.service.getByDate(currentDate).subscribe(
         data => {
           this.table_data = data.body
         },
@@ -76,8 +76,19 @@ export class LabComponent implements OnInit {
           console.error(err)
         }
       );
-    }else{
+    }
+    if (flag == 1) {
       this.service.get().subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }
+    if (flag == 2) {
+      this.service.getByDate(this.form.getByDate).subscribe(
         data => {
           this.table_data = data.body
         },
@@ -264,10 +275,10 @@ export class LabComponent implements OnInit {
             this.form = {}
           } else {
             this.form = data.body
-            this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0];
+            this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0];
             this.form.billType = "CASH"
             this.form.subDept = 107
-            this.form.patientTypeOldNew="New"
+            this.form.patientTypeOldNew = "New"
           }
           this.spinner = false;
         },
@@ -299,10 +310,10 @@ export class LabComponent implements OnInit {
             this.form.consultant1 = data.body.consultant
             this.form.consultant2 = 0
             this.form.ptype = data.body.patientType
-            this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0];
+            this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0];
             this.form.billType = "CASH"
             this.form.subDept = 107
-            this.form.patientTypeOldNew="New"
+            this.form.patientTypeOldNew = "New"
           }
           this.spinner = false;
         },
@@ -397,19 +408,19 @@ export class LabComponent implements OnInit {
         this.form.refBy1 = Number(data.body.refBy1)
         this.form.refBy2 = Number(data.body.refBy2)
         let ok = 0;
-         data.body.detailsList.forEach(value => {
+        data.body.detailsList.forEach(value => {
 
           value.rate = Number(value.rate)
           value.qty = Number(value.qty)
-          
-          if(value.groupName !=null){
-            value.groupName = this.GruopList.find((e => e.groupName == value.groupName)).id 
+
+          if (value.groupName != null) {
+            value.groupName = this.GruopList.find((e => e.groupName == value.groupName)).id
           }
 
           this.opdService.getParticularsListByGroupAndOrganization(value.groupName, row.organization).subscribe(
             data => {
               this.ParticularsList[ok] = data.body
-              value.particulars = this.ParticularsList[ok].find((e => e.testName == value.particulars)).id 
+              value.particulars = this.ParticularsList[ok].find((e => e.testName == value.particulars)).id
               ok++;
             },
             err => {
@@ -417,16 +428,16 @@ export class LabComponent implements OnInit {
             }
           );
 
-          if(value.procedureDoctor1 !=null){
+          if (value.procedureDoctor1 != null) {
             value.procedureDoctor1 = this.ConsultantList.find((e => e.name == value.procedureDoctor1)).id
           }
-          if(value.procedureDoctor2 !=null){
+          if (value.procedureDoctor2 != null) {
             value.procedureDoctor2 = this.ConsultantList.find((e => e.name == value.procedureDoctor2)).id
           }
         });
 
         this.DetailsList = data.body.detailsList
-        
+
       },
       err => {
         console.error(err)

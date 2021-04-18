@@ -31,8 +31,8 @@ export class RadioService {
     return this.http.get(API_URL + 'findAll', { responseType: 'json' });
   }
 
-  getCurrent(): Observable<any> {
-    return this.http.get(API_URL + 'getCurrent', { responseType: 'json' });
+  getByDate(date): Observable<any> {
+    return this.http.get(API_URL + 'getByDate/'+date, { responseType: 'json' });
   }
   
   getDetailsById(id): Observable<any> {

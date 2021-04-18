@@ -86,20 +86,24 @@
     <!-- Admin JS End -->
 
     <script>
-     $(document).ready(function() {
-       
-//     $('#customTable').DataTable( {
-//         dom: 'Bfrtip',
-//         buttons: [
-//             {
-//                 text: 'My button',
-//                 action: function ( e, dt, node, config ) {
-//                     alert( 'Button activated' );
-//                 }
-//             }
-//         ]
-//     } );
+  $(function () {
+
+$('#customTable').DataTable( {
+    destroy: true,
+    // searching: false,
+    // paging: false
 } );
+
+    // $('#customTable').DataTable({
+    //   "paging": true,
+    //   "lengthChange": true,
+    //   "searching": true,
+    //   "ordering": true,
+    //   "info": true,
+    //   "autoWidth": true,
+    //   "responsive": true,
+    // });
+  });
       </script>
 </body>
 

@@ -12,7 +12,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LabService {
-
+  
   constructor(private http: HttpClient) { }
 
   save(form: any): Observable<any> { 
@@ -31,8 +31,8 @@ export class LabService {
     return this.http.get(API_URL + 'findAll', { responseType: 'json' });
   }
 
-  getCurrent(): Observable<any> {
-    return this.http.get(API_URL + 'getCurrent', { responseType: 'json' });
+  getByDate(date): Observable<any> {
+    return this.http.get(API_URL + 'getByDate/'+date, { responseType: 'json' });
   }
   
   getDetailsById(id): Observable<any> {
