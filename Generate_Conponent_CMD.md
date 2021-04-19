@@ -16,10 +16,10 @@ ng generate component _pages/reception/reception_bill/opdhealth-checkup --module
 ng generate component _pages/reception/reception_bill/cash-dues --module app ****
 
 *****************reception_bill_refund*************
-ng generate component _pages/reception/reception_bill_refund/opd_refund --module app
-ng generate component _pages/reception/reception_bill_refund/radio_refund --module app
-ng generate component _pages/reception/reception_bill_refund/lab_refund --module app
-ng generate component _pages/reception/reception_bill_refund/opdhealth-checkup_refund --module app
+ng generate component _pages/reception/reception_bill_refund/opd_refund --module app ****
+ng generate component _pages/reception/reception_bill_refund/radio_refund --module app ****
+ng generate component _pages/reception/reception_bill_refund/lab_refund --module app ****
+ng generate component _pages/reception/reception_bill_refund/opdhealth-checkup_refund --module app ****
 
 
 

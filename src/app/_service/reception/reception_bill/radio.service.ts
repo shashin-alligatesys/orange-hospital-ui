@@ -15,7 +15,7 @@ export class RadioService {
 
   constructor(private http: HttpClient) { }
 
-  save(form: any): Observable<any> { 
+ save(form: any): Observable<any> { 
     return this.http.post(API_URL + 'save', form, httpOptions);
   }
 
@@ -41,6 +41,14 @@ export class RadioService {
 
   deleteDetailById(id): Observable<any> {
     return this.http.delete(API_URL + 'deleteDetailById/'+id , httpOptions);
+  }
+
+  getDetailsByBillNo(billNo): Observable<any> {
+    return this.http.get(API_URL + 'getDetailsByBillNo/'+billNo , httpOptions);
+  }
+  
+  getUhidBillNoName(): Observable<any> {
+    return this.http.get(API_URL + 'getUhidBillNoName', { responseType: 'json' });
   }
 
 }

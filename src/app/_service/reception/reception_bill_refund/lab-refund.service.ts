@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
-const API_URL = environment.apiUrl+"/reception-bill-lab/";
+const API_URL = environment.apiUrl+"/reception-bill_refund-lab/";
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -11,8 +11,8 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class LabService {
-  
+export class LabRefundService {
+ 
   constructor(private http: HttpClient) { }
 
   save(form: any): Observable<any> { 
@@ -41,14 +41,6 @@ export class LabService {
 
   deleteDetailById(id): Observable<any> {
     return this.http.delete(API_URL + 'deleteDetailById/'+id , httpOptions);
-  }
-
-  getDetailsByBillNo(billNo): Observable<any> {
-    return this.http.get(API_URL + 'getDetailsByBillNo/'+billNo , httpOptions);
-  }
-  
-  getUhidBillNoName(): Observable<any> {
-    return this.http.get(API_URL + 'getUhidBillNoName', { responseType: 'json' });
   }
   
 }

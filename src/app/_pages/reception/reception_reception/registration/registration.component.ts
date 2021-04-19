@@ -14,7 +14,7 @@ import { MasterCategoryService } from '../../../../_service/static/master-catego
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor(private registrationService: RegistrationService,
+  constructor(private service: RegistrationService,
     private organizationMasterService: OrganizationMasterService,
     private doctorReferenceService: DoctorReferenceService,
     private consultantMasterService: ConsultantMasterService,
@@ -41,7 +41,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.form.uhid = 1
-    this.onTable()
+    this.onTable(0)
     this.getNextTOKEN()
     this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0];
     this.getOrganizationList()
@@ -162,7 +162,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   getMLCNO(): void {
-    this.registrationService.getNextMLC().subscribe(
+    this.service.getNextMLC().subscribe(
       data => {
         this.form.mlcno = data.body
       },
@@ -173,7 +173,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   getNextTOKEN(): void {
-    this.registrationService.getNextTOKEN().subscribe(
+    this.service.getNextTOKEN().subscribe(
       data => {
         this.form.tokenno = data.body
       },
@@ -183,16 +183,40 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  onTable(): void {
-    this.registrationService.get().subscribe(
-      data => {
-        this.table_data = data.body
-      },
-      err => {
-        console.error(err)
-      }
-    );
+  onTable(flag): void {
+    if (flag == 0) {
+      var currentDate = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0]
+      this.service.getByDate(currentDate).subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }
+    if (flag == 1) {
+      this.service.get().subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }
+    if (flag == 2) {
+      this.service.getByDate(this.form.getByDate).subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }
   }
+
   onEdit(row): void {
     this.form = {};
     window.scrollTo(0, 0);
@@ -210,7 +234,7 @@ export class RegistrationComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Delete it!'
     }).then((result) => {
-      this.registrationService.delete(id).subscribe(
+      this.service.delete(id).subscribe(
         data => {
           if (result.isConfirmed) {
             Swal.fire({
@@ -247,7 +271,7 @@ export class RegistrationComponent implements OnInit {
   }
   onSubmit(): void {
     this.isSubmit = true;
-    this.registrationService.save(this.form).subscribe(
+    this.service.save(this.form).subscribe(
       data => {
         this.isSubmit = false;
         if (data.status == 200) {
@@ -289,7 +313,7 @@ export class RegistrationComponent implements OnInit {
 
   onUpdate(): void {
     this.isSubmit = true;
-    this.registrationService.update(this.form).subscribe(
+    this.service.update(this.form).subscribe(
       data => {
         this.isSubmit = false;
         if (data.status == 200) {

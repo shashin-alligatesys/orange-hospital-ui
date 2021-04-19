@@ -37,5 +37,9 @@ export class AdmissionService {
   getPatientDetailsByIPD(ipd): Observable<any> {
     return this.http.delete(API_URL + 'getPatientDetailsByIPD/'+ipd , httpOptions);
   }
+
+  getByDate(date): Observable<any> {
+    return this.http.get(API_URL + 'getByDate/'+date, { responseType: 'json' });
+  }
   
 }

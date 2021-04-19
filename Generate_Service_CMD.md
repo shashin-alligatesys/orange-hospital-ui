@@ -58,3 +58,13 @@ ng generate service _service/reception/reception_bill/radio
 ng generate service _service/reception/reception_bill/lab
 ng generate service _service/reception/reception_bill/opdhealth-checkup
 ng generate service _service/reception/reception_bill/cash-dues
+
+
+ng generate service _service/reception/reception_bill_refund/opd_refund
+ng generate service _service/reception/reception_bill_refund/radio_refund
+ng generate service _service/reception/reception_bill_refund/lab_refund
+ng generate service _service/reception/reception_bill_refund/opdhealthcheckup_refund
+
+
+
+ng generate service _service/static/common

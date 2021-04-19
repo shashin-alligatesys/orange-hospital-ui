@@ -42,5 +42,13 @@ export class OpdBillService {
   deleteDetailById(id): Observable<any> {
     return this.http.delete(API_URL + 'deleteDetailById/'+id , httpOptions);
   }
+
+  getDetailsByBillNo(billNo): Observable<any> {
+    return this.http.get(API_URL + 'getDetailsByBillNo/'+billNo , httpOptions);
+  }
+  
+  getUhidBillNoName(): Observable<any> {
+    return this.http.get(API_URL + 'getUhidBillNoName', { responseType: 'json' });
+  }
   
 }
