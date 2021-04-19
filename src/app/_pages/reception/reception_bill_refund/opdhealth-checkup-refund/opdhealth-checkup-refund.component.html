@@ -76,12 +76,11 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">UHID</label>
-                            <!-- <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid" (focusout)="getPatientDetails_UHID()" required placeholder="Enter For Search" #uhid="ngModel" /> -->
-                            <select class="form-control" [(ngModel)]="form.uhid" [ngModelOptions]="{standalone: true}" (change)="getPatientDetails_UHID($event)" required #uhid="ngModel" name="uhid">
-                                <option *ngFor="let o of PatientDetails" [ngValue]="o.uhid  " style="color: black;">
-                                    {{o.name}} | {{o.uhid}} | {{o.billNo}} | {{o.id}}
-                                </option>
-                            </select>
+                            <ng-select [(ngModel)]="form.uhid" id="bill" name="uhid" #uhid="ngModel" [ngModelOptions]="{standalone: true}" [dropdownPosition]="'down'" [virtualScroll]="true" placeholder="Type to search" (focusout)="getPatientDetails_UHID()" required>
+                                <ng-option *ngFor="let o of PatientDetails" [value]="o.uhid">
+                                    {{o.name}} | {{o.uhid}} | <b style="color: red;">{{o.billNo}}</b> | {{o.id}}
+                                </ng-option>
+                            </ng-select>
                             <div class="text-danger" role="alert" *ngIf="f.submitted && uhid.invalid">
                                 Required Field !
                             </div>

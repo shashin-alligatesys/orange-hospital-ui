@@ -16,6 +16,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+
 
 import { RegistrationComponent } from './_pages/reception/reception_reception/registration/registration.component';
 import { AppointmentComponent } from './_pages/reception/reception_reception/appointment/appointment.component';
@@ -297,6 +300,7 @@ import { ExternalRadioTestMasterComponent } from './_pages/master/other_masters2
     NgbModule,
     ReactiveFormsModule,
     PdfJsViewerModule,
+    NgSelectModule,
     ToastrModule.forRoot()
     
   ],

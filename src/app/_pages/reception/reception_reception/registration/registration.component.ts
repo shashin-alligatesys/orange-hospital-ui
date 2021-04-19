@@ -40,7 +40,8 @@ export class RegistrationComponent implements OnInit {
   OccupationList: any = [];
 
   ngOnInit(): void {
-    this.form.uhid = 1
+    // this.form.uhid = 1
+    this.form.mobileCode = "91"
     this.onTable(0)
     this.getNextTOKEN()
     this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0];

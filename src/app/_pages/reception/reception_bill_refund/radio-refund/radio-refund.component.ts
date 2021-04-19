@@ -295,8 +295,8 @@ export class RadioRefundComponent implements OnInit {
     }
   }
 
-  getPatientDetails_UHID(event): void {
-    this.form.billNo = event.target.options[event.target.options.selectedIndex].text.split("|").pop().trim()
+  getPatientDetails_UHID(): void {
+    this.form.billNo = document.getElementsByClassName("ng-value-label").item(0).textContent.split("|").pop().trim()
     this.getDetailBy_BillNo()
     // if (this.form.uhid != null && this.form.uhid.length >= 0 && this.form.uhid != "") {
     //   this.spinner = true;

@@ -13,7 +13,7 @@
             <div class="card-body overflow-auto">
                 <form name="form" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" novalidate>
 
-                    <input type="hidden" name="id" [(ngModel)]="form.id" #id="ngModel"> 
+                    <input type="hidden" name="id" [(ngModel)]="form.id" #id="ngModel">
                     <h2 *ngIf="isEdit" style="color: orangered;"><b>Edit Mode</b></h2>
 
                     <div class="row">
@@ -60,19 +60,18 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">Bill No</label>
-                            <input type="text" class="form-control" name="billNo" [(ngModel)]="form.billNo" style="background-color: #00CCFF;" #billNo="ngModel"  (focusout)="getDetailBy_BillNo()" required placeholder="Enter For Search" />
+                            <input type="text" class="form-control" name="billNo" [(ngModel)]="form.billNo" style="background-color: #00CCFF;" #billNo="ngModel" (focusout)="getDetailBy_BillNo()" required placeholder="Enter For Search" />
                             <div class="text-danger" role="alert" *ngIf="f.submitted && billNo.invalid">
                                 Required Field !
                             </div>
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">UHID</label>
-                            <!-- <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid" (focusout)="getPatientDetails_UHID()" required placeholder="Enter For Search" #uhid="ngModel" /> -->
-                            <select class="form-control" [(ngModel)]="form.uhid" [ngModelOptions]="{standalone: true}" (change)="getPatientDetails_UHID($event)" required #uhid="ngModel" name="uhid">
-                                <option *ngFor="let o of PatientDetails" [ngValue]="o.uhid  " style="color: black;">
-                                    {{o.name}} | {{o.uhid}} | {{o.billNo}}
-                                </option>
-                            </select>
+                            <ng-select [(ngModel)]="form.uhid" id="bill" name="uhid" #uhid="ngModel" [ngModelOptions]="{standalone: true}" [dropdownPosition]="'down'" [virtualScroll]="true" placeholder="Type to search" (focusout)="getPatientDetails_UHID()" required>
+                                <ng-option *ngFor="let o of PatientDetails" [value]="o.uhid">
+                                    {{o.name}} | {{o.uhid}} | <b style="color: red;">{{o.billNo}}</b>
+                                </ng-option>
+                            </ng-select>
                             <div class="text-danger" role="alert" *ngIf="f.submitted && uhid.invalid">
                                 Required Field !
                             </div>
@@ -116,7 +115,7 @@
                         </div>
                         <div class="form-group col-md-2 col-sm-2">
                             <label for="name">Sex</label>
-                            <select class="form-control" name="sex" [(ngModel)]="form.sex" disabled  #sex="ngModel">
+                            <select class="form-control" name="sex" [(ngModel)]="form.sex" disabled #sex="ngModel">
                                 <option value="MALE">MALE</option>
                                 <option value="FEMALE">FEMALE</option>
                                 <option value="HERMAPHRODITIC">HERMAPHRODITIC</option>
@@ -207,7 +206,7 @@
                                             <div class="col-md-3">
                                                 <label>Groups</label>
                                                 <!-- (change)="getParticularsList(i)" -->
-                                                <select class="form-control" [(ngModel)]="dataItem.groupName"  (change)="getParticularsList(i)" required [ngModelOptions]="{standalone: true}" name="groupName">
+                                                <select class="form-control" [(ngModel)]="dataItem.groupName" (change)="getParticularsList(i)" required [ngModelOptions]="{standalone: true}" name="groupName">
                                                     <option *ngFor="let r of GruopList" [ngValue]="r.id" style="color: black;">
                                                         {{r.groupName}}
                                                     </option>
@@ -239,7 +238,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="propertyTax">Qty</label>
-                                                <input (keyup)="calculateTotal(i)" name="qty" [(ngModel)]="dataItem.qty" type="number" [ngModelOptions]="{standalone: true}" class="form-control"  />
+                                                <input (keyup)="calculateTotal(i)" name="qty" [(ngModel)]="dataItem.qty" type="number" [ngModelOptions]="{standalone: true}" class="form-control" />
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="cleaningTax">Rate</label>
@@ -259,9 +258,9 @@
 
                                 <div class="col-md-6 col-sm-6 border-right">
                                     <div class="row">
-                                      
+
                                         <div *ngIf="isCASH" class="form-group col-md-4 col-sm-4">
-                                            <label for="name">Method Of Payment </label>
+                                            <label for="name">Method Of Payment</label>
                                             <select class="form-control" name="methodOfPayment" [(ngModel)]="form.methodOfPayment" (change)="typeChange()" required #methodOfPayment="ngModel">
                                                 <option value="CASH" selected="selected">CASH</option>
                                                 <option value="PLASTICMONEY">PLASTICMONEY</option>
@@ -272,14 +271,14 @@
                                             </div>
                                         </div>
                                         <div *ngIf="isCHEQUE" class="form-group col-md-4 col-sm-4">
-                                            <label for="name">Cheque No </label>
-                                            <input type="text" class="form-control" name="chequeNo" [(ngModel)]="form.chequeNo"  #chequeNo="ngModel" />
+                                            <label for="name">Cheque No</label>
+                                            <input type="text" class="form-control" name="chequeNo" [(ngModel)]="form.chequeNo" #chequeNo="ngModel" />
                                             <div class="text-danger" role="alert" *ngIf="f.submitted && chequeNo.invalid">
                                                 Required Field !
                                             </div>
                                         </div>
                                         <div *ngIf="isPLASTICMONEY" class="form-group col-md-4 col-sm-4">
-                                            <label for="name">Instrument Name </label>
+                                            <label for="name">Instrument Name</label>
                                             <select class="form-control" [(ngModel)]="form.plasticInstrumentName" #plasticInstrumentName="ngModel" name="plasticInstrumentName">
                                                 <option *ngFor="let o of PlasticInstrumentNameList" [ngValue]="o.plasticInstrumentName" style="color: black;">
                                                     {{o.plasticInstrumentName}}
@@ -290,21 +289,21 @@
                                             </div>
                                         </div>
                                         <div *ngIf="isPLASTICMONEY" class="form-group col-md-4 col-sm-4">
-                                            <label for="name">Transaction No </label>
-                                            <input type="text" class="form-control" name="transactionNo" [(ngModel)]="form.transactionNo"  #transactionNo="ngModel" />
+                                            <label for="name">Transaction No</label>
+                                            <input type="text" class="form-control" name="transactionNo" [(ngModel)]="form.transactionNo" #transactionNo="ngModel" />
                                             <div class="text-danger" role="alert" *ngIf="f.submitted && transactionNo.invalid">
                                                 Required Field !
                                             </div>
                                         </div>
                                         <div *ngIf="isPLASTICMONEY" class="form-group col-md-4 col-sm-4">
-                                            <label for="name">Dated </label>
+                                            <label for="name">Dated</label>
                                             <input type="date" class="form-control" name="dated" [(ngModel)]="form.dated" required #dated="ngModel" />
                                             <div class="text-danger" role="alert" *ngIf="f.submitted && dated.invalid">
                                                 Required Field !
                                             </div>
                                         </div>
                                         <div *ngIf="isPLASTICMONEY" class="form-group col-md-4 col-sm-4">
-                                            <label for="name">To Account </label>
+                                            <label for="name">To Account</label>
                                             <select class="form-control" name="drawnOn" [(ngModel)]="form.drawnOn" #drawnOn="ngModel">
                                                 <option value="CASH ON HAND">CASH ON HAND</option>
                                                 <option value="CANARA BANK">CANARA BANK</option>
@@ -322,14 +321,14 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6 col-sm-6">
                                                     <label for="name">Remarks</label>
-                                                    <textarea rows="3" cols="20" type="text" class="form-control" name="remarks" [(ngModel)]="form.remarks"  #remarks="ngModel"></textarea>
+                                                    <textarea rows="3" cols="20" type="text" class="form-control" name="remarks" [(ngModel)]="form.remarks" #remarks="ngModel"></textarea>
                                                     <div class="text-danger" role="alert" *ngIf="f.submitted && remarks.invalid">
                                                         Required Field !
                                                     </div>
                                                 </div>
                                                 <div *ngIf="isCASH" class="form-group col-md-6 col-sm-6">
                                                     <label for="name">Details</label>
-                                                    <textarea rows="3" cols="20" type="text" class="form-control" name="details" [(ngModel)]="form.details"  #details="ngModel"></textarea>
+                                                    <textarea rows="3" cols="20" type="text" class="form-control" name="details" [(ngModel)]="form.details" #details="ngModel"></textarea>
                                                     <div class="text-danger" role="alert" *ngIf="f.submitted && details.invalid">
                                                         Required Field !
                                                     </div>
@@ -365,7 +364,7 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12">
                                             <div class="row">
-                                                 <label for="name" class="col-md-3 col-sm-3">Other Concession</label>
+                                                <label for="name" class="col-md-3 col-sm-3">Other Concession</label>
                                                 <input type="text" class="form-control col-md-3 col-sm-3" name="trustAmount" [(ngModel)]="form.trustAmount" #trustAmount="ngModel" />
                                                 <input type="text" class="form-control col-md-2 col-sm-2" name="trustPer" [(ngModel)]="form.trustPer" #trustPer="ngModel" />&nbsp;%&nbsp;
                                                 <input type="text" class="form-control col-md-3 col-sm-3" name="trustDiscount" [(ngModel)]="form.trustDiscount" #trustDiscount="ngModel" />
@@ -466,24 +465,24 @@
 
                             <div class="form-group col-md-1 col-sm-1">
                                 <button class="btn btn-info mt-1" (click)="onTable(0)">Today</button>
-                            </div> 
+                            </div>
                             <div class="form-group col-md-1 col-sm-1">
                                 <button class="btn btn-info mt-1" (click)="onTable(1)">Show All</button>
-                            </div> 
+                            </div>
                             <div class="form-group col-md-3 col-sm-3">
                                 <div class="input-group mt-1">
-                                    <input type="date" class="form-control"  name="getByDate" [(ngModel)]="form.getByDate" #getByDate="ngModel" >
+                                    <input type="date" class="form-control" name="getByDate" [(ngModel)]="form.getByDate" #getByDate="ngModel">
                                     <span class="input-group-append">
                                       <button type="button" class="btn btn-info" (click)="onTable(2)">Get</button>
                                     </span>
-                                  </div>
-                            </div> 
+                                </div>
+                            </div>
 
                             <div class="form-group col-md-12 col-sm-12">
                                 <div class="row">
                                     <div class="table-responsive">
                                         <!-- [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" -->
-                                                                           
+
                                         <table id="customTable" datatable class="table  table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead class="table-dark">
                                                 <tr>
@@ -518,12 +517,12 @@
                                                     <td>{{item.subDept}}</td>
                                                     <td>{{item.pType}}</td>
                                                     <td>{{item.pTypeOn}}</td>
-                                                     <td>{{item.methodOfPayment}}</td>
+                                                    <td>{{item.methodOfPayment}}</td>
                                                     <td>{{item.total}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        
+
                                     </div>
                                 </div>
                             </div>
