@@ -50,7 +50,7 @@ export class SubGroup2Component implements OnInit {
     this.form = {};
     window.scrollTo(0, 0);
     this.form = row
-    this.form.subGroup = Number(row.subGroup)
+    this.form.subGroup1 = Number(row.subGroup1)
     this.isEdit = true;
   }
   onDelete(id): void {

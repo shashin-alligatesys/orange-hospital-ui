@@ -1,23 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ngx-toastr/toastr.css';
 body {
-    /* font-family: "Lato", sans-serif; */
     font-family: 'open_sansregular';
-    /* line-height: 1; */
-    /* font-size: 62.5%; */
-    
     background-color: #f8f9fa;
     font-size: smaller;
-  }
-html, body {
-   height: 100%; 
-  }
-body { 
-  margin: 0; 
-  /* font-family: Roboto, "Helvetica Neue", sans-serif;  */
-}
+    margin: 0; 
+    zoom: 74%;
+    /* -ms-zoom: 0.7; */
+    height: 100%; 
+    padding-right: 0 !important;
 
-body { padding-right: 0 !important }
+    background-image: url(assets/Images/Home_Image.JPG);
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+  }
+
+  .modal-backdrop{
+    opacity: 0.5 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
 
 /* Validation CSS */
 .ng-valid[required], .ng-valid.required  {
@@ -28,11 +32,8 @@ body { padding-right: 0 !important }
 }
 
 label{
-  font-size: 13px;
+  /* font-size: 13px; */
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* IF Datatable Is Empty */
 /* td.dataTables_empty {
