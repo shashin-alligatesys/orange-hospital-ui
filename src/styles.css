@@ -10,10 +10,10 @@ body {
     height: 100%; 
     padding-right: 0 !important;
 
-    background-image: url(assets/Images/Home_Image.JPG);
+    /* background-image: url(assets/Images/Home_Image.JPG);
     background-repeat: no-repeat;
     background-attachment: fixed; 
-    background-size: 100% 100%;
+    background-size: 100% 100%; */
   }
 
   .modal-backdrop{

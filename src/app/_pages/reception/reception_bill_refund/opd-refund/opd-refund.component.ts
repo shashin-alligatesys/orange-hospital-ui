@@ -300,39 +300,39 @@ export class OpdRefundComponent implements OnInit {
 
     this.form.billNo = document.getElementsByClassName("ng-value-label").item(0).textContent.split("|").pop().trim()
     this.getDetailBy_BillNo()
-    if (this.form.uhid != null && this.form.uhid.length >= 0 && this.form.uhid != "") {
-      this.spinner = true;
-      this.registrationService.getPatientDetailsByUHID(this.form.uhid).subscribe(
-        data => {
-          if (data.body == null) {
-            Swal.fire({
-              title: 'Error!',
-              text: 'Not Found',
-              icon: 'error',
-              confirmButtonText: 'OK',
-              width: 300
-            })
-            this.form = {}
-          } else {
-            this.form = data.body
-            this.form.uhid = data.body.uhid.toString()
-            this.form.refBy1 = data.body.referredBy
-            this.form.refBy2 = 0
-            this.form.consultant1 = Number(data.body.consultant)
-            this.form.consultant2 = 0
-            this.form.ptype = data.body.patientType
-            this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0];
-            this.form.billType = "CASH"
-            this.form.subDept = 107
-            this.form.patientTypeOldNew = "New"
-          }
-          this.spinner = false;
-        },
-        err => {
-          console.error(err)
-        }
-      );
-    }
+    // if (this.form.uhid != null && this.form.uhid.length >= 0 && this.form.uhid != "") {
+    //   this.spinner = true;
+    //   this.registrationService.getPatientDetailsByUHID(this.form.uhid).subscribe(
+    //     data => {
+    //       if (data.body == null) {
+    //         Swal.fire({
+    //           title: 'Error!',
+    //           text: 'Not Found',
+    //           icon: 'error',
+    //           confirmButtonText: 'OK',
+    //           width: 300
+    //         })
+    //         this.form = {}
+    //       } else {
+    //         this.form = data.body
+    //         this.form.uhid = data.body.uhid.toString()
+    //         this.form.refBy1 = data.body.referredBy
+    //         this.form.refBy2 = 0
+    //         this.form.consultant1 = Number(data.body.consultant)
+    //         this.form.consultant2 = 0
+    //         this.form.ptype = data.body.patientType
+    //         this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0];
+    //         this.form.billType = "CASH"
+    //         this.form.subDept = 107
+    //         this.form.patientTypeOldNew = "New"
+    //       }
+    //       this.spinner = false;
+    //     },
+    //     err => {
+    //       console.error(err)
+    //     }
+    //   );
+    // }
   }
 
   getUhidBillNoName():void{

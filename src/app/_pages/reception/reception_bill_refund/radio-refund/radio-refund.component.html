@@ -177,6 +177,13 @@
                                 Required Field !
                             </div>
                         </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Radio Bill No</label>
+                            <input type="text" class="form-control" name="radioBillNo" [(ngModel)]="form.radioBillNo" style="background-color: #00CCFF;" #radioBillNo="ngModel" disabled />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && radioBillNo.invalid">
+                                Required Field !
+                            </div>
+                        </div>
                     </div>
 
 

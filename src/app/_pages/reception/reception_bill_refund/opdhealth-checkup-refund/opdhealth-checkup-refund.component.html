@@ -186,6 +186,13 @@
                                 Required Field !
                             </div>
                         </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                            <label for="name">Opd Health Checkup Bill No</label>
+                            <input type="text" class="form-control" name="opdHealthCheckupBillNo" [(ngModel)]="form.opdHealthCheckupBillNo" style="background-color: #00CCFF;" #opdHealthCheckupBillNo="ngModel" disabled />
+                            <div class="text-danger" role="alert" *ngIf="f.submitted && opdHealthCheckupBillNo.invalid">
+                                Required Field !
+                            </div>
+                        </div>
                     </div>
 
 
