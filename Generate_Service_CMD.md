@@ -24,6 +24,8 @@ ng generate service _service/ipd/bill/ipd_advanced
 
 
 ng generate service _service/account/entry/receipt
+ng generate service _service/account/entry/payment
+
 ng generate service _service/master/other_masters1/department
 ng generate service _service/master/other_masters1/subdepartment
 ng generate service _service/master/other_masters1/plastic_money_master

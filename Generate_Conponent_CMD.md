@@ -45,8 +45,8 @@ ng generate component _pages/ipd/dischange/discharge_clearance --module app
 {{{{{{{{{{{{{{{Account}}}}}}}}}}}}}}}
 
 *******************Entry*****************
-ng generate component _pages/account/entry/receipt --module app
-ng generate component _pages/account/entry/payment --module app
+ng generate component _pages/account/entry/receipt --module app ****
+ng generate component _pages/account/entry/payment --module app ****
 
 
 {{{{{{{{{{{{{{{Reports}}}}}}}}}}}}}}}

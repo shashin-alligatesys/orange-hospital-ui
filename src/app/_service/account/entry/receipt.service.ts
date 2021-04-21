@@ -3,10 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
-const API_URL = environment.apiUrl+"/receipt/";
+const API_URL = environment.apiUrl+"/account-receipt/";
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 @Injectable({
   providedIn: 'root'
 })
