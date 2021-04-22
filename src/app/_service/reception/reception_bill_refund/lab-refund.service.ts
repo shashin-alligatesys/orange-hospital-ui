@@ -42,5 +42,9 @@ export class LabRefundService {
   deleteDetailById(id): Observable<any> {
     return this.http.delete(API_URL + 'deleteDetailById/'+id , httpOptions);
   }
+
+  printReport(format,id): Observable<any> {
+		return this.http.get(API_URL + 'printReport/'+format+'/'+id, { responseType: 'blob' });
+	  }
   
 }
