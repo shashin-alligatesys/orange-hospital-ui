@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 const BILLAPI = environment.apiUrl+"/billDetail/";
+const CONSULTANTAPI = environment.apiUrl+"/consultant_master/";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +24,8 @@ export class BillDetailSheetComponent implements OnInit {
 
   form: any = {};
   keyword = 'name';
-  public data =[];
+  public petientData =[];
+  public doctorData =[];
   isSubmit = false;
   ClassList: any = [];
 
@@ -41,19 +43,29 @@ export class BillDetailSheetComponent implements OnInit {
  
 
       let me = this;
-      this.getData(event).subscribe(
+      this.getPatientData(event).subscribe(
         data => {
           console.log(data.body);
           //this.data = data.body;
-          me.data=data.body;
-          this.form.patientName=data.body.name;
-          this.form.ipdNo=data.body.ipdno;
-          this.form.uhid=data.body.uhid;
+           me.petientData=data.body;
+          // this.form.patientName=data.body.name;
+          // this.form.ipdNo=data.body.ipdno;
+          // this.form.uhid=data.body.uhid;
         },
         err => {
           console.log(err)
         }
       );
+
+      this.getDoctorData(event).subscribe(
+        data=>{
+          console.log(data.body);
+          me.doctorData=data.body;
+        },
+        err => {
+          console.log(err)
+        }
+      )
 
   }
   
@@ -64,8 +76,11 @@ export class BillDetailSheetComponent implements OnInit {
   onKeyUHID(event: any): void {
     console.log(event.target.value);
   }
-  getData(event: any): Observable<any> {
+  getPatientData(event: any): Observable<any> {
     return this.http.get(BILLAPI + 'findAll', httpOptions);
+  }
+  getDoctorData(event: any): Observable<any> {
+    return this.http.get(CONSULTANTAPI + 'findAll', httpOptions);
   }
 
   getClass() : Observable<any> {
@@ -152,6 +167,18 @@ export class BillDetailSheetComponent implements OnInit {
   }
   
   onFocused(e){
+    console.log("onfocus event",e.target.value)
+  }
+  selectEventDoctor(item) {
+    console.log("select event",item.id)
+    this.form.procedureDoctor=item.name;
+  }
+
+  onChangeSearchDoctor(val: string) {
+    console.log("onchange event",val)
+  }
+  
+  onFocusedDoctor(e){
     console.log("onfocus event",e.target.value)
   }
 }

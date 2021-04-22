@@ -17,7 +17,7 @@
                             <label for="name">Patient Name </label>
                             <ng-autocomplete 
                               name="patientName"
-                              [data]="data"
+                              [data]="petientData"
                               [searchKeyword]="keyword"
                               (selected)='selectEvent($event)'
                               (inputChanged)='onChangeSearch($event)'
@@ -140,11 +140,24 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Procedure Doctor</label>
-                                                <select class="form-control" [(ngModel)]="dataItem.procedureDoctor" [ngModelOptions]="{standalone: true}" name="procedureDoctor">
+                                                <ng-autocomplete 
+                                                      name="procedureDoctor"
+                                                      [data]="doctorData"
+                                                      [searchKeyword]="keyword"
+                                                      (selected)='selectEventDoctor($event)'
+                                                      (inputChanged)='onChangeSearchDoctor($event)'
+                                                      (inputFocused)='onFocusedDoctor($event)'
+                                                      [itemTemplate]="doctoreName">                                 
+                                                    </ng-autocomplete>
+                                                    
+                                                    <ng-template #doctoreName let-item>
+                                                    <a [innerHTML]="item.name"></a>
+                                                    </ng-template>
+                                                <!-- <select class="form-control" [(ngModel)]="dataItem.procedureDoctor" [ngModelOptions]="{standalone: true}" name="procedureDoctor">
                                                     <option *ngFor="let r of category" [ngValue]="r.id" style="color: black;">
                                                         {{r.name}}
                                                     </option>
-                                                </select>
+                                                </select> -->
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="propertyTax">Qty</label>
