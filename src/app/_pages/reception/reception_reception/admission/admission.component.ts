@@ -37,6 +37,7 @@ export class AdmissionComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     // this.form.uhid = 0
+    this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0]
     this.onTable(0)
     this.getNextIPD()
     this.getBedList()
@@ -134,6 +135,7 @@ export class AdmissionComponent implements OnInit {
             this.form.ipdno = ipd
             this.form.refBy1 =  data.body.referredBy
             this.form.consultant1 = data.body.consultant
+            this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0]
           }
           this.spinner = false;
         },
@@ -330,4 +332,19 @@ export class AdmissionComponent implements OnInit {
     )
   }
   
+  getPdf(id,type): void {
+		if(id !=null && id !="undefined"){
+      this.service.printReport('pdf',id,type).subscribe(
+        data => {
+        const fileURL = URL.createObjectURL(data);
+        window.open(fileURL, '_blank');
+        },
+        err => {
+        console.log(err)
+        }
+      );
+      }
+  }
+
+
 }

@@ -30,7 +30,7 @@ import { BillDetailSheetComponent } from './_pages/ipd/bill/bill-detail-sheet/bi
 import { ProvisionalBillComponent } from './_pages/ipd/bill/provisional-bill/provisional-bill.component';
 import { FinalIpdBillComponent } from './_pages/ipd/bill/final-ipd-bill/final-ipd-bill.component';
 // import { IpdAdvancedComponent } from './_pages/ipd/bill/ipd-advanced/ipd-advanced.component';
-import { PaymentRefundComponent } from './_pages/ipd/bill/payment-refund/payment-refund.component'; 
+// import { PaymentRefundComponent } from './_pages/ipd/bill/payment-refund/payment-refund.component'; 
 
 import { BedShiftingComponent } from './_pages/ipd/bed/bed-shifting/bed-shifting.component';
 import { BedStatusComponent } from './_pages/ipd/bed/bed-status/bed-status.component';
@@ -298,20 +298,20 @@ const routes: Routes = [
     role: 'ROLE_ADMIN,ROLE_USER'
   }
 },
-{
-  path: 'ipd-bill-ipd_advanced', component: ReceiptComponent,
-  canActivate: [AuthGuard],
-  data: {
-    role: 'ROLE_ADMIN,ROLE_USER'
-  }
-},
-{
-  path: 'ipd-bill-payment_refund', component: PaymentRefundComponent,
-  canActivate: [AuthGuard],
-  data: {
-    role: 'ROLE_ADMIN,ROLE_USER'
-  }
-},
+// {
+//   path: 'account-entry-receipt', component: ReceiptComponent,
+//   canActivate: [AuthGuard],
+//   data: {
+//     role: 'ROLE_ADMIN,ROLE_USER'
+//   }
+// },
+// {
+//   path: 'ipd-bill-payment_refund', component: PaymentComponent,
+//   canActivate: [AuthGuard],
+//   data: {
+//     role: 'ROLE_ADMIN,ROLE_USER'
+//   }
+// },
 /** 
   * Bill >>>>>>>>>>>>>
  */

@@ -45,5 +45,9 @@ export class AdmissionService {
   getPatientDetailList(): Observable<any> {
     return this.http.get(API_URL + 'getPatientDetailList', { responseType: 'json' });
   }
+
+  printReport(format,id,type): Observable<any> {
+		return this.http.get(API_URL + 'printReport/'+format+'/'+id+'/'+type, { responseType: 'blob' });
+	  }
   
 }

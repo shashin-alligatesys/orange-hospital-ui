@@ -54,5 +54,9 @@ export class RegistrationService {
   getByDate(date): Observable<any> {
     return this.http.get(API_URL + 'getByDate/'+date, { responseType: 'json' });
   }
+
+  printReport(format,id,type): Observable<any> {
+		return this.http.get(API_URL + 'printReport/'+format+'/'+id+'/'+type, { responseType: 'blob' });
+	  }
   
 }

@@ -30,5 +30,13 @@ export class PaymentService {
   get(): Observable<any> {
     return this.http.get(API_URL + 'findAll', { responseType: 'json' });
   }
+
+  getByDate(date): Observable<any> {
+    return this.http.get(API_URL + 'getByDate/'+date, { responseType: 'json' });
+  }
+
+  printReport(format,id): Observable<any> {
+    return this.http.get(API_URL + 'printReport/'+format+'/'+id, { responseType: 'blob' });
+  }
   
 }

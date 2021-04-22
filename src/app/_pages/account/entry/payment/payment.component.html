@@ -19,8 +19,8 @@
 
                     <div class="row">
                         <!-- <div class="form-group col-md-12 col-sm-12">
-                            <button class="btn btn-info mt-1">Ledger</button>&nbsp;
-                            <button class="btn btn-info mt-1">Party Master</button>&nbsp;
+                            <button type="button" class="btn btn-info mt-1">Ledger</button>&nbsp;
+                            <button type="button" class="btn btn-info mt-1">Party Master</button>&nbsp;
                             <button class="btn btn-success mt-1">Corporate Receipt(TPA)</button>&nbsp;
                             <button class="btn mt-1" style="background-color: orange;">Corporate Receipt(Company Wise)</button>&nbsp;
                         </div> -->
@@ -68,7 +68,7 @@
                                
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">IPD No </label>
-                                    <input type="text" class="form-control" name="ipdno" [(ngModel)]="form.ipdno" (focusout)="filterPatientDetails()" placeholder="Enter For Search" #ipdno="ngModel" />
+                                    <input type="text" class="form-control" name="ipdno" [(ngModel)]="form.ipdno" (keyup)="filterPatientDetails()" placeholder="Enter For Search" #ipdno="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && ipdno.invalid">
                                         Required Field !
                                     </div>
@@ -91,7 +91,7 @@
                                         Required Field !
                                     </div>
                                 </div> -->
-                                <div class="form-group col-md-3 col-sm-3">
+                                <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Paid To</label>
                                     <!-- (focusout)="getPatientDetails_UHID()" -->
                                     <ng-select [(ngModel)]="form.paidTo" id="bill" name="paidTo" #paidTo="ngModel" (focusout)="filterPatientByName()" [ngModelOptions]="{standalone: true}" [dropdownPosition]="'down'" [virtualScroll]="true" placeholder="Type to search" required>
@@ -114,7 +114,7 @@
  
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Amount(Words) </label>
-                                    <input type="text" class="form-control" name="words" [(ngModel)]="form.words"  #words="ngModel" />
+                                    <input type="text" class="form-control" name="words" [(ngModel)]="form.words" required  #words="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && words.invalid">
                                         Required Field !
                                     </div>
@@ -214,7 +214,7 @@
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Payment / Refund </label>
                                     <select class="form-control" name="porr" [(ngModel)]="form.porr" required #porr="ngModel">
-                                        <option value="NO" selected="REFUND">REFUND</option>
+                                        <option value="REFUND" selected="REFUND">REFUND</option>
                                         <option value="PAYMENT">PAYMENT</option>
                                     </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && porr.invalid">
@@ -227,10 +227,11 @@
 
                         <div class="form-group col-md-12 col-sm-12">
                             <input type="button" class="btn btn-info mt-1" value="New" (click)="onNew()">&nbsp;
-                            <button class="btn btn-info mt-1" type="submit">Save:F1</button>&nbsp;
-                            <button class="btn btn-info mt-1">Delete</button>&nbsp;
-                            <button class="btn btn-info mt-1">Print</button>&nbsp;
-                            <button class="btn btn-info mt-1">Create New From Existing</button>&nbsp;
+                            <button type="button" class="btn btn-info mt-1" type="submit">Save:F1</button>&nbsp;
+                            <button type="button" class="btn btn-info mt-1">Delete</button>&nbsp;
+                            <button id="" type="button" (click)="getPdf(this.form.id)" class="btn btn-danger">Print PDF &nbsp;<i class="fas fa-print"></i></button>&nbsp;
+                            <button id="" type="button" (click)="getxlsx(this.form.id)" class="btn btn-success">Print Excel &nbsp;<i class="fas fa-file"></i></button>&nbsp;
+                            <button type="button" class="btn btn-info mt-1">Create New From Existing</button>&nbsp;
                         </div>
                     
 
@@ -295,11 +296,11 @@
                                 </div>
     
                                 <div class="form-group col-md-3 col-sm-3">
-                                    <button class="btn btn-info mt-1">Print</button> 
+                                    <button type="button" class="btn btn-info mt-1">Print</button> 
                                 </div>
     
                                 <div class="form-group col-md-3 col-sm-3">
-                                    <button class="btn btn-info mt-1">Clear Selection</button>
+                                    <button type="button" class="btn btn-info mt-1">Clear Selection</button>
                                 </div>
 
                                 <div class="form-group col-md-3 col-sm-3">
@@ -317,6 +318,21 @@
                                     </div>
                                 </div> -->
     
+                                <div class="form-group col-md-1 col-sm-1">
+                                    <button type="button" class="btn btn-info mt-1" (click)="onTable(0)">Today</button>
+                                </div> 
+                                <div class="form-group col-md-1 col-sm-1">
+                                    <button type="button" class="btn btn-info mt-1" (click)="onTable(1)">Show All</button>
+                                </div> 
+                                <div class="form-group col-md-3 col-sm-3">
+                                    <div class="input-group mt-1">
+                                        <input type="date" class="form-control"  name="getByDate" [(ngModel)]="form.getByDate" #getByDate="ngModel" >
+                                        <span class="input-group-append">
+                                          <button type="button" class="btn btn-info" (click)="onTable(2)">Get</button>
+                                        </span>
+                                      </div>
+                                </div>
+
                                 <div class="form-group col-md-12 col-sm-12">
                                     <div class="row">
                                         <div class="table-responsive">
@@ -327,10 +343,10 @@
                                                         <th>Select</th>
                                                         <th>Print</th>
                                                         <th>Receipt No</th>
-                                                        <th>Received From</th>
+                                                        <th>Paid To</th>
                                                         <th>Receipt Date</th>
                                                         <th>Amount</th>
-                                                        <th>To Account</th>
+                                                        <th>Paid From</th>
                                                         <th>IPD No</th>
                                                         <th>UHID</th>
                                                         <th>Type</th>
@@ -345,12 +361,15 @@
                                                                 <button id="delete" type="button" (click)="onDelete(item.id)" class="btn btn-danger" *ngIf="!isUserRole"><i class="fa fa-trash"></i></button>
                                                             </span>
                                                         </td>
-                                                        <td><button id="" type="button"  class="btn btn-danger"><i class="fas fa-print"></i></button> &nbsp;</td>
-                                                        <td>{{item.receiptNo}}</td>
-                                                        <td>{{item.receivedFrom}}</td>
+                                                        <td>
+                                                            <button id="" type="button" (click)="getPdf(item.id)" class="btn btn-danger"><i class="fas fa-print"></i>
+                                                            </button>&nbsp;
+                                                        </td>
+                                                        <td>{{item.paymentNo}}</td>
+                                                        <td>{{item.paidTo}}</td>
                                                         <td>{{item.receiptDate}}</td>
                                                         <td>{{item.amount}}</td>
-                                                        <td>{{item.toAccount}}</td>
+                                                        <td>{{item.paidFrom}}</td>
                                                         <td>{{item.ipdno}}</td>
                                                         <td>{{item.uhid}}</td>
                                                         <td>{{item.type}}</td>

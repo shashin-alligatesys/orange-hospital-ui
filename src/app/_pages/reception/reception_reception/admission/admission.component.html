@@ -47,7 +47,6 @@
 
                             <div class="form-group col-md-4 col-sm-4">
                                 <label for="name">BED No </label>
-                                <!-- <input type="text" class="form-control" name="bedno" [(ngModel)]="form.bedno"  #bedno="ngModel" /> -->
                                 <select class="form-control" [(ngModel)]="form.bedno" [ngModelOptions]="{standalone: true}" (change)="getClass()" required  #bedno="ngModel" name="bedno">
                                     <option *ngFor="let b of BedList" [ngValue]="b.bedno" style="color: black;">
                                         {{b.bedno}} | {{b.wardname}} | {{b.roomType}}
@@ -58,7 +57,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-3 col-sm-3">
+                            <div class="form-group col-md-4 col-sm-4">
                                 <label for="name">UHID </label>
                                 <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid" (focusout)="getPatientDetails()" required placeholder="Enter For Search"  #uhid="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && uhid.invalid">
@@ -68,41 +67,11 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="form-group col-md-2 col-sm-2">
-                                <label for="name"> &nbsp; </label>
-                                <input type="text" class="form-control" name="a" [(ngModel)]="form.a"  #a="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && a.invalid">
-                                    Required Field !
-                                </div>
-                            </div>
-                            <div class="form-group col-md-2 col-sm-2">
-                                <label for="name"> &nbsp; </label>
-                                <input type="text" class="form-control" name="b" [(ngModel)]="form.b"  #b="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && b.invalid">
-                                    Required Field !
-                                </div>
-                            </div> -->
                             
-                            <div class="form-group col-md-3 col-sm-3">
+                            <div class="form-group col-md-4 col-sm-4">
                                 <label for="name">Class </label>
                                 <input type="text" class="form-control" name="class" [(ngModel)]="form.class"  #class="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && class.invalid">
-                                    Required Field !
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-4 col-sm-4">
-                                <label for="name">Date </label>
-                                <input type="date" class="form-control" name="date" [(ngModel)]="form.date"  #date="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && date.invalid">
-                                    Required Field !
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-4 col-sm-4">
-                                <label for="name">Admitted Time </label>
-                                <input type="time" class="form-control" name="time" [(ngModel)]="form.time"  #time="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && time.invalid">
                                     Required Field !
                                 </div>
                             </div>
@@ -123,12 +92,23 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="form-group col-md-4 col-sm-4">
-                                <label for="name">&nbsp;</label>
-                                <button>Location</button>
-                            </div> -->
+                            <div class="form-group col-md-4 col-sm-4">
+                                <label for="name">Date </label>
+                                <input type="date" class="form-control" name="date" [(ngModel)]="form.date" required #date="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && date.invalid">
+                                    Required Field !
+                                </div>
+                            </div>
 
                             <div class="form-group col-md-4 col-sm-4">
+                                <label for="name">Admitted Time </label>
+                                <input type="time" class="form-control" name="time" [(ngModel)]="form.time" required #time="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && time.invalid">
+                                    Required Field !
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3 col-sm-3">
                                 <label for="name">User </label>
                                 <input type="text" class="form-control" name="userName" [(ngModel)]="form.userName" disabled #userName="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && userName.invalid">
@@ -136,12 +116,8 @@
                                 </div>
                             </div>
         
-                            <div class="form-group col-md-4 col-sm-4">
+                            <div class="form-group col-md-3 col-sm-3">
                                 <label for="name">Organization Name </label>
-                                <!-- <input type="text" class="form-control" name="organization" [(ngModel)]="form.organization"  #organization="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && organization.invalid">
-                                    Required Field !
-                                </div> -->
                                 <select class="form-control" [(ngModel)]="form.organization" [ngModelOptions]="{standalone: true}" #organization="ngModel" name="organization">
                                     <option *ngFor="let o of OrganizationList" [ngValue]="o.id" style="color: black;">
                                         {{o.organization}}
@@ -151,10 +127,9 @@
                                     Required Field !
                                 </div>
                             </div>
-                            <div class="form-group col-md-4 col-sm-4">
+                            <div class="form-group col-md-3 col-sm-3">
                                 <label for="name">Sex </label>
-                                <!-- <input type="text" class="form-control" name="sex" [(ngModel)]="form.sex"  #sex="ngModel" /> -->
-                                <select class="form-control col-md-4 col-sm-4" name="sex" [(ngModel)]="form.sex" #sex="ngModel">
+                                <select class="form-control" name="sex" [(ngModel)]="form.sex" #sex="ngModel">
                                     <option value="MALE">MALE</option>
                                     <option value="FEMALE">FEMALE</option>
                                     <option value="HERMAPHRODITE">HERMAPHRODITE</option>
@@ -164,7 +139,7 @@
                                     Required Field !
                                 </div>
                             </div>
-                            <div class="form-group col-md-4 col-sm-4">
+                            <div class="form-group col-md-3 col-sm-3">
                                 <label for="name">Age </label>
                                 <input type="text" class="form-control" name="age" [(ngModel)]="form.age"  #age="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && age.invalid">
@@ -366,16 +341,19 @@
                             <div class="form-group row">
                                 <input type="button" value="New" class="btn btn-info mt-1" (click)="onNew()">&nbsp;
                                 <button class="btn btn-info mt-1" type="submit">Save:F1</button> &nbsp;
-                                <button class="btn btn-info mt-1" routerLink="/ipd-bill-ipd_advanced" [queryParams]="{search: ipdEdit}">Advanced</button> &nbsp;
-                                <button class="btn btn-info mt-1">Bill Detail Sheet</button> &nbsp;
-                                <button class="btn btn-info mt-1">Shifting</button> &nbsp;
-                                <button class="btn btn-info mt-1">Delete</button> &nbsp;
-                                <button class="btn btn-info mt-1">Print IPD Case Record</button> &nbsp;
-                                <button class="btn btn-info mt-1">IPD Lable</button> &nbsp;
-                                <button class="btn btn-info mt-1">IPD Barcode</button> &nbsp;
-                                <button class="btn btn-info mt-1">Print GatePass</button> &nbsp;
-                                <button class="btn btn-info mt-1">IPD Case Record Lable</button> &nbsp;
-                                <button class="btn btn-info mt-1">Export IPD Lable</button> &nbsp;
+                                <button type="button" class="btn btn-info mt-1" routerLink="/account-entry-receipt" [queryParams]="{search: ipdEdit}">Advanced</button> &nbsp;
+                                <button type="button" class="btn btn-info mt-1"  routerLink="/ipd-bill-bill_detail_sheet">Bill Detail Sheet</button> &nbsp;
+                                <button type="button" class="btn btn-info mt-1"  routerLink="/ipd-bed-bed_shifting">Shifting</button> &nbsp;
+                                <!-- <button type="button" class="btn btn-info mt-1">Delete</button> &nbsp; -->
+                                <!-- <button type="button" class="btn btn-info mt-1">Print IPD Case Record</button> &nbsp; -->
+                                <button type="button" class="btn btn-info mt-1" (click)="getPdf(this.form.id,'PrintIPDCaseRecord')">Print IPD Case Record <span class="fa fa-download"></span></button> &nbsp;
+                                <button type="button" class="btn btn-info mt-1" (click)="getPdf(this.form.id,'ExportIPDLable')">IPD Lable <span class="fa fa-download"></span></button> &nbsp;
+                                <!-- <button type="button" class="btn btn-info mt-1">IPD Barcode</button> &nbsp; -->
+                                <button type="button" class="btn btn-info mt-1" (click)="getPdf(this.form.id,'PrintGatePass')">Print GatePass <span class="fa fa-download"></span></button> &nbsp;
+                                <!-- <button type="button" class="btn btn-info mt-1"></button> &nbsp; -->
+                                <button type="button" class="btn btn-info mt-1" (click)="getPdf(this.form.id,'IPDCaseRecordLable')">IPD Case Record Lable <span class="fa fa-download"></span></button> &nbsp;
+                                <!-- <button type="button" class="btn btn-info mt-1">Export IPD Lable</button> &nbsp; -->
+                                <button type="button" class="btn btn-info mt-1" (click)="getPdf(this.form.id,'ExportIPDLable')">Export IPD Lable <span class="fa fa-download"></span></button> &nbsp;
                             </div>
                         </div>
                     </div>
@@ -441,21 +419,21 @@
                             </div>
 
                             <div class="form-group col-md-3 col-sm-3">
-                                <button class="btn btn-info mt-1">Show All</button> 
+                                <button type="button" class="btn btn-info mt-1">Show All</button> 
                             </div>
 
                             <div class="form-group col-md-3 col-sm-3">
-                                <button class="btn btn-info mt-1">Clear Selection</button>
+                                <button type="button" class="btn btn-info mt-1">Clear Selection</button>
                             </div> -->
 
                             <div class="form-group col-md-12 col-sm-12">
                                 <div class="row">
                                     
                                     <div class="form-group col-md-1 col-sm-1">
-                                        <button class="btn btn-info mt-1" (click)="onTable(0)">Today</button>
+                                        <button type="button" class="btn btn-info mt-1" (click)="onTable(0)">Today</button>
                                     </div> 
                                     <div class="form-group col-md-1 col-sm-1">
-                                        <button class="btn btn-info mt-1" (click)="onTable(1)">Show All</button>
+                                        <button type="button" class="btn btn-info mt-1" (click)="onTable(1)">Show All</button>
                                     </div> 
                                     <div class="form-group col-md-3 col-sm-3">
                                         <div class="input-group mt-1">

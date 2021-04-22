@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { RegistrationService } from '../../../../_service/reception/reception_reception/registration.service';
 import { OrganizationMasterService } from '../../../../_service/static/organization-master.service';
@@ -40,15 +39,15 @@ export class RegistrationComponent implements OnInit {
   OccupationList: any = [];
 
   ngOnInit(): void {
-    // this.form.uhid = 1
     this.form.mobileCode = "91"
     this.onTable(0)
     this.getNextTOKEN()
-    this.form.date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0];
+    this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0];
     this.getOrganizationList()
     this.getDoctorReferenceList()
     this.getConsultantList()
     this.getCategories()
+
   }
 
   getCategories(): void {
@@ -353,6 +352,22 @@ export class RegistrationComponent implements OnInit {
       }
     )
   }
+
+
+  getPdf(id,type): void {
+		if(id !=null && id !="undefined"){
+      this.service.printReport('pdf',id,type).subscribe(
+        data => {
+        const fileURL = URL.createObjectURL(data);
+        window.open(fileURL, '_blank');
+        },
+        err => {
+        console.log(err)
+        }
+      );
+      }
+  }
+
 
   ageCalculator() {
     //collect input from HTML form and convert into date format

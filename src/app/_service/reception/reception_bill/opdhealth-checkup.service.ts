@@ -50,5 +50,9 @@ export class OpdhealthCheckupService {
   getUhidBillNoName(): Observable<any> {
     return this.http.get(API_URL + 'getUhidBillNoName', { responseType: 'json' });
   }
+
+  printReport(format,id): Observable<any> {
+		return this.http.get(API_URL + 'printReport/'+format+'/'+id, { responseType: 'blob' });
+	  }
   
 }

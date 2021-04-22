@@ -30,24 +30,28 @@ export class PaymentComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.getPatientDetailList();
-    this.onTable()
+    this.onTable(0)
     this.getPlasticInstrumentNameList()
     
     this.activatedroute.queryParams.subscribe(data => {
       console.log(data['search'])
       this.form.ipdno = data['search']
 
-      if(data['search'] != 0){
-        this.filterPatientDetails()
-      }
+      // if(data['search'] != 0){
+      //   this.filterPatientDetails()
+      // }
 
     });
+
+    this.form.dept = "16"
+    this.form.receiptDate = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0]
   }
 
   getPatientDetailList():void{
     this.getService.getPatientDetailList().subscribe(
       data => {
         this.PatientDetails = data.body.filter(opt =>  opt.name=opt.name+"("+opt.uhid+")");
+        this.filterPatientDetails()
       },
       err => {
         console.error(err)
@@ -62,38 +66,16 @@ export class PaymentComponent implements OnInit {
   }
 
   filterPatientDetails(): void{
+    this.form.uhid = ""
+    this.form.paidTo = ""
     if(this.form.ipdno != null && this.form.ipdno.length>=0 && this.form.ipdno != ""){
       const SortRow = this.PatientDetails.find((e => e.ipd == this.form.ipdno))
+      if (SortRow != null) {
       this.form.ipdno = SortRow.ipd
       this.form.uhid=SortRow.uhid
       this.form.paidTo=SortRow.name
+      }
     }
-    // let ipd = this.form.ipdno
-    // if(this.form.ipdno != null && this.form.ipdno.length>=0 && this.form.ipdno != ""){
-    //   this.spinner = true;
-    //   this.getService.getPatientDetailsByIPD(this.form.ipdno).subscribe(
-    //     data => {
-    //       if (data.body == null) {
-    //         Swal.fire({
-    //           title: 'Error!',
-    //           text: 'Not Found',
-    //           icon: 'error',
-    //           confirmButtonText: 'OK',
-    //           width: 300
-    //         })
-    //         this.form = {}
-    //       }else{
-    //         this.form = data.body
-    //         this.form.paidTo = data.body.name+'('+data.body.uhid+')'
-    //         this.form.ipdno = ipd
-    //       }
-    //       this.spinner = false;
-    //     },
-    //     err => {
-    //       console.error(err)
-    //     }
-    //   );
-    // }
   }
 
   getPlasticInstrumentNameList(): void {
@@ -107,18 +89,66 @@ export class PaymentComponent implements OnInit {
     );
   }
 
-  onTable(): void {
-    this.service.get().subscribe(
+  onTable(flag): void {
+    if (flag == 0) {
+      var currentDate = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0]
+      this.service.getByDate(currentDate).subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }
+    if (flag == 1) {
+      this.service.get().subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }
+    if (flag == 2) {
+      this.service.getByDate(this.form.getByDate).subscribe(
+        data => {
+          this.table_data = data.body
+        },
+        err => {
+          console.error(err)
+        }
+      );
+    }
+  }
+
+  getPdf(id){
+    if(id !=null && id !="undefined"){
+    this.service.printReport('pdf',id).subscribe(
       data => {
-        this.table_data = data.body
+        const fileURL = URL.createObjectURL(data);
+        window.open(fileURL, '_blank');
       },
       err => {
-        console.error(err)
+        console.log(err)
+      }
+    );
+    }
+  }
+  getxlsx(id){
+    if(id !=null && id !="undefined"){
+    this.service.printReport('xlsx',id).subscribe(
+      data => {
+        const fileURL = URL.createObjectURL(data);
+        window.open(fileURL, '_blank');
+      },
+      err => {
+        console.log(err)
       }
     );
   }
-
-  
+  }
 
   onNew(): void {
     window.location.assign(window.location.href)
@@ -126,8 +156,6 @@ export class PaymentComponent implements OnInit {
   }
 
   typeChange():void{
-    console.log(this.form.type)
-
     this.isPLASTICMONEY = false
     this.isCHEQUE = false
 

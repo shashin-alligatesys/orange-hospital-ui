@@ -577,4 +577,18 @@ export class RadioComponent implements OnInit {
     )
   }
 
+  getPdf(id){
+		if(id !=null && id !="undefined"){
+		this.service.printReport('pdf',id).subscribe(
+		  data => {
+			const fileURL = URL.createObjectURL(data);
+			window.open(fileURL, '_blank');
+		  },
+		  err => {
+			console.log(err)
+		  }
+		);
+		}
+	  }
+
 }
