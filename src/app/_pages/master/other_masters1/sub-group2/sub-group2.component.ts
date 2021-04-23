@@ -64,27 +64,29 @@ export class SubGroup2Component implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Delete it!'
     }).then((result) => {
+      if (result.isConfirmed) {
       this.service.delete(id).subscribe(
         data => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: 'Deleted!',
-              text: 'Data Deleted Success',
-              icon: 'success',
-              confirmButtonText: 'OK',
-              width: 300,
-              timer: 1500
-            }).then((result) => {
-              if (result.isConfirmed) {
-                window.location.reload();
-              }
-            });
-          }
+          if (data.status == 200) {
+              Swal.fire({
+                title: 'Deleted!',
+                text: 'Data Deleted Success',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                width: 300,
+                timer: 1500
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.reload();
+                }
+              });
+            }
         },
         err => {
           console.error(err)
         }
       );
+    }
     })
   }
 
