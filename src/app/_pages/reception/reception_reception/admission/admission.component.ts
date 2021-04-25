@@ -6,6 +6,7 @@ import { BedmasterService } from '../../../../_service/static/bedmaster.service'
 import { OrganizationMasterService } from '../../../../_service/static/organization-master.service';
 import { DoctorReferenceService } from '../../../../_service/static/doctor-reference.service';
 import { ConsultantMasterService } from '../../../../_service/static/consultant-master.service';
+import { InsuranceMasterService } from '../../../../_service/master/other_masters1/insurance-master.service';
 
 @Component({
   selector: 'app-admission',
@@ -17,6 +18,7 @@ export class AdmissionComponent implements OnInit {
   constructor(private service:AdmissionService,
     private registrationService:RegistrationService,
     private bedmasterService:BedmasterService,
+    private insuranceMasterService:InsuranceMasterService,
     private organizationMasterService:OrganizationMasterService,
     private doctorReferenceService:DoctorReferenceService,
     private consultantMasterService:ConsultantMasterService) { }
@@ -33,6 +35,8 @@ export class AdmissionComponent implements OnInit {
   DoctorReferenceList: any = [];
   ConsultantList: any = [];
   ipdEdit = 0;
+  PatientDetails:any =[];
+  InsuranceComList:any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -45,6 +49,31 @@ export class AdmissionComponent implements OnInit {
     this.getDoctorReferenceList()
     this.getConsultantList()
     this.insurenceShowHide()
+    this.getUhidBillNoName()
+    this.getInsuranceComList()
+  }
+
+
+  getInsuranceComList():void{
+    this.insuranceMasterService.get().subscribe(
+      data => {
+        this.InsuranceComList = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
+  }
+
+  getUhidBillNoName():void{
+    this.registrationService.getUhidName().subscribe(
+      data => {
+        this.PatientDetails = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
   }
 
   getConsultantList(): void{
@@ -113,11 +142,11 @@ export class AdmissionComponent implements OnInit {
     }
   }
 
-  getPatientDetails(): void{
+  getPatientDetails(uhid): void{
     let ipd = this.form.ipdno
-    if(this.form.uhid != null && this.form.uhid.length>=0 && this.form.uhid != ""){
+    if(uhid != null && uhid.length>=0 && uhid != ""){
       this.spinner = true;
-      this.registrationService.getPatientDetailsByUHID(this.form.uhid).subscribe(
+      this.registrationService.getPatientDetailsByUHID(uhid).subscribe(
         data => {
           if (data.body == null) {
             Swal.fire({
@@ -131,11 +160,15 @@ export class AdmissionComponent implements OnInit {
             this.form.ipdno = ipd
           }else{
             this.form = data.body
-            this.form.patientName = data.body.name
+            this.form.patientName = Number(data.body.uhid)
             this.form.ipdno = ipd
             this.form.refBy1 =  data.body.referredBy
             this.form.consultant1 = data.body.consultant
             this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0]
+            this.form.admitteddept = "IPD"
+            this.form.patientType = "Hospital Patient"
+            this.form.typeofPatient = "Direct"
+            this.insurenceShowHide()
           }
           this.spinner = false;
         },
@@ -338,8 +371,18 @@ export class AdmissionComponent implements OnInit {
 		if(id !=null && id !="undefined"){
       this.service.printReport('pdf',id,type).subscribe(
         data => {
-        const fileURL = URL.createObjectURL(data);
-        window.open(fileURL, '_blank');
+          if (data.size == 0) {
+            Swal.fire({
+              title: 'Error!',
+              html: '<i>Data Not Found OR Error !</i>',
+              icon: 'error',
+              confirmButtonText: 'OK',
+              width: 350
+            })
+          } else {
+            const fileURL = URL.createObjectURL(data);
+            window.open(fileURL, '_blank');
+          }
         },
         err => {
         console.log(err)

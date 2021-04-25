@@ -129,8 +129,18 @@ export class ReceiptComponent implements OnInit {
     if(uhid !=null && uhid !="undefined"){
     this.service.printReport('pdf',uhid).subscribe(
       data => {
-        const fileURL = URL.createObjectURL(data);
-        window.open(fileURL, '_blank');
+        if (data.size == 0) {
+          Swal.fire({
+            title: 'Error!',
+            html: '<i>Data Not Found OR Error !</i>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        } else {
+          const fileURL = URL.createObjectURL(data);
+          window.open(fileURL, '_blank');
+        }
       },
       err => {
         console.log(err)
@@ -142,8 +152,18 @@ export class ReceiptComponent implements OnInit {
     if(uhid !=null && uhid !="undefined"){
     this.service.printReport('xlsx',uhid).subscribe(
       data => {
-        const fileURL = URL.createObjectURL(data);
-        window.open(fileURL, '_blank');
+        if (data.size == 0) {
+          Swal.fire({
+            title: 'Error!',
+            html: '<i>Data Not Found OR Error !</i>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        } else {
+          const fileURL = URL.createObjectURL(data);
+          window.open(fileURL, '_blank');
+        }
       },
       err => {
         console.log(err)

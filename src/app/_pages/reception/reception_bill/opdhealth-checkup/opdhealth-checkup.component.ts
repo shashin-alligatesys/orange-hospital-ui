@@ -50,6 +50,7 @@ export class OpdhealthCheckupComponent implements OnInit {
   ConcessionList: any = [];
   table_data: any = [];
   BillTitleList: any = [];
+  PatientDetails:any =[];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -67,6 +68,18 @@ export class OpdhealthCheckupComponent implements OnInit {
     this.form.patientTypeOldNew="New"
     this.billTypeChange()
     this.getBillTitle()
+    this.getUhidBillNoName()
+  }
+
+  getUhidBillNoName():void{
+    this.registrationService.getUhidName().subscribe(
+      data => {
+        this.PatientDetails = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
   }
 
   getBillTitle():void{
@@ -303,11 +316,11 @@ export class OpdhealthCheckupComponent implements OnInit {
   //     );
   //   }
   // }
-
-  getPatientDetails_UHID(): void {
-    if (this.form.uhid != null && this.form.uhid.length >= 0 && this.form.uhid != "") {
+  
+  getPatientDetails_UHID(uhid): void {
+    if (uhid != null && uhid.length >= 0 && uhid != "") {
       this.spinner = true;
-      this.registrationService.getPatientDetailsByUHID(this.form.uhid).subscribe(
+      this.registrationService.getPatientDetailsByUHID(uhid).subscribe(
         data => {
           if (data.body == null) {
             Swal.fire({
@@ -597,8 +610,18 @@ export class OpdhealthCheckupComponent implements OnInit {
 		if(id !=null && id !="undefined"){
 		this.service.printReport('pdf',id).subscribe(
 		  data => {
-			const fileURL = URL.createObjectURL(data);
-			window.open(fileURL, '_blank');
+        if (data.size == 0) {
+          Swal.fire({
+            title: 'Error!',
+            html: '<i>Data Not Found OR Error !</i>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        } else {
+          const fileURL = URL.createObjectURL(data);
+          window.open(fileURL, '_blank');
+        }
 		  },
 		  err => {
 			console.log(err)

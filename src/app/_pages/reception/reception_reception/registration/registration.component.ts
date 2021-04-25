@@ -40,6 +40,11 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.form.mobileCode = "91"
+    this.form.country = "INDIA"
+    this.form.state = "GUJARAT"
+    this.form.city = "NAVSARI"
+    this.form.organization = 70
+    this.form.patientType = "GENERAL"
     this.onTable(0)
     this.getNextTOKEN()
     this.form.date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('T')[0];
@@ -235,9 +240,9 @@ export class RegistrationComponent implements OnInit {
       confirmButtonText: 'Delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-      this.service.delete(id).subscribe(
-        data => {
-          if (data.status == 200) {
+        this.service.delete(id).subscribe(
+          data => {
+            if (data.status == 200) {
               Swal.fire({
                 title: 'Deleted!',
                 text: 'Data Deleted Success',
@@ -251,12 +256,12 @@ export class RegistrationComponent implements OnInit {
                 }
               });
             }
-        },
-        err => {
-          console.error(err)
-        }
-      );
-    }
+          },
+          err => {
+            console.error(err)
+          }
+        );
+      }
     })
   }
 
@@ -356,18 +361,28 @@ export class RegistrationComponent implements OnInit {
   }
 
 
-  getPdf(id,type): void {
-		if(id !=null && id !="undefined"){
-      this.service.printReport('pdf',id,type).subscribe(
+  getPdf(id, type): void {
+    if (id != null && id != "undefined") {
+      this.service.printReport('pdf', id, type).subscribe(
         data => {
-        const fileURL = URL.createObjectURL(data);
-        window.open(fileURL, '_blank');
+          if (data.size == 0) {
+            Swal.fire({
+              title: 'Error!',
+              html: '<i>Data Not Found OR Error !</i>',
+              icon: 'error',
+              confirmButtonText: 'OK',
+              width: 350
+            })
+          } else {
+            const fileURL = URL.createObjectURL(data);
+            window.open(fileURL, '_blank');
+          }
         },
         err => {
-        console.log(err)
+          console.log(err)
         }
       );
-      }
+    }
   }
 
 

@@ -76,7 +76,7 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">UHID</label>
-                            <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid" (focusout)="getPatientDetails_UHID()" required placeholder="Enter For Search" #uhid="ngModel" />
+                            <input type="text" class="form-control" name="uhid" [(ngModel)]="form.uhid" (focusout)="getPatientDetails_UHID(this.form.uhid)" required placeholder="Enter For Search" #uhid="ngModel" />
                             <div class="text-danger" role="alert" *ngIf="f.submitted && uhid.invalid">
                                 Required Field !
                             </div>
@@ -113,7 +113,12 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-3">
                             <label for="name">Patient Name</label>
-                            <input type="text" class="form-control" name="name" [(ngModel)]="form.name" #name="ngModel" />
+                            <!-- <input type="text" class="form-control" name="name" [(ngModel)]="form.name" #name="ngModel" /> -->
+                            <ng-select [(ngModel)]="form.name" name="name" #name="ngModel" [ngModelOptions]="{standalone: true}" [dropdownPosition]="'down'" [virtualScroll]="true" placeholder="Type to search" (focusout)="getPatientDetails_UHID(this.form.name)" required>
+                                <ng-option *ngFor="let o of PatientDetails" [value]="o.uhid">
+                                    {{o.name}} | <b style="color: red;">{{o.uhid}}</b>
+                                </ng-option>
+                            </ng-select>
                             <div class="text-danger" role="alert" *ngIf="f.submitted && name.invalid">
                                 Required Field !
                             </div>
@@ -398,13 +403,13 @@
                     <div class="row">
                         <div class="card card-body overflow-auto">
                             <div class="form-group row">
-                                <input type="button" class="btn btn-info mt-1" value="New" (click)="onNew()">&nbsp;
-                                <button type="submit" class="btn btn-info mt-1">Save:F1</button>&nbsp;
-                                <button type="button" (click)="getPdf(this.form.id)" class="btn btn-danger">Print&nbsp;<i class="fas fa-print"></i></button>&nbsp;
-                                <button type="button" class="btn btn-info mt-1" routerLink="/reception-bill-cash_dues">Cash Due</button>&nbsp;
-                                <button type="button" class="btn btn-info mt-1" routerLink="/ipd-bed-bed_shifting">Shifting</button>&nbsp;
+                                <button type="button" class="btn btn-info mt-1" (click)="onNew()">&nbsp; New &nbsp;</button> &nbsp;
+                                <button class="btn btn-info mt-1" type="submit">Save:F1</button> &nbsp;
+                                <button type="button" class="btn btn-danger mt-1" (click)="getPdf(this.form.id)">Print <i class="fa fa-download"></i></button>&nbsp;
+                                <button type="button" class="btn btn-warning mt-1" routerLink="/reception-bill-cash_dues">Cash Due <i class="fa fa-share-square"></i></button>&nbsp;
+                                <button type="button" class="btn btn-warning mt-1" routerLink="/ipd-bed-bed_shifting">Shifting <i class="fa fa-share-square"></i></button>&nbsp;
                                 <button type="button" class="btn btn-info mt-1" disabled>OPD Bill Estimation</button>&nbsp;
-                                <button class="btn btn-primary mt-1" disabled>Consolidate Bill</button>&nbsp;
+                                <button type="button" class="btn btn-info mt-1" disabled>Consolidate Bill</button>&nbsp;
                             </div>
                         </div>
                     </div>

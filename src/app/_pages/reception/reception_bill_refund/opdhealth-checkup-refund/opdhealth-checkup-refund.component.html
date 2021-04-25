@@ -409,10 +409,10 @@
                     <div class="row">
                         <div class="card card-body overflow-auto">
                             <div class="form-group row">
-                                <input type="button" class="btn btn-info mt-1" value="New" (click)="onNew()">&nbsp;
-                                <button type="submit" class="btn btn-info mt-1">Save:F1</button>&nbsp;
-                                <button type="button" (click)="getPdf(this.form.id)" class="btn btn-danger">Print&nbsp;<i class="fas fa-print"></i></button>&nbsp;
-                                <button type="button" class="btn btn-info mt-1" routerLink="/reception-bill-cash_dues">Cash Due</button>&nbsp;
+                                <button type="button" class="btn btn-info mt-1" (click)="onNew()">&nbsp; New &nbsp;</button> &nbsp;
+                                <button class="btn btn-info mt-1" type="submit">Save:F1</button> &nbsp;
+                                <button type="button" class="btn btn-danger mt-1" (click)="getPdf(this.form.id)">Print <i class="fa fa-download"></i></button> &nbsp;
+                                <button type="button" class="btn btn-warning mt-1" routerLink="/reception-bill-cash_dues">Cash Due <i class="fa fa-share-square"></i></button>&nbsp;
                             </div>
                         </div>
                     </div>

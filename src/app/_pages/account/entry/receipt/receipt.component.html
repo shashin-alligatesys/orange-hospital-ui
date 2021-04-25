@@ -208,12 +208,10 @@
                         </div>
 
                         <div class="form-group col-md-12 col-sm-12">
-                            <input type="button" class="btn btn-info mt-1" value="New" (click)="onNew()">&nbsp;
-                            <button type="button" class="btn btn-info mt-1" type="submit">Save:F1</button>&nbsp;
-                            
-                            <button id="" type="button" (click)="getPdf(this.form.id)" class="btn btn-danger">Print PDF &nbsp;<i class="fas fa-print"></i></button>&nbsp;
-                            <button id="" type="button" (click)="getxlsx(this.form.id)" class="btn btn-success">Print Excel &nbsp;<i class="fas fa-file"></i></button>&nbsp;
-                            <button type="button" class="btn btn-info mt-1">Create New From Existing</button>&nbsp;
+                            <button type="button" class="btn btn-info mt-1" (click)="onNew()">&nbsp; New &nbsp;</button> &nbsp;
+                            <button class="btn btn-info mt-1" type="submit">Save:F1</button> &nbsp;
+                            <button type="button" class="btn btn-danger mt-1" (click)="getPdf(this.form.id)">Print <i class="fa fa-download"></i></button> &nbsp;
+                            <button type="button" class="btn btn-info mt-1" disabled>Create New From Existing</button>&nbsp;
                         </div>
                     
 

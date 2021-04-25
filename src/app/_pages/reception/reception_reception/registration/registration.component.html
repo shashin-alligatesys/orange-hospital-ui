@@ -17,7 +17,7 @@
                     <h2 *ngIf="isEdit" style="color: orangered;"><b>Edit Mode</b></h2>
                     
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-sm-4 col-form-label">Patient Name</label>
@@ -29,7 +29,7 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-sm-4 col-form-label">Address</label>
-                                <textarea rows="2" type="text"  class="form-control col-sm-7" name="address" [(ngModel)]="form.address" #address="ngModel"></textarea>
+                                <textarea rows="2" type="text"  class="form-control col-sm-7" name="address" [(ngModel)]="form.address" required #address="ngModel"></textarea>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && address.invalid">
                                     Required Field !
                                 </div>
@@ -37,12 +37,11 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-4 col-sm-4 col-form-label">Area</label>
-                                <!-- <input type="text" class="form-control col-md-6 col-sm-6"  name="area" [(ngModel)]="form.area" required #area="ngModel" /> &nbsp; <button>+</button> -->
-                                <select class="form-control col-md-6 col-sm-6" [(ngModel)]="form.area" #area="ngModel" name="area"> &nbsp; <button>+</button>
-                                    <option *ngFor="let o of AreaList" [ngValue]="o.categoryName" style="color: black;">
+                                <ng-select [(ngModel)]="form.area" name="area" #area="ngModel" class="col-md-6 col-sm-6" [ngModelOptions]="{standalone: true}" [dropdownPosition]="'down'" placeholder="Type to search" >
+                                    <ng-option *ngFor="let o of AreaList" [value]="o.categoryName">
                                         {{o.categoryName}}
-                                    </option>
-                                </select>
+                                    </ng-option>
+                                </ng-select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && area.invalid">
                                     Required Field !
                                 </div>
@@ -50,12 +49,11 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-4 col-sm-4 col-form-label">City</label>
-                                <!-- <input type="text" class="form-control col-md-6 col-sm-6"  name="city" [(ngModel)]="form.city"  #city="ngModel" /> &nbsp; <button>+</button> -->
-                                <select class="form-control col-md-6 col-sm-6" [(ngModel)]="form.city" #city="ngModel" name="city"> &nbsp; <button>+</button>
-                                    <option *ngFor="let o of CityList" [ngValue]="o.categoryName" style="color: black;">
+                                <ng-select [(ngModel)]="form.city" name="city" #city="ngModel" class="col-md-6 col-sm-6" required [ngModelOptions]="{standalone: true}" [dropdownPosition]="'down'" placeholder="Type to search" >
+                                    <ng-option *ngFor="let o of CityList" [value]="o.categoryName">
                                         {{o.categoryName}}
-                                    </option>
-                                </select>
+                                    </ng-option>
+                                </ng-select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && city.invalid">
                                     Required Field !
                                 </div>
@@ -63,12 +61,11 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-4 col-sm-4 col-form-label">State</label>
-                                <!-- <input type="text" class="form-control col-md-6 col-sm-6"  name="state" [(ngModel)]="form.state"  #state="ngModel" /> &nbsp; <button>+</button> -->
-                                <select class="form-control col-md-6 col-sm-6" [(ngModel)]="form.state" #state="ngModel" name="state"> &nbsp; <button>+</button>
-                                    <option *ngFor="let o of StateList" [ngValue]="o.categoryName" style="color: black;">
+                                <ng-select [(ngModel)]="form.state" name="state" #state="ngModel" class="col-md-6 col-sm-6" required [ngModelOptions]="{standalone: true}" [dropdownPosition]="'down'" placeholder="Type to search" >
+                                    <ng-option *ngFor="let o of StateList" [value]="o.categoryName">
                                         {{o.categoryName}}
-                                    </option>
-                                </select>
+                                    </ng-option>
+                                </ng-select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && state.invalid">
                                     Required Field !
                                 </div>
@@ -76,8 +73,7 @@
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-4 col-sm-4 col-form-label">Country</label>
-                                <!-- <input type="text" class="form-control col-md-6 col-sm-6"  name="country" [(ngModel)]="form.country"  #country="ngModel" /> &nbsp; <button>+</button> -->
-                                <select class="form-control col-md-6 col-sm-6" [(ngModel)]="form.country" #country="ngModel" name="country"> &nbsp; <button>+</button>
+                                <select class="form-control col-md-6 col-sm-6" [(ngModel)]="form.country" #country="ngModel" name="country" required> 
                                     <option *ngFor="let o of CountryList" [ngValue]="o.categoryName" style="color: black;">
                                         {{o.categoryName}}
                                     </option>
@@ -95,16 +91,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label id="name-label" class="col-md-4 col-sm-4 col-form-label">Aadhar No</label>
-                                <input type="text" class="form-control col-md-7 col-sm-7"  name="aadhar" [(ngModel)]="form.aadhar"  #aadhar="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && aadhar.invalid">
-                                    Required Field !
-                                </div>
-                            </div>
-
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             Image
                             <input type="image" disabled style="height: 150px;width: 150px;" name="imagePreview" src="../../../../../assets/img/no.jpg">
                             <input type="file" name="image" disabled id="">
@@ -113,29 +101,26 @@
                             
 
                             <div class="form-group row">
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">UDID</label>
-                                <input type="number" class="form-control col-md-4 col-sm-4"  name="uhid" [(ngModel)]="form.uhid" disabled required #uhid="ngModel" />
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">UDID</label>
+                                <input type="number" class="form-control col-md-5 col-sm-5"  name="uhid" [(ngModel)]="form.uhid" disabled required #uhid="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && uhid.invalid">
                                     Required Field !
                                 </div>
-
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">DOB</label>
-                                <input type="date" class="form-control col-md-4 col-sm-4"  name="dob" [(ngModel)]="form.dob" (change)="ageCalculator()" required #dob="ngModel" />
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">DOB</label>
+                                <input type="date" class="form-control col-md-5 col-sm-5"  name="dob" [(ngModel)]="form.dob" (change)="ageCalculator()" required #dob="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && dob.invalid">
                                     Required Field !
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Age</label>
-                                <input type="text" class="form-control col-md-3 col-sm-3"  name="age" [(ngModel)]="form.age" required #age="ngModel" /> 
-                                <!-- &nbsp; <button>A</button> -->
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">Age</label>
+                                <input type="text" class="form-control col-md-5 col-sm-5"  name="age" [(ngModel)]="form.age" required #age="ngModel" /> 
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && age.invalid">
                                     Required Field !
                                 </div>
-
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Sex</label>
-                                <select class="form-control col-md-4 col-sm-4" name="sex" [(ngModel)]="form.sex" required #sex="ngModel">
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">Sex</label>
+                                <select class="form-control col-md-5 col-sm-5" name="sex" [(ngModel)]="form.sex" required #sex="ngModel">
                                     <option value="MALE">MALE</option>
                                     <option value="FEMALE">FEMALE</option>
                                     <option value="HERMAPHRODITE">HERMAPHRODITE</option>
@@ -147,23 +132,42 @@
                             </div>
 
                             <div class="form-group row">
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Height</label>
-                                <input type="text" class="form-control col-md-3 col-sm-3"  name="height" [(ngModel)]="form.height"  #height="ngModel" />
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">Height</label>
+                                <input type="text" class="form-control col-md-5 col-sm-5"  name="height" [(ngModel)]="form.height"  #height="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && height.invalid">
                                     Required Field !
                                 </div>
-
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Weight</label>
-                                <input type="text" class="form-control col-md-4 col-sm-4"  name="weight" [(ngModel)]="form.weight"  #weight="ngModel" />
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">Weight</label>
+                                <input type="text" class="form-control col-md-5 col-sm-5"  name="weight" [(ngModel)]="form.weight"  #weight="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && weight.invalid">
                                     Required Field !
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">ID No</label> 
-                                <!-- &nbsp; <button>+</button> -->
-                                <!-- <input type="text" class="form-control col-md-3 col-sm-3"  name="idnoCaption" [(ngModel)]="form.idnoCaption"  #idnoCaption="ngModel" /> -->
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">Time</label>
+                                <input type="time" class="form-control col-md-5 col-sm-5"  name="time" [(ngModel)]="form.time" required #time="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && time.invalid">
+                                    Required Field !
+                                </div>
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">Date</label>
+                                <input type="date" class="form-control col-md-5 col-sm-5" required name="date" [(ngModel)]="form.date"  #date="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && date.invalid">
+                                    Required Field !
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Aadhar No</label>
+                                <input type="text" class="form-control col-md-9 col-sm-9"  name="aadhar" [(ngModel)]="form.aadhar"  #aadhar="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && aadhar.invalid">
+                                    Required Field !
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">ID No</label> 
+                                &nbsp; <button type="button" disabled>+</button>
                                  <select class="form-control col-md-3 col-sm-3" [(ngModel)]="form.idnoCaption" #idnoCaption="ngModel" name="idnoCaption"> 
                                         <option *ngFor="let o of IdnoCaptionList" [ngValue]="o.categoryName" style="color: black;">
                                             {{o.categoryName}}
@@ -173,50 +177,34 @@
                                     Required Field !
                                 </div>
                                 &nbsp;
-                                <input type="text" class="form-control col-md-4 col-sm-4"  name="idno" [(ngModel)]="form.idno"  #idno="ngModel" />
+                                <input type="text" class="form-control col-md-7 col-sm-7"  name="idno" [(ngModel)]="form.idno"  #idno="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && idno.invalid">
                                     Required Field !
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Telephone</label>
-                                <input type="text" class="form-control col-md-3 col-sm-3"  name="telephone" [(ngModel)]="form.telephone"  #telephone="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && telephone.invalid">
-                                    Required Field !
-                                </div>
-
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Date</label>
-                                <input type="date" class="form-control col-md-4 col-sm-4" required name="date" [(ngModel)]="form.date"  #date="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && date.invalid">
-                                    Required Field !
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
                                 <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Mobile</label>
-                                 <!-- &nbsp; <button>+</button> -->
                                 <input type="text" class="form-control col-md-2 col-sm-2" name="mobileCode" [(ngModel)]="form.mobileCode"  #mobileCode="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && mobileCode.invalid">
                                     Required Field !
                                 </div>
                                 &nbsp;
-                                <input type="text" class="form-control col-md-4 col-sm-4"  name="mobile" [(ngModel)]="form.mobile" required #mobile="ngModel" />
+                                <input type="text" class="form-control col-md-7 col-sm-7"  name="mobile" [(ngModel)]="form.mobile" required #mobile="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && mobile.invalid">
                                     Required Field !
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Email Id</label>
-                                <input type="text" class="form-control col-md-3 col-sm-3"  name="email" [(ngModel)]="form.email"  #email="ngModel" />
+                                <label id="name-label" class="col-md-1 col-sm-1 col-form-label">Email Id</label>
+                                <input type="text" class="form-control col-md-5 col-sm-5"  name="email" [(ngModel)]="form.email"  #email="ngModel" />
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && email.invalid">
                                     Required Field !
                                 </div>
-
-                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Time</label>
-                                <input type="time" class="form-control col-md-4 col-sm-4"  name="time" [(ngModel)]="form.time"  #time="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && time.invalid">
+                                <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Telephone</label>
+                                <input type="text" class="form-control col-md-4 col-sm-4"  name="telephone" [(ngModel)]="form.telephone"  #telephone="ngModel" />
+                                <div class="text-danger" role="alert" *ngIf="f.submitted && telephone.invalid">
                                     Required Field !
                                 </div>
                             </div>
@@ -224,33 +212,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="card card-body overflow-auto">
+                        <div class="card card-body">
 
                             <div class="form-group row">
                                 <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Referred By Dr</label>
-                                <!-- <input type="text" class="form-control col-md-4 col-sm-4"  name="referredBy" [(ngModel)]="form.referredBy"  #referredBy="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && referredBy.invalid">
-                                    Required Field !
-                                </div> -->
-                                <select  class="form-control col-md-4 col-sm-4" [(ngModel)]="form.referredBy" [ngModelOptions]="{standalone: true}" #referredBy="ngModel" name="referredBy">
-                                    <option *ngFor="let r of DoctorReferenceList" [ngValue]="r.id" style="color: black;">
-                                        {{r.name}}
-                                    </option>
-                                </select>
+                                <ng-select class="col-md-4 col-sm-4" [(ngModel)]="form.referredBy" name="referredBy" #referredBy="ngModel" [ngModelOptions]="{standalone: true}" [dropdownPosition]="'down'" [virtualScroll]="true" placeholder="Type to search">
+                                    <ng-option *ngFor="let o of DoctorReferenceList" [value]="o.id">
+                                        {{o.name}}
+                                    </ng-option>
+                                </ng-select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && referredBy.invalid">
                                     Required Field !
                                 </div>
         
                                 <label id="name-label" class="col-md-2 col-sm-2 col-form-label">Consultant</label>
-                                <!-- <input type="text" class="form-control col-md-4 col-sm-4"  name="consultant" [(ngModel)]="form.consultant" required #consultant="ngModel" />
-                                <div class="text-danger" role="alert" *ngIf="f.submitted && consultant.invalid">
-                                    Required Field !
-                                </div> -->
-                                <select  class="form-control col-md-4 col-sm-4" [(ngModel)]="form.consultant" [ngModelOptions]="{standalone: true}" required  #consultant="ngModel" name="consultant">
-                                    <option *ngFor="let c of ConsultantList" [ngValue]="c.id" style="color: black;">
-                                        {{c.name}}
-                                    </option>
-                                </select>
+                                <ng-select class="col-md-4 col-sm-4" [(ngModel)]="form.consultant" name="consultant" #consultant="ngModel" required [ngModelOptions]="{standalone: true}" [dropdownPosition]="'down'" [virtualScroll]="true" placeholder="Type to search">
+                                    <ng-option *ngFor="let o of ConsultantList" [value]="o.id">
+                                        {{o.name}}
+                                    </ng-option>
+                                </ng-select>
                                 <div class="text-danger" role="alert" *ngIf="f.submitted && consultant.invalid">
                                     Required Field !
                                 </div>
@@ -298,7 +278,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="card card-body overflow-auto">
+                        <div class="card card-body ">
                             <div class="col-md-3">
                                 <a class="btn btn-primary" data-toggle="collapse" href="#addMore" role="button" aria-expanded="false" aria-controls="addMore">
                                 Add More Details >>>
@@ -377,17 +357,15 @@
                     <div class="card card-body overflow-auto">
                     
                         <div class="form-group row">
-                            <input type="button" value="New" class="btn btn-info mt-1" (click)="onNew()">&nbsp;
+                            <button type="button" class="btn btn-info mt-1" (click)="onNew()">&nbsp; New &nbsp;</button> &nbsp;
                             <button class="btn btn-info mt-1" type="submit">Save:F1</button> &nbsp;
-                            <!-- <button class="btn btn-success">Preview</button> &nbsp; -->
-                            <!-- <input type="button" value="Preview" class="btn btn-success mt-1" (click)="onTable()">&nbsp; -->
-                            <button type="button" class="btn btn-info mt-1" (click)="getPdf(this.form.id,'PrintOPDCasePaper')">Print OPD Case Paper <span class="fa fa-download"></span></button> &nbsp;
-                            <button type="button" class="btn btn-info mt-1" (click)="getPdf(this.form.id,'CasePaperMedicine')">Case Paper Medicine<span class="fa fa-download"></span></button> &nbsp;
-                            <button type="button" class="btn btn-info mt-1" routerLink="/reception-reception-admission" >Admission</button> &nbsp;
-                            <button type="button" class="btn btn-info mt-1" routerLink="/reception-bill-opd">OPD Bill</button> &nbsp;
-                            <button type="button" class="btn btn-info mt-1" routerLink="/reception-bill-radio">RADIO Bill</button> &nbsp;
-                            <button type="button" class="btn btn-info mt-1" routerLink="/reception-bill-lab">LAB Bill</button> &nbsp;
-                            <button type="button" class="btn btn-info mt-1" (click)="getPdf(this.form.id,'PrintLable')">Print Lable <span class="fa fa-download"></span></button> &nbsp;
+                            <button type="button" class="btn btn-danger mt-1" (click)="getPdf(this.form.id,'PrintOPDCasePaper')">Print OPD Case Paper <i class="fa fa-download"></i></button> &nbsp;
+                            <button type="button" class="btn btn-danger mt-1" (click)="getPdf(this.form.id,'CasePaperMedicine')">Case Paper Medicine <i class="fa fa-download"></i></button> &nbsp;
+                            <button type="button" class="btn btn-warning mt-1" routerLink="/reception-reception-admission" >Admission <i class="fa fa-share-square"></i></button> &nbsp;
+                            <button type="button" class="btn btn-warning mt-1" routerLink="/reception-bill-opd">OPD Bill <i class="fa fa-share-square"></i></button> &nbsp;
+                            <button type="button" class="btn btn-warning mt-1" routerLink="/reception-bill-radio">RADIO Bill <i class="fa fa-share-square"></i></button> &nbsp;
+                            <button type="button" class="btn btn-warning mt-1" routerLink="/reception-bill-lab">LAB Bill <i class="fa fa-share-square"></i></button> &nbsp;
+                            <button type="button" class="btn btn-danger mt-1" (click)="getPdf(this.form.id,'PrintLable')">Print Lable <i class="fa fa-download"></i></button> &nbsp;
                         </div>
         
                         <!-- <div class="form-group row">

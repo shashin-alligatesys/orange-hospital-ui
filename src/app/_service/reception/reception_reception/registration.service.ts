@@ -58,5 +58,9 @@ export class RegistrationService {
   printReport(format,id,type): Observable<any> {
 		return this.http.get(API_URL + 'printReport/'+format+'/'+id+'/'+type, { responseType: 'blob' });
 	  }
+
+    getUhidName(): Observable<any> {
+      return this.http.get(API_URL + 'getUhidName', { responseType: 'json' });
+    }
   
 }

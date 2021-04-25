@@ -62,8 +62,18 @@ export class CashDuesComponent implements OnInit {
     if(uhid !=null && uhid !="undefined"){
     this.service.printReport('pdf',uhid).subscribe(
       data => {
-        const fileURL = URL.createObjectURL(data);
-        window.open(fileURL, '_blank');
+        if (data.size == 0) {
+          Swal.fire({
+            title: 'Error!',
+            html: '<i>Data Not Found OR Error !</i>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        } else {
+          const fileURL = URL.createObjectURL(data);
+          window.open(fileURL, '_blank');
+        }
       },
       err => {
         console.log(err)
@@ -75,8 +85,18 @@ export class CashDuesComponent implements OnInit {
     if(uhid !=null && uhid !="undefined"){
     this.service.printReport('xlsx',uhid).subscribe(
       data => {
-        const fileURL = URL.createObjectURL(data);
-        window.open(fileURL, '_blank');
+        if (data.size == 0) {
+          Swal.fire({
+            title: 'Error!',
+            html: '<i>Data Not Found OR Error !</i>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        } else {
+          const fileURL = URL.createObjectURL(data);
+          window.open(fileURL, '_blank');
+        }
       },
       err => {
         console.log(err)
@@ -182,7 +202,8 @@ export class CashDuesComponent implements OnInit {
     this.form = row
     this.form.amount = row.due
     this.form.receiptDate = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0]
-    this.form.against = row.patientName +"(BILLNO : " +row.billNo+")";
+    this.form.against = row.patientName +" (BILLNO : " +row.billNo+")";
+    this.form.receivedFrom = row.dept + " INCOME"
     this.isEdit = false;
     this.isPay = true;
     this.typeChange()

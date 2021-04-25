@@ -127,8 +127,18 @@ export class PaymentComponent implements OnInit {
     if(id !=null && id !="undefined"){
     this.service.printReport('pdf',id).subscribe(
       data => {
-        const fileURL = URL.createObjectURL(data);
-        window.open(fileURL, '_blank');
+        if (data.size == 0) {
+          Swal.fire({
+            title: 'Error!',
+            html: '<i>Data Not Found OR Error !</i>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        } else {
+          const fileURL = URL.createObjectURL(data);
+          window.open(fileURL, '_blank');
+        }
       },
       err => {
         console.log(err)
@@ -140,8 +150,18 @@ export class PaymentComponent implements OnInit {
     if(id !=null && id !="undefined"){
     this.service.printReport('xlsx',id).subscribe(
       data => {
-        const fileURL = URL.createObjectURL(data);
-        window.open(fileURL, '_blank');
+        if (data.size == 0) {
+          Swal.fire({
+            title: 'Error!',
+            html: '<i>Data Not Found OR Error !</i>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        } else {
+          const fileURL = URL.createObjectURL(data);
+          window.open(fileURL, '_blank');
+        }
       },
       err => {
         console.log(err)
