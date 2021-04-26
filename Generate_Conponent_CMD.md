@@ -115,10 +115,10 @@ ng generate component _pages/master/other_masters1/casepaper_medicine_master --m
 
 *******************Other Masters2*****************
 ng generate component _pages/master/other_masters2/organization --module app
-ng generate component _pages/master/other_masters2/tpa_master --module app
+ng generate component _pages/master/other_masters2/tpa_master --module app ****
 ng generate component _pages/master/other_masters1/class_master --module app ****
 ng generate component _pages/master/other_masters1/ward_master --module app ****
-ng generate component _pages/master/other_masters1/party_master --module app
+ng generate component _pages/master/other_masters1/party_master --module app ****
 ng generate component _pages/master/other_masters1/plastic_money_master --module app ****
 ng generate component _pages/master/other_masters1/patient_type_matser --module app 
 ng generate component _pages/master/other_masters1/doctor_payable_entry --module app
