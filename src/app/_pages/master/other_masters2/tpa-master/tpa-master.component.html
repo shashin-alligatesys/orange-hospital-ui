@@ -23,7 +23,7 @@
                                     
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">TPA Name</label>
-                                    <input type="text" class="form-control" name="tpaName" [(ngModel)]="form.tpaName"  #tpaName="ngModel" />
+                                    <input type="text" class="form-control" name="tpaName" [(ngModel)]="form.tpaName" required #tpaName="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && tpaName.invalid">
                                         Required Field !
                                     </div>
@@ -51,21 +51,27 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Discount</label>
-                                    <input type="text" class="form-control" name="discount" [(ngModel)]="form.discount"  #discount="ngModel" />
+                                    <select class="form-control" name="discount" [(ngModel)]="form.discount" #discount="ngModel">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && discount.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Mou Exp Date</label>
-                                    <input type="date" class="form-control" name="mouExpDate" [(ngModel)]="form.mouExpDate"  #mouExpDate="ngModel" />
+                                    <input type="date" class="form-control" name="mouExpDate" [(ngModel)]="form.mouExpDate" required #mouExpDate="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && mouExpDate.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Remind</label>
-                                    <input type="text" class="form-control" name="remind" [(ngModel)]="form.remind"  #remind="ngModel" />
+                                    <select class="form-control" name="remind" [(ngModel)]="form.remind" #remind="ngModel">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && remind.invalid">
                                         Required Field !
                                     </div>
@@ -77,35 +83,35 @@
 
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Document Attach Facility 1</label>
-                                    <input type="file" class="form-control" name="document1" [(ngModel)]="form.document1"  #document1="ngModel" />
+                                    <input type="file" class="form-control" name="document1" [(ngModel)]="form.document1" disabled #document1="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && document1.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Document Attach Facility 2</label>
-                                    <input type="file" class="form-control" name="document2" [(ngModel)]="form.document2"  #document2="ngModel" />
+                                    <input type="file" class="form-control" name="document2" [(ngModel)]="form.document2" disabled #document2="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && document2.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Document Attach Facility 3</label>
-                                    <input type="file" class="form-control" name="document3" [(ngModel)]="form.document3"  #document3="ngModel" />
+                                    <input type="file" class="form-control" name="document3" [(ngModel)]="form.document3" disabled  #document3="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && document3.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Document Attach Facility 4</label>
-                                    <input type="file" class="form-control" name="document4" [(ngModel)]="form.document4"  #document4="ngModel" />
+                                    <input type="file" class="form-control" name="document4" [(ngModel)]="form.document4" disabled #document4="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && document4.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Document Attach Facility 5</label>
-                                    <input type="file" class="form-control" name="document5" [(ngModel)]="form.document5"  #document5="ngModel" />
+                                    <input type="file" class="form-control" name="document5" [(ngModel)]="form.document5" disabled #document5="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && document5.invalid">
                                         Required Field !
                                     </div>

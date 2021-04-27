@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { PartyMasterService } from '../../../../_service/master/other_masters1/party-master.service';
+import { AccountGroupService } from '../../../../_service/master/other_masters1/account-group.service';
+import { SubGroupService } from '../../../../_service/master/other_masters1/sub-group.service';
+import { SubGroup1Service } from '../../../../_service/master/other_masters1/sub-group1.service';
+import { SubGroup2Service } from '../../../../_service/master/other_masters1/sub-group2.service';
+import { MasterCategoryService } from '../../../../_service/static/master-category.service';
 
 @Component({
   selector: 'app-party-master',
@@ -9,18 +14,75 @@ import { PartyMasterService } from '../../../../_service/master/other_masters1/p
 })
 export class PartyMasterComponent implements OnInit {
 
-  constructor(private service:PartyMasterService) { }
+  constructor(private service:PartyMasterService,
+    private accountGroupService:AccountGroupService, 
+    private subGroupService:SubGroupService,
+    private subGroup1Service:SubGroup1Service,
+    private subGroup2Service:SubGroup2Service,
+    private masterCategoryService:MasterCategoryService) { }
 
   form: any = {};
   isSubmit = false;
   isEdit = false;
   table_data: any = [];
+  AccountTypeList : any = [];
+  GroupList : any = [];
+  SubGroupList : any = [];
+  SubGroup1List : any = [];
+  SubGroup2List : any = [];
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.onTable()
+    this.getAccountTypeList()
+    this.getGroupList()
+    this.getSubGroupList()
+    this.getSubGroup1List()
+    this.getSubGroup2List()
+  }
+
+  getSubGroupList():void{
+    this.subGroupService.get().subscribe(
+      data => {
+        this.SubGroupList = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
+  }
+  getSubGroup1List():void{
+    this.subGroup1Service.get().subscribe(
+      data => {
+        this.SubGroup1List = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
+  }
+  getSubGroup2List():void{
+    this.subGroup2Service.get().subscribe(
+      data => {
+        this.SubGroup2List = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
   }
   
+  getGroupList():void{
+    this.accountGroupService.get().subscribe(
+      data => {
+        this.GroupList = data.body
+      },
+      err => {
+        console.error(err)
+      }
+    );
+  }
+
   onTable(): void {
     this.service.get().subscribe(
       data => {
@@ -31,6 +93,21 @@ export class PartyMasterComponent implements OnInit {
       }
     );
   }
+
+  getAccountTypeList():void{
+    this.masterCategoryService.getCategoryList("ACC TYPE").subscribe(
+      data => {
+        this.AccountTypeList = data.body
+      },
+      err => {
+        console.log(err)
+      }
+    );
+  }
+
+  
+
+
   onEdit(row): void {
     this.form = {};
     window.scrollTo(0, 0);

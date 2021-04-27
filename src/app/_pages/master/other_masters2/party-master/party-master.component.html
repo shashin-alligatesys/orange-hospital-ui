@@ -23,43 +23,62 @@
                                     
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Account Name</label>
-                                    <input type="text" class="form-control" name="accountName" [(ngModel)]="form.accountName"  #accountName="ngModel" />
+                                    <input type="text" class="form-control" name="accountName" [(ngModel)]="form.accountName" required #accountName="ngModel" />
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && accountName.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Group Name</label>
-                                    <input type="text" class="form-control" name="groupName" [(ngModel)]="form.groupName"  #groupName="ngModel" />
+                                    <select class="form-control" [(ngModel)]="form.groupName"  #groupName="ngModel" required name="groupName">
+                                        <option *ngFor="let o of GroupList" [ngValue]="o.id" style="color: black;">
+                                            {{o.mgroup}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && groupName.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Sub Group</label>
-                                    <input type="text" class="form-control" name="subGroup" [(ngModel)]="form.subGroup"  #subGroup="ngModel" />
+                                    <select class="form-control" [(ngModel)]="form.subGroup"  #subGroup="ngModel" required name="subGroup">
+                                        <option *ngFor="let o of SubGroupList" [ngValue]="o.id" style="color: black;">
+                                            {{o.subGroup}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && subGroup.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Sub Group1</label>
-                                    <input type="text" class="form-control" name="subGroup1" [(ngModel)]="form.subGroup1"  #subGroup1="ngModel" />
+                                    <select class="form-control" [(ngModel)]="form.subGroup1" #subGroup1="ngModel" required name="subGroup1">
+                                        <option *ngFor="let o of SubGroup1List" [ngValue]="o.id" style="color: black;">
+                                            {{o.subGroup1}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && subGroup1.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Sub Group2</label>
-                                    <input type="text" class="form-control" name="subGroup2" [(ngModel)]="form.subGroup2"  #subGroup2="ngModel" />
+                                    <select class="form-control" [(ngModel)]="form.subGroup2" #subGroup2="ngModel" required name="subGroup2">
+                                        <option *ngFor="let o of SubGroup2List" [ngValue]="o.id" style="color: black;">
+                                            {{o.subGroup2}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && subGroup2.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">A/C Opening Bal</label>
-                                    <input type="text" class="form-control" name="accountOpeningBalance" [(ngModel)]="form.accountOpeningBalance"  #accountOpeningBalance="ngModel" />
-                                    <input type="text" class="form-control" name="accountOpeningBalanceType" [(ngModel)]="form.accountOpeningBalanceType"  #accountOpeningBalanceType="ngModel" />
+                                    <input type="text" class="form-control col-sm-6 col-md-6" name="accountOpeningBalance" required [(ngModel)]="form.accountOpeningBalance"  #accountOpeningBalance="ngModel" />
+                                    <select class="form-control col-sm-2 col-md-2" name="accountOpeningBalanceType" [(ngModel)]="form.accountOpeningBalanceType" #accountOpeningBalanceType="ngModel">
+                                        <option value="Cr">Cr</option>
+                                        <option value="Dr">Dr</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && accountOpeningBalanceType.invalid">
                                         Required Field !
                                     </div>
@@ -122,7 +141,11 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">Account Type</label>
-                                    <input type="text" class="form-control" name="accountType" [(ngModel)]="form.accountType"  #accountType="ngModel" />
+                                    <select class="form-control" [(ngModel)]="form.accountType" #accountType="ngModel" name="accountType">
+                                        <option *ngFor="let o of AccountTypeList" [ngValue]="o.categoryName" style="color: black;">
+                                            {{o.categoryName}}
+                                        </option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && accountType.invalid">
                                         Required Field !
                                     </div>
@@ -171,14 +194,22 @@
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">TDS Category</label>
-                                    <input type="text" class="form-control" name="tdsCategory" [(ngModel)]="form.tdsCategory"  #tdsCategory="ngModel" />
+                                    <select class="form-control" name="tdsCategory" [(ngModel)]="form.tdsCategory" #tdsCategory="ngModel">
+                                        <option value="Professional">Professional</option>
+                                        <option value="Contractor">Contractor</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && tdsCategory.invalid">
                                         Required Field !
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <label for="name">TDS Status</label>
-                                    <input type="text" class="form-control" name="tdsStatus" [(ngModel)]="form.tdsStatus"  #tdsStatus="ngModel" />
+                                    <select class="form-control" name="tdsStatus" [(ngModel)]="form.tdsStatus" #tdsStatus="ngModel">
+                                        <option value="Individual">Individual</option>
+                                        <option value="Firm">Firm</option>
+                                        <option value="Huf">Huf</option>
+                                        <option value="Company">Company</option>
+                                    </select>
                                     <div class="text-danger" role="alert" *ngIf="f.submitted && tdsStatus.invalid">
                                         Required Field !
                                     </div>

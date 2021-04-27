@@ -73,3 +73,5 @@ ng generate service _service/static/common
 
 ng generate service _service/master/other_masters2/tpa_master
 ng generate service _service/master/other_masters1/party_master
+
+ng generate service _service/master/other_masters1/account_group
