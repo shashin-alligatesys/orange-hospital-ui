@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { CashDueReportService } from 'src/app/_service/report/register_report/cash-due-report.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-cash-due-report',
   templateUrl: './cash-due-report.component.html',
@@ -7,9 +8,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CashDueReportComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private cashDueReportService:CashDueReportService
+  ) { }
 
   ngOnInit(): void {
+
+this.getCashDueReport()
+  }
+
+  getCashDueReport():void{
+    this.cashDueReportService.printReport('pdf').subscribe(
+      data => {
+        if (data.size == 0) {
+          Swal.fire({
+            title: 'Error!',
+            html: '<i>Data Not Found OR Error !</i>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        } else {
+          const fileURL = URL.createObjectURL(data);
+          window.open(fileURL, '_blank');
+        }
+      },
+      err => {
+        console.log(err)
+      }
+    );
   }
 
 }

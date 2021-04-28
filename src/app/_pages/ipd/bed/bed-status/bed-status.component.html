@@ -1,30 +1,33 @@
 <div class="small-box bg-info" style="color: white; width: 20%;">
   <div class="inner">
-    <h3>Occupied :{{bedStatus.occupiedBeds}} </h3>
-    <h3>availableBeds :{{bedStatus.availableBeds}} </h3>
-    <h3>totalBeds :{{bedStatus.totalBeds}} </h3>
-    <!-- <p style="color: green;">AVIALABLE</p> -->
+      <h3>Occupied :{{occupiedBeds}} </h3>
+      <h3>availableBeds :{{availableBeds}} </h3>
+      <h3>totalBeds :{{totalBeds}} </h3>
   </div>
 </div>
-<div class="row">
- 
-  <div class="card " *ngFor="let item of bedDetails" style=" width: 20%">
-    <div class="card-header" *ngIf="!item.occupied" style="background-color: skyblue;">
-      <h6>{{item.bedNumber}}</h6>
-    </div>
+<div class="row pl-3 pr-3">
 
-    <div class="card-body" *ngIf="!item.occupied">
-      <h5 style="color: green; ">Available</h5>
-    </div>
+  <ng-container *ngFor="let item of bedStatus">
+      <div class="col-md-3 p-2">
 
+          <div class="card">
+              <div class="card-header" *ngIf="!item.occupied" style="background-color: skyblue;">
+                  <h6>{{item.bedNumber}}</h6>
+              </div>
+              <div class="card-body" *ngIf="!item.occupied">
+                  <h5 style="color: green; ">Available</h5>
+              </div>
+              <div class="card-body" *ngIf="item.occupied">
+                <h5 style="color: rgb(235, 22, 7); ">Occupied</h5>
+            </div>
+              <div class="card-header" *ngIf="item.occupied" style="background-color: skyblue;">
+                  <h6>{{item.bedNumber}}</h6>
+              </div>
+              <div class="card-body">
+                  <h5 style="color: black; ">{{item.patientName}}</h5>
+              </div>
+          </div>
+      </div>
+  </ng-container>
 
-    <div class="card-header" *ngIf="item.occupied" style="background-color: skyblue;">
-      <h6>{{item.bedNumber}}</h6>
-    </div>
-
-    <div class="card-body">
-      <h5 style="color: black; ">{{item.patientName}}</h5>
-    </div>
-
-  </div>&nbsp;&nbsp;
-</div>&nbsp;&nbsp;
+</div>

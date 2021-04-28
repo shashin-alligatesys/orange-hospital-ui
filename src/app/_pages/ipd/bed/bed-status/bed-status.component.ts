@@ -16,19 +16,27 @@ export class BedStatusComponent implements OnInit {
   bedStatus : any = [];
   bedDetails:Array<any> = [];
 
+  occupiedBeds="";
+  availableBeds="";
+  totalBeds="";
+
   ngOnInit(): void {
 
     this.bedMasterService.bedStatus().subscribe(res=>{
 
-      this.bedStatus = res.body
+      this.occupiedBeds=res.body.occupiedBeds;
+      this.availableBeds=res.body.availableBeds;
+      this.totalBeds=res.body.totalBeds;
+
+      this.bedStatus = res.body.bedList
         console.log(res.body);
         
 
-      this.bedStatus.bedList.forEach(element => {
+      // this.bedStatus.bedList.forEach(element => {
 
-        this.bedDetails.push(element)
+      //   this.bedDetails.push(element)
 
-      });
+      // });
 
       
     })
