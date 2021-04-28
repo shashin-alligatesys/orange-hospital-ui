@@ -22,8 +22,27 @@ export class BedmasterService {
 
   
   getAdmittedPatiendDetails():Observable<any>{
-    return this.http.get(TEMP_API_URL+'/patient/getpatientdetail', {responseType:'json'});
+    return this.http.get(TEMP_API_URL+'/patient/getpatientdetails', {responseType:'json'});
   }
+
+  shiftAllocatedBed(form: any):Observable<any>{
+    return this.http.post(TEMP_API_URL+'/shifting/save',form ,httpOptions);
+  }
+
+
+  bedMasterHistory():Observable<any>{
+    return this.http.get(TEMP_API_URL+'/shifting/history', {responseType:'json'});
+  }
+
+  bedStatus():Observable<any>{
+     return this.http.get(API_URL+'getBedStatus' , {responseType:'json'});
+  }
+
+  vacantBedStatus():Observable<any>{
+
+    return this.http.get(API_URL + 'vacantbedreport'  , {responseType:'blob'});
+  }
+
  // /api/bedmaster/getBedList
 
   // getBedDetails():Observable<any>{

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminAccountyearService } from './_services/admin_service/accountyear.service';
 import { TokenStorageService } from './_services/token-storage.service';
+import { CashDueReportService } from './_service/report/register_report/cash-due-report.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +20,7 @@ export class AppComponent implements OnInit {
   userrole = false;
 
   constructor(private tokenStorageService: TokenStorageService,
+    private cashDueReportService:CashDueReportService,
     private accountYearService:AdminAccountyearService
     ) { }
 
@@ -40,4 +43,27 @@ export class AppComponent implements OnInit {
     this.tokenStorageService.signOut();
     window.location.reload();
   }
+
+  getCashDueReport():void{
+    this.cashDueReportService.printReport('pdf').subscribe(
+      data => {
+        if (data.size == 0) {
+          Swal.fire({
+            title: 'Error!',
+            html: '<i>Data Not Found OR Error !</i>',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: 350
+          })
+        } else {
+          const fileURL = URL.createObjectURL(data);
+          window.open(fileURL, '_blank');
+        }
+      },
+      err => {
+        console.log(err)
+      }
+    );
+  }
+
 }

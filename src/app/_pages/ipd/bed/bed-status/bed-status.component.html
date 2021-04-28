@@ -1,1 +1,30 @@
-<p>bed-status works!</p>
+<div class="small-box bg-info" style="color: white; width: 20%;">
+  <div class="inner">
+    <h3>Occupied :{{bedStatus.occupiedBeds}} </h3>
+    <h3>availableBeds :{{bedStatus.availableBeds}} </h3>
+    <h3>totalBeds :{{bedStatus.totalBeds}} </h3>
+    <!-- <p style="color: green;">AVIALABLE</p> -->
+  </div>
+</div>
+<div class="row">
+ 
+  <div class="card " *ngFor="let item of bedDetails" style=" width: 20%">
+    <div class="card-header" *ngIf="!item.occupied" style="background-color: skyblue;">
+      <h6>{{item.bedNumber}}</h6>
+    </div>
+
+    <div class="card-body" *ngIf="!item.occupied">
+      <h5 style="color: green; ">Available</h5>
+    </div>
+
+
+    <div class="card-header" *ngIf="item.occupied" style="background-color: skyblue;">
+      <h6>{{item.bedNumber}}</h6>
+    </div>
+
+    <div class="card-body">
+      <h5 style="color: black; ">{{item.patientName}}</h5>
+    </div>
+
+  </div>&nbsp;&nbsp;
+</div>&nbsp;&nbsp;

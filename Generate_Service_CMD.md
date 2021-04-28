@@ -75,3 +75,5 @@ ng generate service _service/master/other_masters2/tpa_master
 ng generate service _service/master/other_masters1/party_master
 
 ng generate service _service/master/other_masters1/account_group
+
+ng generate service _service/report/register_report/cash_due_report
