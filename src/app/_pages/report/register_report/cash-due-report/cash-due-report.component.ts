@@ -12,6 +12,8 @@ export class CashDueReportComponent implements OnInit {
     private cashDueReportService:CashDueReportService
   ) { }
 
+  download = false
+
   ngOnInit(): void {
 
 this.getCashDueReport()
@@ -29,6 +31,7 @@ this.getCashDueReport()
             width: 350
           })
         } else {
+          this.download=true
           const fileURL = URL.createObjectURL(data);
           window.open(fileURL, '_blank');
         }

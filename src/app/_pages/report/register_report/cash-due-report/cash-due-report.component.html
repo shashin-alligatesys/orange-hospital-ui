@@ -1,1 +1,2 @@
-<p>Wait For Download !</p>
+<p *ngIf="!download" style="color: green;">Wait For Download !</p>
+<p *ngIf="download"  style="color: blue;">Downloaded !</p>
