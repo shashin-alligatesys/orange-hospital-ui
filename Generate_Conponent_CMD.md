@@ -54,10 +54,10 @@ ng generate component _pages/account/entry/payment --module app ****
 *******************Register Report*****************
 ng generate component _pages/report/register_report/ipd_register --module app
 ng generate component _pages/report/register_report/ipd_receipt_register --module app
-ng generate component _pages/report/register_report/opd_register --module app ****
-ng generate component _pages/report/register_report/lab_register --module app
-ng generate component _pages/report/register_report/radio_register --module app
-ng generate component _pages/report/register_report/health_checkup_register --module app
+ng generate component _pages/report/register_report/opd_register --module app ****||||
+ng generate component _pages/report/register_report/lab_register --module app ****||||
+ng generate component _pages/report/register_report/radio_register --module app ****||||
+ng generate component _pages/report/register_report/health_checkup_register --module app ****
 ng generate component _pages/report/register_report/cash_due_report --module app
 ng generate component _pages/report/register_report/organization_report --module app
 
