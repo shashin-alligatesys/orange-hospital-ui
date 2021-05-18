@@ -1,11 +1,12 @@
 import { ClassMasterService } from './../../../../_service/master/other_masters1/class-master.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
-const BILLAPI = environment.apiUrl+"/billDetail/";
-const CONSULTANTAPI = environment.apiUrl+"/consultant_master/";
+
+const BILLAPI = environment.apiUrl + "/billDetail/";
+const CONSULTANTAPI = environment.apiUrl + "/consultant_master/";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,58 +21,70 @@ const httpOptions = {
 export class BillDetailSheetComponent implements OnInit {
 
   constructor(private http: HttpClient,
+    public cdRef: ChangeDetectorRef,
     private classService: ClassMasterService) { }
 
   form: any = {};
   keyword = 'name';
-  public petientData =[];
-  public doctorData =[];
+  public petientData = [];
+  public doctorData = [];
   isSubmit = false;
   ClassList: any = [];
 
   ngOnInit(): void {
-    this.form.date = new Date().toISOString().substring(0,10);
-    this.form.time = new Date().toTimeString().substring(0,5);
-    this.getClass().subscribe(
-      data => {
-      console.log(data.body); 
+    this.initilizedData();
+  }
+  initilizedData() {
+    this.form.date = new Date().toISOString().substring(0, 10);
+    this.form.time = new Date().toTimeString().substring(0, 5);
+    this.getClass().subscribe(data => {
+      console.log(data.body);
       this.ClassList = data.body;
-    },
-    err => {
+    }, err => {
       console.log(err)
     });
- 
+    let me = this;
+    this.getPatientData(event).subscribe(data => {
+      console.log(data.body);
+      //this.data = data.body;
+      me.petientData = data.body;
+      this.cdRef.detectChanges();
+      // this.form.patientName=data.body.name;
+      // this.form.ipdNo=data.body.ipdno;
+      // this.form.uhid=data.body.uhid;
+    }, err => {
+      console.log(err)
+    });
 
-      let me = this;
-      this.getPatientData(event).subscribe(
-        data => {
-          console.log(data.body);
-          //this.data = data.body;
-           me.petientData=data.body;
-          // this.form.patientName=data.body.name;
-          // this.form.ipdNo=data.body.ipdno;
-          // this.form.uhid=data.body.uhid;
-        },
-        err => {
-          console.log(err)
-        }
-      );
-
-      this.getDoctorData(event).subscribe(
-        data=>{
-          console.log(data.body);
-          me.doctorData=data.body;
-        },
-        err => {
-          console.log(err)
-        }
-      )
+    this.getDoctorData(event).subscribe(
+      data => {
+        console.log(data.body);
+        me.doctorData = data.body;
+      }, err => {
+        console.log(err)
+      });
+  }
+  isPatientDetails(id) {
+    let findIndex = this.petientData.find(ele => ele.id === id);
+    console.log(findIndex);
+    if (findIndex) {
+      this.form.patientName = findIndex.userName;
+      this.form.uhid = findIndex.uhid;
+      this.form.ipdNo = findIndex.ipdno;
+    }
 
   }
-  
   onSubmit(): void {
+    let data = this.form;
+    data.listData = this.DetailsList;
+    console.log("data", data);
+    this.http.post(BILLAPI + 'save', data, httpOptions).subscribe(res => {
+      console.log(res);
+
+    })
+
   }
-  
+
 
   onKeyUHID(event: any): void {
     console.log(event.target.value);
@@ -83,13 +96,13 @@ export class BillDetailSheetComponent implements OnInit {
     return this.http.get(CONSULTANTAPI + 'findAll', httpOptions);
   }
 
-  getClass() : Observable<any> {
+  getClass(): Observable<any> {
     return this.classService.get();
   }
 
   public DetailsList: any[] = [{
     date: '',
-    time:'',
+    time: '',
     id: 0,
     testName: '',
     procedureDoctor: '',
@@ -100,8 +113,8 @@ export class BillDetailSheetComponent implements OnInit {
 
   addRow() {
     this.DetailsList.push({
-      date:'',
-      time:'',
+      date: '',
+      time: '',
       id: 0,
       testName: '',
       procedureDoctor: '',
@@ -157,28 +170,28 @@ export class BillDetailSheetComponent implements OnInit {
   }
 
   selectEvent(item) {
-    console.log("select event",item.id)
-    this.form.uhid=item.uhid;
-    this.form.ipdNo=item.ipdno;
+    console.log("select event", item.id)
+    this.form.uhid = item.uhid;
+    this.form.ipdNo = item.ipdno;
   }
 
   onChangeSearch(val: string) {
-    console.log("onchange event",val)
+    console.log("onchange event", val)
   }
-  
-  onFocused(e){
-    console.log("onfocus event",e.target.value)
+
+  onFocused(e) {
+    console.log("onfocus event", e.target.value)
   }
   selectEventDoctor(item) {
-    console.log("select event",item.id)
-    this.form.procedureDoctor=item.name;
+    console.log("select event", item.id)
+    this.form.procedureDoctor = item.name;
   }
 
   onChangeSearchDoctor(val: string) {
-    console.log("onchange event",val)
+    console.log("onchange event", val)
   }
-  
-  onFocusedDoctor(e){
-    console.log("onfocus event",e.target.value)
+
+  onFocusedDoctor(e) {
+    console.log("onfocus event", e.target.value)
   }
 }

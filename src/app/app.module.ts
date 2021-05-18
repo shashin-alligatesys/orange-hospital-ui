@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { NgSelectModule} from '@ng-select/ng-select';
 
 import { RegistrationComponent } from './_pages/reception/reception_reception/registration/registration.component';
 import { AppointmentComponent } from './_pages/reception/reception_reception/appointment/appointment.component';
@@ -299,7 +300,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     ReactiveFormsModule,
     PdfJsViewerModule,
     AutocompleteLibModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgSelectModule
     
   ],
   providers: [authInterceptorProviders],
